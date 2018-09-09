@@ -6,7 +6,7 @@ filetype plugin indent on
 set tabstop=2
 set shiftwidth=2
 set expandtab
-colorscheme pablo
+colorscheme slate 
 
 
 " ignore files vim doesnt use
