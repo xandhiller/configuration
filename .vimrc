@@ -47,6 +47,8 @@ set background=dark
 " highlight cursor/current line
 set cursorline
 
+set updatetime=100
+
 " spell check on for specific file types
 au FileType markdown,text setlocal spell spelllang=en
 
@@ -74,34 +76,23 @@ Plugin 'scrooloose/nerdtree'      " file viewer                  [ctrl+N]
 	autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 	" set shortcut to open nerdtree
 	map <C-n> :NERDTreeToggle<CR>
-	" autodelete buffer of file deleted in NERDTree
-	let NERDTreeAutoDeleteBuffer = 1
-	" experiment
-	let NERDTreeMinimalUI = 1
-	let NERDTreeDirArrows = 1
+	
+Plugin 'SirVer/ultisnips'
 
-Plugin 'haya14busa/incsearch.vim' " search highlighting 
-	" set shortcut for inc-search
-	map /  <Plug>(incsearch-forward)
-	map ?  <Plug>(incsearch-backward)
-	map g/ <Plug>(incsearch-stay)
+" Snippets are separated from the engine. Add this if you want them:
+Plugin 'honza/vim-snippets'
 
-Plugin 'tomtom/tcomment_vim'      " easy commenting of text      [gc] 
+" Trigger configuration. Do not use <tab> if you use
+" https://github.com/Valloric/YouCompleteMe.
+  let g:UltiSnipsExpandTrigger="<tab>"
+  let g:UltiSnipsJumpForwardTrigger="<c-b>"
+  let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
-Plugin 'Valloric/YouCompleteMe'   " pop up suggestion 
-
-Plugin 'flazz/vim-colorschemes'   " downloads huge list of color schemes for usage
-
-Plugin 'ryanoasis/vim-devicons'   " for better nerdtree icons 
-	let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-	let g:DevIconsEnableFoldersOpenClose = 1
-
-Plugin 'tiagofumo/vim-nerdtree-syntax-highlight' "colors for nerd tree icons
-
-Plugin 'sheerun/vim-polyglot' " syntax highlighting
-
-Plugin 'vim-python/python-syntax' " additional syntax specifically for python
-	let g:python_highlight_all = 1
+" If you want :UltiSnipsEdit to split your window.
+  let g:UltiSnipsEditSplit="vertical"
+  
+Plugin 'xuhdev/vim-latex-live-preview'
+  let g:livepreview_preview = 'evince'
 
 call vundle#end()
 
