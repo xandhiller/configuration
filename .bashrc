@@ -1,7 +1,26 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
+##################################################################
 
+#  .bashrc   polluticorn
+
+#################################################################
+
+
+# added by Anaconda3 5.3.0 installer
+# >>> conda init >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$(CONDA_REPORT_ERRORS=false '/home/polluticorn/anaconda3/bin/conda' shell.bash hook 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    \eval "$__conda_setup"
+else
+    if [ -f "/home/polluticorn/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/polluticorn/anaconda3/etc/profile.d/conda.sh"
+        CONDA_CHANGEPS1=false conda activate base
+    else
+        \export PATH="/home/polluticorn/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda init <<<
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -117,33 +136,16 @@ if ! shopt -oq posix; then
 fi
 
 
-# CUSTOM EDITS
+################################################################
 
-source /opt/ros/kinetic/setup.bash
+# CUSTOM EDITS 
+
+###############################################################
+
+# source /opt/ros/kinetic/setup.bash  # 
 
 # Allows change of directory without having to type cd
 shopt -s autocd 
 
-# Aliases
-alias ls="ls -1 --color=auto --group-directories-first"
-alias grep="grep --color=auto"
-alias ccat="highlight --force --out-format=ansi"
-alias ag="sudo apt-get"
-alias agi="sudo apt-get install"
-alias mkdir="mkdir -pv"
-alias ref="source ~/.bashrc"
-alias r="ranger"
-alias brc="vim ~/.bashrc"
-alias vrc="vim ~/.vimrc"
-alias syncrc="cp ~/.bashrc ~/GitHub/vimrc && cp ~/.vimrc ~/GitHub/vimrc/"
-alias plvrc="cd ~/GitHub/vimrc && git pull"
-alias yt="youtube-dl --add-metadata -ic" # Download video
-alias yta="youtube-dl --add-metadata -xic" # Download audio
-
-# TeX
-alias Txa="cp ~/GitHub/texTemplates/article.tex"
-alias eTxa="vim ~/GitHub/texTemplates/article.tex" # Edit my article template.
-
 source ~/GitHub/vimrc/shortcuts.sh
-
-
+source ~/.fehbg

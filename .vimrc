@@ -34,6 +34,7 @@ set confirm
 set cmdheight=2
 
 set autoindent
+set linebreak
 
 " use case insensitive search, except when using capital letters
 set ignorecase
@@ -68,7 +69,7 @@ Plugin 'itchyny/lightline.vim'    " status line plugin
 
 Plugin 'scrooloose/nerdtree'      " file viewer                  [ctrl+N]
 	" open a NERDTree automatically when vim starts up
-	autocmd vimenter * NERDTree
+	" autocmd vimenter * NERDTree
 	" open a NERDTree automatically when vim starts up if no files were specified
 	autocmd StdinReadPre * let s:std_in=1
 	autocmd VimEnter * if argc()==0 && !exists("s:std_in") | NERDTree | endif
@@ -98,3 +99,12 @@ call vundle#end()
 
 
 filetype plugin indent on
+
+" ------ SHORTCUTS -------"
+
+inoremap <Space><Space> <Esc>/<++><Enter>"_c4l
+
+
+" ------ TEX SHORTCUTS ------- "
+source ~/GitHub/vimrc/texShortcuts.vim
+
