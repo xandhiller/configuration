@@ -102,9 +102,11 @@ filetype plugin indent on
 
 " ------ SHORTCUTS -------"
 
-inoremap <Space><Space> <Esc>/<++><Enter>"_c4l
+" inoremap <Tab><Tab> <Esc>/<++><Enter>"_c4l
 
 
-" ------ TEX SHORTCUTS ------- "
+" ------ TEX SHORTCUTS 
 source ~/GitHub/vimrc/texShortcuts.vim
+source ~/GitHub/vimrc/pythonShortcuts.vim
+source ~/GitHub/vimrc/vimGeneralShortcuts.vim
 
