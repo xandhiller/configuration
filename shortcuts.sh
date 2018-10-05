@@ -33,4 +33,5 @@ alias dvrc="cd ~/GitHub/vimrc/"
 alias Txa="cp ~/GitHub/texTemplates/article.tex"
 alias eTxa="vim ~/GitHub/texTemplates/article.tex" # Edit article template.
 
-
+# Custom Scripts
+alias touchpad="bash ~/.scripts/touch_toggle.sh"

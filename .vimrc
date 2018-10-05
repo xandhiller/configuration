@@ -48,7 +48,7 @@ set background=dark
 " highlight cursor/current line
 " set cursorline
 
-set updatetime=500
+set updatetime=100
 
 " spell check on for specific file types
 au FileType markdown,text setlocal spell spelllang=en
@@ -93,7 +93,7 @@ Plugin 'honza/vim-snippets'
   let g:UltiSnipsEditSplit="vertical"
   
 Plugin 'xuhdev/vim-latex-live-preview'
-  let g:livepreview_preview = 'mupdf'
+  let g:livepreview_previewer = 'okular'
 
 call vundle#end()
 
