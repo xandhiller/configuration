@@ -20,11 +20,14 @@ alias vrc="vim ~/.vimrc"
 alias i3="vim ~/.config/i3/config"
 alias sct="vim ~/GitHub/vimrc/shortcuts.sh"
 alias vtx="vim ~/GitHub/vimrc/texShortcuts.vim"
+alias vpy="vim ~/GitHub/vimrc/pythonShortcuts.vim"
+alias vvim="vim ~/GitHub/vimrc/vimGeneralShortcuts.vim"
 
 # Directory Shortcuts
 alias dld="cd ~/Downloads"
 alias doc="cd ~/Documents"
 alias ghb="cd ~/GitHub"
+alias dvrc="cd ~/GitHub/vimrc/"
 
 # TeX Template Shortcuts
 alias Txa="cp ~/GitHub/texTemplates/article.tex"

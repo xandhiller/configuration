@@ -1,6 +1,3 @@
-" ------ TEX SHORTCUTS ------- "
+" ------ TEX SHORTCUTS 
 
-" Itallics
-autocmd FileType tex inoremap ,i \textit{}<Space><++><Esc>T{i  
-
-
+autocmd FileType tex inoremap ,i \textit{}<Space><++><Esc>T{i
