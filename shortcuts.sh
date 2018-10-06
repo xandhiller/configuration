@@ -18,8 +18,8 @@ alias yta="youtube-dl --add-metadata -xic" # Download audio
 alias brc="vim ~/.bashrc"
 alias vrc="vim ~/.vimrc"
 alias i3="vim ~/.config/i3/config"
-alias sct="ccat ~/GitHub/vimrc/shortcuts.sh"
-alias esct="vim ~/GitHub/vimrc/shortcuts.sh"
+alias sct="ccat ~/GitHub/vimrc/shortcuts.sh"  # Bash Shortcuts
+alias esct="vim ~/GitHub/vimrc/shortcuts.sh"  # Bash Shortcuts
 alias vtx="vim ~/GitHub/vimrc/texShortcuts.vim"
 alias vpy="vim ~/GitHub/vimrc/pythonShortcuts.vim"
 alias vvim="vim ~/GitHub/vimrc/vimGeneralShortcuts.vim"
@@ -33,6 +33,9 @@ alias dvrc="cd ~/GitHub/vimrc/"
 # TeX Template Shortcuts
 alias Txa="cp ~/GitHub/texTemplates/article.tex"
 alias eTxa="vim ~/GitHub/texTemplates/article.tex" # Edit article template.
+alias Txp="cp ~/GitHub/texTemplates/pres.tex"
+alias eTxp="vim ~/GitHub/texTemplates/pres.tex"     #Edit presentation template
 
 # Custom Scripts
 alias touchpad="bash ~/.scripts/touch_toggle.sh"
+alias battery="bash ~/.scripts/battery.sh"

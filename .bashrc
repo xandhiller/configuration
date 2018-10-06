@@ -148,4 +148,5 @@ fi
 shopt -s autocd 
 
 source ~/GitHub/vimrc/shortcuts.sh
-source ~/.fehbg
+source ~/.scripts/wallpaper.sh
+# source ~/.scripts/touch_toggle.sh
