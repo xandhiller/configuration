@@ -6,7 +6,7 @@ Holds my:
   * .Xdefaults
   * i3 config
   * i3 blocks config
-  * shorcuts files
+  * shorcut files
   * UltiSnips snippets
   * other misc vim plugins
 
