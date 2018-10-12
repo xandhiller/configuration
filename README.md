@@ -1,5 +1,13 @@
-# vimrc
+# Configuration Files
 
-Holds my vimrc and its dependencies so that I can have syntax highlighting and a tree directory on the side of the vim terminal. 
+Holds my:
+  * .vimrc
+  * .bashrc
+  * .Xdefaults
+  * i3 config
+  * i3 blocks config
+  * shorcuts files
+  * UltiSnips snippets
+  * other misc vim plugins
 
 Work in progress.
