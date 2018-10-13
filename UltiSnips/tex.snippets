@@ -1,0 +1,89 @@
+snippet \b "\begin{} and \end{}"
+\begin{$1}
+	$2
+\end{$1}
+
+<++>
+endsnippet
+
+snippet \q "Question and answer"
+\qanda{$1}{$2}
+
+<++>
+endsnippet
+
+snippet \su "Sigma notation"
+\sum^{$1}_{$2} $3
+endsnippet
+
+snippet \in "Integral"
+\int^{$1}_{$2} $3
+endsnippet
+
+snippet \mat "Matrix"
+\begin{bmatrix}
+	$1
+\end{bmatrix}
+endsnippet
+
+snippet \e "Equation"
+\begin{equation}
+	$1
+\end{equation}
+
+<++>
+endsnippet
+
+snippet \lst "Input a listing"
+\lstinputlisting[language=$1]{$2} $3
+endsnippet
+
+snippet \bra "Bracket a term"
+\left$1 <++> \right$2
+endsnippet
+
+snippet \s "Section"
+\section{$1} 
+
+<++>
+endsnippet
+
+snippet \ss "Subsection"
+\subsection{$1} 
+
+<++>
+endsnippet
+
+
+snippet \sss "Subsubsection"
+\subsubsection{$1} 
+
+<++>
+endsnippet
+
+snippet \f "Fraction"
+\frac{$1}{$2} $3
+endsnippet
+
+snippet ^ "Superscript"
+^{$1}$2
+endsnippet
+
+snippet _ "Subscript"
+_{$1}$2
+endsnippet
+
+snippet si "Insert SI unit"
+\SI{$1}{$2} $3
+endsnippet
+
+snippet cir "Insert a circuit"
+\begin{circuitikz} \draw
+	($3,$4) to[$1=\$$2\$] ($5,$6) --
+	($7,$8);
+\end{circuitikz}
+endsnippet
+
+snippet el "Insert a circuit element"
+($3,$4) to[$1=\$$2\$] ($5,$6) --
+endsnippet
