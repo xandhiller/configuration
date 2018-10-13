@@ -141,6 +141,7 @@ fi
 # CUSTOM EDITS 
 
 ###############################################################
+export TERM='xterm-256color'
 
 # source /opt/ros/kinetic/setup.bash  # 
 
@@ -150,3 +151,10 @@ shopt -s autocd
 source ~/GitHub/vimrc/shortcuts.sh
 source ~/.scripts/wallpaper.sh
 # source ~/.scripts/touch_toggle.sh
+
+
+xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
+
+alias julia='/home/polluticorn/bin/julia/julia'
+
+

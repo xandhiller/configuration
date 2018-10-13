@@ -1,0 +1,13 @@
+# batscript="~/.scripts/battery.sh"
+
+[date]
+command=date +%F
+interval=5
+
+[time]
+command=date +%R
+interval=5
+
+#[battery]
+#command=$batscript
+#interval=5

@@ -1,0 +1,5 @@
+URxvt.font:       xft:monospace:size=8
+URxvt.scrollBar:  false
+URxvt.transparent: false
+URxvt.foreground: #FFFFFF
+URxvt.background: [80]#393939
