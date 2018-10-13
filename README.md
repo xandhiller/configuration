@@ -9,5 +9,6 @@ Holds my:
   * shorcut files
   * UltiSnips snippets
   * other misc vim plugins
+  * Bibliography (list.bib)
 
 Work in progress.
