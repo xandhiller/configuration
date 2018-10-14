@@ -107,7 +107,7 @@ nnoremap <Home> h/{<Enter>N
 inoremap <F12> }
 nnoremap <F12> /}<Enter>
 vnoremap <F12> <Nop>
-nnoremap <End> /}<Enter>N
+nnoremap <End> h/}<Enter>N
 
 " Screen Adjustments
 inoremap <F8> <Esc>zti
@@ -130,6 +130,9 @@ let g:UltiSnipsJumpBackwardTrigger="<C-d>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
+
+"Plugin 'LucHermitte/lh-brackets'
+
 call vundle#end()
 filetype plugin indent on
 
@@ -138,6 +141,16 @@ source ~/GitHub/vimrc/texShortcuts.vim
 source ~/GitHub/vimrc/pythonShortcuts.vim
 source ~/GitHub/vimrc/vimGeneralShortcuts.vim
 
-" Add home directory to runtimepath
-highlight OverLength ctermbg=red ctermfg=white guibg=#AA3333
-match OverLength /\%81v.\+/
+" Highlight on 80 character limit.
+" C
+autocmd FileType c highlight OverLength ctermbg=red ctermfg=white guibg=#AA3333
+autocmd FileType c match OverLength /\%81v.\+/
+" Python
+autocmd FileType py highlight OverLength ctermbg=red ctermfg=white guibg=#AA3333
+autocmd FileType py match OverLength /\%81v.\+/
+" Julia
+autocmd FileType jl highlight OverLength ctermbg=red ctermfg=white guibg=#AA3333
+autocmd FileType jl match OverLength /\%81v.\+/
+" C++
+autocmd FileType cpp highlight OverLength ctermbg=red ctermfg=white guibg=#AA3333
+autocmd FileType cpp match OverLength /\%81v.\+/

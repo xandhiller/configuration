@@ -156,5 +156,5 @@ source ~/.scripts/wallpaper.sh
 xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
 
 alias julia='/home/polluticorn/bin/julia/julia'
-
+alias matlab='/home/polluticorn/bin/MATLAB/2018b/bin/matlab'
 
