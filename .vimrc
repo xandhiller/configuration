@@ -38,13 +38,10 @@ set ignorecase
 set smartcase
 
 " show line numbers
+" 
 set number
 set background=dark
 set updatetime=100
-nnoremap Q <nop>
-
-" script to switch between color schemes F8(next) shift+F8(previous) alt+F8(random)
-" source ~/.vim/setcolors.vim
 
 
 " ------ PLUG-INS
@@ -57,8 +54,15 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'     
 " plugin manager
 
+if !has('gui_running')
+  set t_Co=256
+endif
+
 Plugin 'itchyny/lightline.vim'    
 " status line plugin
+  let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ }
 
 Plugin 'scrooloose/nerdtree'      
 " file viewer                  [ctrl+N]
@@ -77,18 +81,14 @@ set runtimepath+=$HOME/UltiSnips
 " Track the engine.
 Plugin 'SirVer/ultisnips'
 
-Plugin 'Valloric/YouCompleteMe'
-  let g:ycm_semantic_triggers = {'c' : ['re!.']}
+"Plugin 'Valloric/YouCompleteMe'
+"  let g:ycm_semantic_triggers = {'c' : ['re!.']}
 
 
 " Snippets are separated from the engine. Add this if you want them:
-Plugin 'honza/vim-snippets'
+"Plugin 'honza/vim-snippets'
 
-
-inoremap <c-c> <Nop>
-inoremap <c-v> <Nop>
-inoremap <F1> <Nop>
-inoremap <F2> <Nop>
+nnoremap Q $
 nnoremap <F3> <Nop>
 nnoremap <F4> <Nop>
 nnoremap <F5> <Nop>
@@ -103,11 +103,25 @@ vnoremap <F10> $
 inoremap <F11> {
 nnoremap <F11> /{<Enter>
 vnoremap <F11> <Nop>
-nnoremap <Home> h/{<Enter>N
 inoremap <F12> }
 nnoremap <F12> /}<Enter>
 vnoremap <F12> <Nop>
-nnoremap <End> h/}<Enter>N
+
+" Hardcore Vim
+nnoremap <Home> <Nop>
+nnoremap <End> <Nop>
+nnoremap <Right> <Nop>
+nnoremap <Left> <Nop>
+nnoremap <Up> <Nop>
+nnoremap <Down> <Nop>
+inoremap <Right> <Nop>
+inoremap <Left> <Nop>
+inoremap <Up> <Nop>
+inoremap <Down> <Nop>
+vnoremap <Right> <Nop>
+vnoremap <Left> <Nop>
+vnoremap <Up> <Nop>
+vnoremap <Down> <Nop>
 
 " Screen Adjustments
 inoremap <F8> <Esc>zti
@@ -122,11 +136,10 @@ vnoremap <F8> <Nop>
 vnoremap <F6> <Nop>
 vnoremap <F7> <Nop>
 
-
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<C-x>"
-let g:UltiSnipsJumpForwardTrigger="<C-s>"
-let g:UltiSnipsJumpBackwardTrigger="<C-d>"
+let g:UltiSnipsExpandTrigger="<Tab>"
+let g:UltiSnipsJumpForwardTrigger="<F1>"
+let g:UltiSnipsJumpBackwardTrigger="<F2>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
@@ -141,6 +154,9 @@ source ~/GitHub/vimrc/texShortcuts.vim
 source ~/GitHub/vimrc/pythonShortcuts.vim
 source ~/GitHub/vimrc/vimGeneralShortcuts.vim
 
+imap  `m <esc>:call ToggleMATH()<CR>
+nm    `m :call ToggleMATH()<CR>
+
 " Highlight on 80 character limit.
 " C
 autocmd FileType c highlight OverLength ctermbg=red ctermfg=white guibg=#AA3333
@@ -154,3 +170,8 @@ autocmd FileType jl match OverLength /\%81v.\+/
 " C++
 autocmd FileType cpp highlight OverLength ctermbg=red ctermfg=white guibg=#AA3333
 autocmd FileType cpp match OverLength /\%81v.\+/
+
+set colorcolumn=80
+highlight ColorColumn ctermbg=8
+set number relativenumber
+

@@ -7,10 +7,14 @@ set $term urxvt
 # Make all windows floating
 #for_window [class="[.]*"] floating enable
 
+# Good colours: #ababff (blue), #abffff(green)
+
 # Set colours:
 set $darkblack	  #000000
 set $black	      #222222  
 set $white	      #FFFFFF
+set $wh           #FFFFFF
+set $col          #AA3333
 set $transparent  #000000
 
 set $red		      #AA3333
@@ -27,19 +31,28 @@ new_window pixel 2
 set $highlight 
 
 #                       BORDER		    BACKGROUND	  TEXT		  
-client.focused		      $red		      $red		      $black	  
-client.unfocused	      $darkgrey   	$darkgrey		  $white		
-client.focused_inactive	$darkgrey     $darkgrey	    $white		
-client.urgent		        $darkred	    $darkred	    $black		
+client.focused		      $col	        $col          $black	    $grey  
+client.unfocused	      $grey	        $grey         $black	    $grey  
+client.focused_inactive	$grey	        $grey         $black	    $grey  
+client.urgent		        $grey	        $grey         $black	    $grey  
+client.placeholder      $grey	        $grey         $black	    $grey  
 client.background       $black
 
 bar {
 	font pango:mono 8
+  status_command i3blocks
+	position top
+  mode dock
+  strip_workspace_numbers yes
   colors{
     background $grey
+    statusline $wh
+    separator $grey
+    focused_workspace $grey $wh $grey
+    inactive_workspace $grey $grey $wh
+
   }  
-	status_command i3blocks
-	position top
+  tray_padding 0
 }
 
 # Use Mouse+$mod to drag floating windows to their wanted position
@@ -77,28 +90,42 @@ bindsym $mod+Shift+space floating toggle, resize set 1200 850, move position cen
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
 
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
+# Workspace Names
+set $ws1 1: π 
+set $ws2 2: β 
+set $ws3 3: ∇ 
+set $ws4 4: ∑ 
+set $ws5 5: φ 
+set $ws6 6: μ 
+set $ws7 7: λ 
+set $ws8 8: ∴ 
+set $ws9 9: ∮ 
+set $ws0 10: ∞ 
+
+# Workspace Movements
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws0
 
 # Move to a workspace and go there.
-bindsym $mod+Shift+1 move container to workspace 1,   workspace 1
-bindsym $mod+Shift+2 move container to workspace 2,   workspace 2
-bindsym $mod+Shift+3 move container to workspace 3,   workspace 3
-bindsym $mod+Shift+4 move container to workspace 4,   workspace 4
-bindsym $mod+Shift+5 move container to workspace 5,   workspace 5
-bindsym $mod+Shift+6 move container to workspace 6,   workspace 6
-bindsym $mod+Shift+7 move container to workspace 7,   workspace 7
-bindsym $mod+Shift+8 move container to workspace 8,   workspace 8
-bindsym $mod+Shift+9 move container to workspace 9,   workspace 9
-bindsym $mod+Shift+0 move container to workspace 10,  workspace 10
+bindsym $mod+Shift+1 move container to workspace $ws1, workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2, workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3, workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4, workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5, workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6, workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7, workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8, workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9, workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws0, workspace $ws0
+
 
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -b 'Yes, exit i3' 'i3-msg exit'"

@@ -141,7 +141,7 @@ fi
 # CUSTOM EDITS 
 
 ###############################################################
-export TERM='xterm-256color'
+export TERM="xterm-256color"
 
 # source /opt/ros/kinetic/setup.bash  # 
 
@@ -157,4 +157,4 @@ xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
 
 alias julia='/home/polluticorn/bin/julia/julia'
 alias matlab='/home/polluticorn/bin/MATLAB/2018b/bin/matlab'
-
+alias open='xdg-open'
