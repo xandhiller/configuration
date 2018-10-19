@@ -89,6 +89,7 @@ Plugin 'SirVer/ultisnips'
 "Plugin 'honza/vim-snippets'
 
 nnoremap Q $
+vnoremap Q $
 nnoremap <F3> <Nop>
 nnoremap <F4> <Nop>
 nnoremap <F5> <Nop>

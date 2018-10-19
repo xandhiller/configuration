@@ -59,22 +59,22 @@ bar {
 floating_modifier       $mod
 bindsym $mod+Return     exec $term
 bindsym $mod+q          kill
-bindsym $mod+h split    h
+bindsym $mod+b split    h
 bindsym $mod+v split    v
 bindsym $mod+d exec     dmenu_run
 bindsym $mod+semicolon  focus right
 
 # alternatively, you can use the cursor keys:
-bindsym $mod+Left   focus left
-bindsym $mod+Down   focus down
-bindsym $mod+Up     focus up
-bindsym $mod+Right  focus right
+bindsym $mod+h   focus left
+bindsym $mod+j   focus down
+bindsym $mod+k     focus up
+bindsym $mod+l  focus right
 
 # alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left   move left
-bindsym $mod+Shift+Down   move down
-bindsym $mod+Shift+Up     move up
-bindsym $mod+Shift+Right  move right
+bindsym $mod+Shift+h   move left
+bindsym $mod+Shift+j   move down
+bindsym $mod+Shift+k     move up
+bindsym $mod+Shift+l  move right
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -132,10 +132,10 @@ bindsym $mod+Shift+e exec "i3-nagbar -b 'Yes, exit i3' 'i3-msg exit'"
  
 mode "resize" {
         # same bindings, but for the arrow keys
-        bindsym Left  resize shrink width   5 px or 5 ppt
-        bindsym Down  resize grow   height  5 px or 5 ppt
-        bindsym Up    resize shrink height  5 px or 5 ppt
-        bindsym Right resize grow   width   5 px or 5 ppt
+        bindsym h resize shrink width   5 px or 5 ppt
+        bindsym j resize grow   height  5 px or 5 ppt
+        bindsym k resize shrink height  5 px or 5 ppt
+        bindsym l resize grow   width   5 px or 5 ppt
 
         # back to normal: Enter or Escape
         bindsym Return mode "default"
@@ -169,4 +169,4 @@ bindsym $mod+End exec --no-startup-id systemctl suspend
 
 exec --no-startup-id compton -b 
 exec --no-startup-id sh ~/.fehbg
-bindsym $mod+l exec --no-startup-id i3lock-fancy -t " "
+bindsym $mod+F9 exec --no-startup-id i3lock-fancy -t " "
