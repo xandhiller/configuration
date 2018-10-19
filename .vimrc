@@ -151,12 +151,12 @@ call vundle#end()
 filetype plugin indent on
 
 " ------ SHORTCUT FILES
-source ~/GitHub/vimrc/texShortcuts.vim
-source ~/GitHub/vimrc/pythonShortcuts.vim
-source ~/GitHub/vimrc/vimGeneralShortcuts.vim
+source ~/GitHub/configuration/texShortcuts.vim
+source ~/GitHub/configuration/pythonShortcuts.vim
+source ~/GitHub/configuration/vimGeneralShortcuts.vim
 
-imap  `m <esc>:call ToggleMATH()<CR>
-nm    `m :call ToggleMATH()<CR>
+inoremap  `m <esc>:call ToggleMATH()<CR>
+nnoremap  `m :call ToggleMATH()<CR>
 
 " Highlight on 80 character limit.
 " C
@@ -165,7 +165,7 @@ autocmd FileType c match OverLength /\%81v.\+/
 " Python
 autocmd FileType py highlight OverLength ctermbg=red ctermfg=white guibg=#AA3333
 autocmd FileType py match OverLength /\%81v.\+/
-" Julia
+" Julis a
 autocmd FileType jl highlight OverLength ctermbg=red ctermfg=white guibg=#AA3333
 autocmd FileType jl match OverLength /\%81v.\+/
 " C++

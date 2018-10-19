@@ -9,14 +9,16 @@ set $term urxvt
 
 # Good colours: #ababff (blue), #abffff(green)
 
+# This colour is the highlight colour of windows.
+set $col          #00FFFF
+
 # Set colours:
 set $darkblack	  #000000
 set $black	      #222222  
 set $white	      #FFFFFF
 set $wh           #FFFFFF
-set $col          #AA3333
+set $cyan         #00FFFF
 set $transparent  #000000
-
 set $red		      #AA3333
 set $darkred	    #330000
 set $orange       #DD7020
@@ -168,5 +170,4 @@ bindsym $mod+Ctrl+space   floating toggle, resize set 625 400, move position cen
 bindsym $mod+End exec --no-startup-id systemctl suspend
 
 exec --no-startup-id compton -b 
-exec --no-startup-id sh ~/.fehbg
 bindsym $mod+F9 exec --no-startup-id i3lock-fancy -t " "

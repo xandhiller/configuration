@@ -152,9 +152,11 @@ source ~/GitHub/vimrc/shortcuts.sh
 source ~/.scripts/wallpaper.sh
 # source ~/.scripts/touch_toggle.sh
 
-
+# Map Caps-lock to the Esc key
 xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
 
 alias julia='/home/polluticorn/bin/julia/julia'
 alias matlab='/home/polluticorn/bin/MATLAB/2018b/bin/matlab'
 alias open='xdg-open'
+
+feh --bg-scale ~/Pictures/Wallpapers/303030.png

@@ -7,8 +7,6 @@ alias agi="sudo apt-get install"
 alias mkdir="mkdir -pv"
 alias ref="source ~/.bashrc"
 alias r="ranger"
-alias syncrc="cp ~/.bashrc ~/GitHub/vimrc/ && cp ~/.vimrc ~/GitHub/vimrc/ && cp ~/.config/i3/config ~/GitHub/vimrc/i3/config"
-alias plvrc="cd ~/GitHub/vimrc && git pull"
 alias e="exit"
 alias c="clear"
 
@@ -26,12 +24,6 @@ alias etsct="vim ~/GitHub/configuration/texShortcuts.vim"
 alias epsct="vim ~/GitHub/configuration/pythonShortcuts.vim"
 alias evsct="vim ~/GitHub/configuration/vimGeneralShortcuts.vim"
 
-# Directory Shortcuts
-alias dld="cd ~/Downloads"
-alias doc="cd ~/Documents"
-alias ghb="cd ~/GitHub"
-alias dvrc="cd ~/GitHub/vimrc/"
-
 # TeX Template Shortcuts
 alias Txa="cp ~/GitHub/texTemplates/article.tex"
 alias eTxa="vim ~/GitHub/texTemplates/article.tex" # Edit article template.
@@ -43,15 +35,11 @@ alias touchpad="bash ~/.scripts/touch_toggle.sh"
 alias battery="bash ~/.scripts/battery.sh"
 
 # Viewing shorcuts in terminal
-alias bsct="ccat ~/GitHub/vimrc/shortcuts.sh"  # Bash Shortcuts
-alias tsct="ccat ~/GitHub/vimrc/texShortcuts.vim"  
-alias psct="ccat ~/GitHub/vimrc/pythonShortcuts.vim"  
-alias vsct="ccat ~/GitHub/vimrc/vimGeneralShortcuts.vim"  
+alias bsct="ccat ~/GitHub/configuration/shortcuts.sh"  # Bash Shortcuts
+alias tsct="ccat ~/GitHub/configuration/texShortcuts.vim"  
+alias psct="ccat ~/GitHub/configuration/pythonShortcuts.vim"  
+alias vsct="ccat ~/GitHub/configuration/vimGeneralShortcuts.vim"  
 alias itb="vim ~/.config/i3blocks/config"
 
-alias ets="vim ~/UltiSnips/tex.snippets"
-alias eps="vim ~/UltiSnips/py.snippets"
-alias ecs="vim ~/UltiSnips/c.snippets"
 alias tr="tree"
 alias br="sudo vim /sys/class/backlight/intel_backlight/brightness"
-
