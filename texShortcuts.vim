@@ -41,7 +41,7 @@ endfunction
 
 function! MATHOff()
   echo "Math macros DEACTIVATED."
-  let g:MathOn=0
+  let g:MATHOn=0
   inoremap <C-i> \textit{}<++><Esc>Bi
   inoremap <C-b> \textbf{}<++><Esc>Bi
   inoremap ;s ;s
