@@ -9,24 +9,26 @@ set $term urxvt
 
 # Good colours: #ababff (blue), #abffff(green)
 
-# This colour is the highlight colour of windows.
-set $col          #DD7020
-
 # Set colours:
-set $darkblack	  #000000
-set $black	      #222222  
-set $white	      #FFFFFF
-set $wh           #FFFFFF
-set $cyan         #00FFFF
-set $transparent  #000000
-set $red		      #AA3333
-set $darkred	    #330000
-set $orange       #DD7020
-set $darkorange   #000000
-set $blue         #5A65FF
-set $darkblue     #2F3690
-set $grey         #303030 
-set $darkgrey     #101010
+set $darkblack	 "#000000"
+set $black	     "#222222"
+set $white	     "#FFFFFF"
+set $wh          "#FFFFFF"
+set $cyan        "#00FFFF"
+set $transparent "#000000"
+set $red		     "#AA3333"
+set $darkred	   "#330000"
+set $orange      "#DD7020"
+set $darkorange  "#000000"
+set $blue        "#5A65FF"
+set $darkblue    "#2F3690"
+set $grey        "#303030"
+set $darkgrey    "#101010"
+
+# This colour is the highlight colour of windows.
+set $col         "#DD7020"
+# Background of desktop
+exec --no-startupid hsetroot -solid 
 
 new_window pixel 4
 
@@ -150,6 +152,7 @@ for_window [instance="math"] floating enable
 for_window [instance="math"] resize set 625 400
 for_window [instance="math"] move scratchpad
 for_window [instance="math"] border pixel 3
+bindsym $mod+- exec --no-startup-id $term
 
 bindsym $mod+F8 move scratchpad
 bindsym $mod+F12 scratchpad show
@@ -170,3 +173,8 @@ bindsym $mod+Ctrl+space   floating toggle, resize set 625 400, move position cen
 bindsym $mod+End          exec --no-startup-id systemctl suspend
 bindsym $mod+F9           exec --no-startup-id i3lock-fancy -t " "
 exec                      --no-startup-id compton -f 
+
+# TODO:
+# Sync background with status bar colour.
+# Place text over the top of background -- stats, todo(s)
+# 

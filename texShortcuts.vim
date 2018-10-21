@@ -5,6 +5,9 @@
 autocmd FileType tex inoremap <C-t> <Enter><BS><BS>\begin{itemize}<Enter>\item<Space><Enter><BS><BS><BS><BS>\end{itemize}<Enter><BS><BS><++><Esc>2kA
 autocmd FileType tex inoremap <C-\> <Esc>o\item<Space>
 
+" Toggle MATH mode.
+inoremap  `m <esc>:call ToggleMATH()<CR>
+nnoremap  `m :call ToggleMATH()<CR>
 
 " Mathematics shortcuts to improve the experience of writing equations
 
