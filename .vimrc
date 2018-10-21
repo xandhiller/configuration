@@ -4,7 +4,7 @@ syntax on
 set tabstop=2
 set shiftwidth=2
 set expandtab
-colorscheme ron 
+colorscheme industry
 
 " ignore files vim doesnt use
 set wildignore+=.git,.hg,.svn
@@ -41,7 +41,7 @@ set smartcase
 " 
 set number
 set background=dark
-set updatetime=100
+set updatetime=50
 
 
 " ------ PLUG-INS
@@ -145,7 +145,24 @@ let g:UltiSnipsJumpBackwardTrigger="<F2>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 
-"Plugin 'LucHermitte/lh-brackets'
+Plugin 'shime/vim-livedown'
+" should markdown preview get shown automatically upon opening markdown buffer
+let g:livedown_autorun = 0
+
+" should the browser window pop-up upon previewing
+let g:livedown_open = 1 
+
+" the port on which Livedown server will run
+let g:livedown_port = 1337
+
+" the browser to use
+let g:livedown_browser = "google-chrome"
+
+"Plugin 'rafi/awesome-vim-colorschemes'
+Plugin 'jdsimcoe/abstract.vim'
+
+Plugin 'junegunn/fzf'
+Plugin 'tpope/vim-surround'
 
 call vundle#end()
 filetype plugin indent on
@@ -175,4 +192,6 @@ autocmd FileType cpp match OverLength /\%81v.\+/
 set colorcolumn=80
 highlight ColorColumn ctermbg=8
 set number relativenumber
-
+set cursorline
+highlight CursorLine cterm=NONE ctermbg=grey ctermfg=NONE
+highlight Cursor guibg=brightgreen guifg=white

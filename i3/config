@@ -10,7 +10,7 @@ set $term urxvt
 # Good colours: #ababff (blue), #abffff(green)
 
 # This colour is the highlight colour of windows.
-set $col          #00FFFF
+set $col          #DD7020
 
 # Set colours:
 set $darkblack	  #000000
@@ -28,7 +28,7 @@ set $darkblue     #2F3690
 set $grey         #303030 
 set $darkgrey     #101010
 
-new_window pixel 2
+new_window pixel 4
 
 set $highlight 
 
@@ -167,7 +167,6 @@ bindsym $mod+Shift+p      exec --no-startup-id $term -e python3
 bindsym $mod+c            move position center
 bindsym $mod+Shift+c      resize set 625 400
 bindsym $mod+Ctrl+space   floating toggle, resize set 625 400, move position center
-bindsym $mod+End exec --no-startup-id systemctl suspend
-
-exec --no-startup-id compton -b 
-bindsym $mod+F9 exec --no-startup-id i3lock-fancy -t " "
+bindsym $mod+End          exec --no-startup-id systemctl suspend
+bindsym $mod+F9           exec --no-startup-id i3lock-fancy -t " "
+exec                      --no-startup-id compton -f 

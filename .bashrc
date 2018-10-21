@@ -136,27 +136,33 @@ if ! shopt -oq posix; then
 fi
 
 
-################################################################
+################################################################################
 
-# CUSTOM EDITS 
+# Custom Edits
 
-###############################################################
+################################################################################
+# Enable 256 colour.
 export TERM="xterm-256color"
 
-# source /opt/ros/kinetic/setup.bash  # 
-
-# Allows change of directory without having to type cd
-shopt -s autocd 
-
-source ~/GitHub/vimrc/shortcuts.sh
-source ~/.scripts/wallpaper.sh
-# source ~/.scripts/touch_toggle.sh
+# Shortcuts for the terminal
+source ~/GitHub/configuration/shortcuts.sh
 
 # Map Caps-lock to the Esc key
 xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
+xmodmap -e 'keycode 107 = Super_L' 
+
 
 alias julia='/home/polluticorn/bin/julia/julia'
 alias matlab='/home/polluticorn/bin/MATLAB/2018b/bin/matlab'
+
 alias open='xdg-open'
 
-feh --bg-scale ~/Pictures/Wallpapers/303030.png
+# Init vi mode in bash
+set -o vi
+
+# Sourcing fuzzy finder.
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# Fuzzy finder settings. 
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+

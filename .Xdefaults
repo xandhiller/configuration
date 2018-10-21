@@ -3,7 +3,7 @@ URxvt.scrollBar:  false
 URxvt.transparent: false
 URxvt.foreground: #FFFFFF
 URxvt.background: [80]#505050
-URxvt.fading:     30
+URxvt.fading:     20
 !! Change font size on Control-Plus/Minus
 URxvt.keysym.Control-0x2b: perl:font-size:increase
 URxvt.keysym.Control-0x2d: perl:font-size:decrease

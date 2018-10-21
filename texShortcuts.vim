@@ -2,8 +2,6 @@
 " General shortcuts for regular typing
 
 " autocmd FileType tex inoremap <Tab> <Space><Space>
-autocmd FileType tex inoremap <C-i> \textit{}<++><Esc>Bi
-autocmd FileType tex inoremap <C-b> \textbf{}<++><Esc>Bi
 autocmd FileType tex inoremap <C-t> <Enter><BS><BS>\begin{itemize}<Enter>\item<Space><Enter><BS><BS><BS><BS>\end{itemize}<Enter><BS><BS><++><Esc>2kA
 autocmd FileType tex inoremap <C-\> <Esc>o\item<Space>
 
