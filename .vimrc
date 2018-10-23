@@ -10,20 +10,20 @@ set shiftwidth=2
 set expandtab
 
 " Colourscheme
-colorscheme industry
+colorscheme default
 
 " Highlight on 80 character limit and make it grey
 set colorcolumn=80
-highlight ColorColumn ctermbg=8 
+highlight ColorColumn ctermbg=7
 
 " Give relative line numbers
 set number relativenumber
 
 " Highlight current line
-set cursorline
-" Make the current line highlight grey
-highlight CursorLine cterm=NONE ctermbg=grey ctermfg=NONE
-"highlight Cursor guibg=brightgreen guifg=white
+hi CursorLine ctermbg=7
+hi Cursor ctermbg=green ctermfg=blue
+hi LineNr ctermfg=red
+hi CursorLineNr cterm=bold ctermfg=red
 
 " Ignore files vim doesnt use
 set wildignore+=.git,.hg,.svn
@@ -56,8 +56,8 @@ set linebreak
 set ignorecase
 set smartcase
 
-" show line numbers
-set updatetime=200
+" Time between no edit and .swp file being written.
+set updatetime=1000
 
 " ------------------------------------------------------------------------------
 "  APPEARANCE [end]
@@ -67,8 +67,8 @@ set updatetime=200
 "  PLUG-INS [start]
 " ------------------------------------------------------------------------------
 
-set rtp+=~/.vim/bundle/Vundle.vim/ 
 " run time path for vundle to handle plug-ins
+set rtp+=~/.vim/bundle/Vundle.vim/ 
 
 filetype off
 call vundle#begin()

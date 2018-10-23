@@ -1,8 +1,8 @@
 URxvt.font:       xft:monospace:size=8
 URxvt.scrollBar:  false
-URxvt.transparent: false
-URxvt.foreground: #FFFFFF
-URxvt.background: [80]#505050
+URxvt.transparent: true
+URxvt.background: #FFFFFF
+URxvt.foreground: #000000
 URxvt.fading:     20
 !! Change font size on Control-Plus/Minus
 URxvt.keysym.Control-0x2b: perl:font-size:increase

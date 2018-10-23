@@ -1,9 +1,6 @@
 ##################################################################
-
 #  .bashrc   polluticorn
-
 #################################################################
-
 
 # added by Anaconda3 5.3.0 installer
 # >>> conda init >>>
@@ -135,34 +132,26 @@ if ! shopt -oq posix; then
   fi
 fi
 
-
 ################################################################################
-
 # Custom Edits
-
 ################################################################################
+
 # Enable 256 colour.
 export TERM="xterm-256color"
 
 # Shortcuts for the terminal
 source ~/GitHub/configuration/shortcuts.sh
 
-# Map Caps-lock to the Esc key
-xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
-xmodmap -e 'keycode 107 = Super_L' 
-
-
-alias julia='/home/polluticorn/bin/julia/julia'
+# Binary files in weird places
+#alias julia='/home/polluticorn/bin/julia/julia'
 alias matlab='/home/polluticorn/bin/MATLAB/2018b/bin/matlab'
-
-alias open='xdg-open'
 
 # Init vi mode in bash
 set -o vi
 
-# Sourcing fuzzy finder.
+# Sourcing fuzzy finder
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-# Fuzzy finder settings. 
+# Fuzzy finder settings
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
-
+export PATH="/home/polluticorn/anaconda3/bin:/home/polluticorn/bin:/home/polluticorn/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/polluticorn/.fzf/bin=/home/polluticorn/anaconda3/bin:/home/polluticorn/bin:/home/polluticorn/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/bin/julia-1.0.1/bin/"
