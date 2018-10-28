@@ -50,3 +50,7 @@ alias epk="vim ~/.scripts/pLock/pLock.sh"
 
 alias tr="tree"
 alias br="sudo vim /sys/class/backlight/intel_backlight/brightness"
+alias sc="vim ~/.scripts"
+
+# Ensure that all new scripts have the shebang and are created in ~/.scripts.
+#alias nsc="echo \"#! /bin/sh \n\" > 

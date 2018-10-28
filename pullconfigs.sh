@@ -1,3 +1,4 @@
+#! /bin/sh
 vimrc="/home/polluticorn/.vimrc"
 bashrc="/home/polluticorn/.bashrc"
 ith="/home/polluticorn/.config/i3/"
