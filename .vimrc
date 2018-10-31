@@ -14,7 +14,8 @@ colorscheme default
 
 " Highlight on 80 character limit and make it grey
 set colorcolumn=80
-highlight ColorColumn ctermbg=7
+highlight ColorColumn ctermbg=3
+highlight Visual cterm=reverse ctermbg=NONE
 
 " Give relative line numbers
 set number relativenumber
@@ -106,8 +107,14 @@ Plugin 'junegunn/fzf'
 " 'Surround' command
 Plugin 'tpope/vim-surround'
 
+" Nord Vim
+" Plugin 'articicestudio/nord-vim'
+
+
 call vundle#end()
 filetype plugin indent on
+
+highlight Visual cterm=reverse
 
 " ------------------------------------------------------------------------------
 "  PLUG-INS [end]
@@ -122,18 +129,19 @@ source ~/GitHub/configuration/texShortcuts.vim
 source ~/GitHub/configuration/pythonShortcuts.vim
 source ~/GitHub/configuration/vimGeneralShortcuts.vim
 
+" Make it easier to source vimrc within vim.
+inoremap <F5>   <Esc>:source<Space>~/.vimrc<CR>i
+nnoremap <F5>   :source<Space>~/.vimrc<CR>
+vnoremap <F5>   <Esc>:source<Space>~/.vimrc<CR>
+
 " Unmapping rubbish keys
 nnoremap Q      <Nop>
 vnoremap Q      <Nop>
-inoremap <F5>   <Nop>
-nnoremap <F5>   <Nop>
-vnoremap <F5>   <Nop>
 vnoremap <F8>   <Nop>
 vnoremap <F6>   <Nop>
 vnoremap <F7>   <Nop>
 nnoremap <F3>   <Nop>
 nnoremap <F4>   <Nop>
-nnoremap <F5>   <Nop>
 inoremap <F3>   <Nop>
 inoremap <F4>   <Nop>
 inoremap <F9>   <Nop>
@@ -176,3 +184,5 @@ nnoremap <F7> zz
 " ------------------------------------------------------------------------------
 "  SHORTCUTS [end]
 " ------------------------------------------------------------------------------
+
+

@@ -154,8 +154,8 @@ set -o vi
 
 # Fuzzy finder settings
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
-export PATH="/home/polluticorn/anaconda3/bin:/home/polluticorn/bin:/home/polluticorn/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/polluticorn/.fzf/bin=/home/polluticorn/anaconda3/bin:/home/polluticorn/bin:/home/polluticorn/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/bin/julia-1.0.1/bin/"
+export PATH="/home/polluticorn/anaconda3/bin:/home/polluticorn/bin:/home/polluticorn/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/polluticorn/.fzf/bin=/home/polluticorn/anaconda3/bin:/home/polluticorn/bin:/home/polluticorn/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/bin/julia-1.0.1/bin/:/usr/local/bin/gotop/"
 
 
-# Key remapping.
-# sh ~/.scripts/keyRemaps.sh
+wal -R -q
+
