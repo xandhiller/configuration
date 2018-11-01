@@ -25,3 +25,22 @@ inoremap <C-p> <++><Esc>4hi
 vnoremap `` /<++><Enter>
 vnoremap ~~ /++><Enter>Nh
 
+" ------ Commenting in Different Languages
+" Note that <C-_> is translated by vim to Ctrl+/
+"
+" Latex
+autocmd FileType tex inoremap <C-_> <Esc>0i%<Space><Esc>0
+autocmd FileType tex vnoremap <C-_> <Esc>0i%<Space><Esc>0
+autocmd FileType tex nnoremap <C-_> <Esc>0i%<Space><Esc>0
+" C
+autocmd FileType c inoremap <C-_> <Esc>0i/*<Space><Esc>$a<Space>*/<Esc>0
+autocmd FileType c vnoremap <C-_> <Esc>0i/*<Space><Esc>$a<Space>*/<Esc>0
+autocmd FileType c nnoremap <C-_> <Esc>0i/*<Space><Esc>$a<Space>*/<Esc>0
+" Python
+autocmd FileType py inoremap <C-_> <Esc>0i#<Space><Esc>0
+autocmd FileType py vnoremap <C-_> <Esc>0i#<Space><Esc>0
+autocmd FileType py nnoremap <C-_> <Esc>0i#<Space><Esc>0
+" Julia
+autocmd FileType jl inoremap <C-_> <Esc>0i#<Space><Esc>0
+autocmd FileType jl vnoremap <C-_> <Esc>0i#<Space><Esc>0
+autocmd FileType jl nnoremap <C-_> <Esc>0i#<Space><Esc>0

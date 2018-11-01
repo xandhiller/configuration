@@ -181,6 +181,15 @@ nnoremap <F8> zt
 nnoremap <F6> zb
 nnoremap <F7> zz
 
+" Copy and paste to the clipboard
+set clipboard=unnamedplus
+inoremap <C-y> <Nop>
+nnoremap <C-y> <Nop>
+vnoremap <C-y> "+y
+inoremap <C-p> <Esc>"+pi
+nnoremap <C-p> "+p
+vnoremap <C-p> "+p
+
 " ------------------------------------------------------------------------------
 "  SHORTCUTS [end]
 " ------------------------------------------------------------------------------

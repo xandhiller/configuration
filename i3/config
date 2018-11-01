@@ -7,6 +7,7 @@ set $fn   XF86WakeUp
 set $lock ~/.scripts/pLock/pLock.sh
 set $kbLight python3 /usr/local/bin/kb-light.py --up
 set $touchpad exec --no-startup-id sh ~/.scripts/touch_toggle.sh
+set $terminalDraw ~/.scripts/term.sh
 
 
 # Make all windows floating
@@ -214,7 +215,8 @@ bindsym $mod+y exec --no-startup-id sh ~/.scripts/keyRemaps.sh && notify-send "K
 # bindsym $fn exec rofi -config ~/.config/rofi/config -show
 
 exec --no-startup-id wal -R -q 
-
+for_window [class="URxvt" instance="floating"] floating enable
+bindsym $mod+z exec --no-startup-id $terminalDraw 
 #  TODO:
 # Sync background with status bar colour.
 # Place text over the top of background -- stats, todo(s)

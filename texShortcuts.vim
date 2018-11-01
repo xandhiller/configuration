@@ -25,8 +25,6 @@ endfunction
 function! MATH()
   echo "Math macros ACTIVATED."
   let g:MATHOn=1
-"  inoremap  <C-i> \mathit{<++>}<++><esc>Bi
-"  inoremap  <C-b> \mathbf{<++>}<++><esc>Bi
   inoremap  ;s \sum^{<++>}_{<++>}<++><esc>Bi
   inoremap  ;e \begin{equation}<Enter><Enter><Esc>0i\end{equation}<Enter><Enter><++><Esc>3kA<Space><Space><++><Esc>k0i
   inoremap  ;i \int^{<++>}_{<++>}<++><esc>Bi
@@ -34,9 +32,11 @@ function! MATH()
   inoremap  ;<space> ^{<++>}_{<++>}<++><esc>/\^<CR>Ni
   inoremap  ;t \text{<++>}<++><esc>Bi
   inoremap  ;d \frac{d}{d<++>}\left( <++> \right)<esc>/frac<CR>Nhi
+  
   " ---- More infrequent bindings are bound with "o" for "operation"
   inoremap  ;ol \Lapl{<++>}<++><esc>Bi
   inoremap  ;oL \Lapl{<++>} = \int^{\infty}_{0} <++> e^{st} dt = <++><esc>/Lapl<CR>Nhi
+
   " ---- Text formatting based shortcuts
   inoremap  ;ti \mathit{<++>}<++><esc>Bi 
   inoremap  ;tb \mathbf{<++>}<++><esc>Bi 
@@ -45,8 +45,6 @@ endfunction
 function! MATHOff()
   echo "Math macros DEACTIVATED."
   let g:MATHOn=0
-"  inoremap <C-i> \textit{}<++><Esc>Bi
-"  inoremap <C-b> \textbf{}<++><Esc>Bi
   inoremap ;s ;s
   inoremap ;e ;e
   inoremap ;i ;i
@@ -56,6 +54,8 @@ function! MATHOff()
   inoremap ;d ;d
   inoremap ;ol ;ol
   inoremap ;oL ;oL
+  inoremap ;ti \textit{<++>}<++><esc>Bi 
+  inoremap ;tb \textbf{<++>}<++><esc>Bi 
 endfunction
 
 
