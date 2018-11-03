@@ -9,9 +9,9 @@ command=date +%R
 interval=5
 
 [battery]
-command=~/.scripts/i3battery0
+command=~/.scripts/i3battery0.sh
 interval=5
 
 [battery]
-command=~/.scripts/i3battery1
+command=~/.scripts/i3battery1.sh
 interval=5

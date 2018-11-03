@@ -44,3 +44,8 @@ autocmd FileType py nnoremap <C-_> <Esc>0i#<Space><Esc>0
 autocmd FileType jl inoremap <C-_> <Esc>0i#<Space><Esc>0
 autocmd FileType jl vnoremap <C-_> <Esc>0i#<Space><Esc>0
 autocmd FileType jl nnoremap <C-_> <Esc>0i#<Space><Esc>0
+" Shell
+autocmd FileType sh inoremap <C-_> <Esc>0i#<Space><Esc>0
+autocmd FileType sh vnoremap <C-_> <Esc>0i#<Space><Esc>0
+autocmd FileType sh nnoremap <C-_> <Esc>0i#<Space><Esc>0
+

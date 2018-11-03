@@ -158,4 +158,5 @@ export PATH="/home/polluticorn/anaconda3/bin:/home/polluticorn/bin:/home/polluti
 
 
 wal -R -q
-
+tmux
+c

@@ -8,7 +8,8 @@ set $lock ~/.scripts/pLock/pLock.sh
 set $kbLight python3 /usr/local/bin/kb-light.py --up
 set $touchpad exec --no-startup-id sh ~/.scripts/touch_toggle.sh
 set $terminalDraw ~/.scripts/term.sh
-
+set $textbookOpener ~/.scripts/textbookOpener.sh
+set $listScripts ~/.scripts/listScripts.sh
 
 # Make all windows floating
 #for_window [class="[.]*"] floating enable
@@ -73,7 +74,7 @@ bar {
 	position top
   strip_workspace_numbers yes
   mode hide
-  modifier Mod1
+  modifier Ctrl
   colors{
     background "$bg"
     statusline #FFFFFF
@@ -109,7 +110,6 @@ bindsym $mod+Shift+l  move right
 bindsym $mod+f fullscreen toggle
 
 # change container layout 
-bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
@@ -194,7 +194,6 @@ bindsym $mod+Ctrl+space   floating toggle, resize set 625 400, move position cen
 # nb: Mod1 = alt keys
 bindsym $mod+Mod1+space   floating toggle, resize set 700 870, move position center
 #bindsym $mod+End          exec --no-startup-id systemctl suspend
-bindsym $mod+F9 exec --no-startup-id $lock
 bindsym $mod+i exec scrot
 
 # Compton
@@ -217,6 +216,10 @@ bindsym $mod+y exec --no-startup-id sh ~/.scripts/keyRemaps.sh && notify-send "K
 exec --no-startup-id wal -R -q 
 for_window [class="URxvt" instance="floating"] floating enable
 bindsym $mod+z exec --no-startup-id $terminalDraw 
+bindsym $mod+a exec --no-startup-id $textbookOpener
+bindsym $mod+Up exec --no-startup-id $lock
+bindsym $mod+s exec --no-startup-id $listScripts
+
 #  TODO:
 # Sync background with status bar colour.
 # Place text over the top of background -- stats, todo(s)
