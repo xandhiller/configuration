@@ -1,7 +1,6 @@
 " ------ GENERAL TEX SHORTCUTS 
 " General shortcuts for regular typing
 
-autocmd FileType tex inoremap <C-t> <Enter><BS><BS>\begin{itemize}<Enter>\item<Space><Enter><BS><BS><BS><BS>\end{itemize}<Enter><BS><BS><++><Esc>2kA
 autocmd FileType tex inoremap <C-\> <Esc>o\item<Space>
 
 " Toggle MATH mode.
@@ -12,19 +11,19 @@ nnoremap  `m :call ToggleMATH()<CR>
 
 " ------TEX MATH MODE
 
-let g:MATHOn=0
+let g:MATH=0
 
 function! ToggleMATH()
-  if !g:MATHOn
-    call MATH()
+  if !g:MATH
+    call MATHon()
   else 
     call MATHOff()
   endif
 endfunction
 
-function! MATH()
-  echo "Math macros ACTIVATED."
-  let g:MATHOn=1
+function! MATHon()
+  echo "MATH macros ACTIVATED."
+  let g:MATH=1
   inoremap  ;s \sum^{<++>}_{<++>}<++><esc>Bi
   inoremap  ;e \begin{equation}<Enter><Enter><Esc>0i\end{equation}<Enter><Enter><++><Esc>3kA<Space><Space><++><Esc>k0i
   inoremap  ;i \int^{<++>}_{<++>}<++><esc>Bi
@@ -43,8 +42,8 @@ function! MATH()
 endfunction
 
 function! MATHOff()
-  echo "Math macros DEACTIVATED."
-  let g:MATHOn=0
+  echo "MATH macros DEACTIVATED."
+  let g:MATH=0
   inoremap ;s ;s
   inoremap ;e ;e
   inoremap ;i ;i
@@ -58,9 +57,28 @@ function! MATHOff()
   inoremap ;tb \textbf{<++>}<++><esc>Bi 
 endfunction
 
+" ------- NOTES MODE
+"
+" Toggle NOTES mode.
+inoremap  `n <esc>:call ToggleNOTES()<CR>
+nnoremap  `n :call ToggleNOTES()<CR>
 
-" Equation copy insert
-autocmd FileType tex inoremap `e <Space>begin{equation}<Esc>0/begin{equation}<Enter>N0v/end{equation}<Enter>$yl/end{equation}<Enter>A<Enter><Enter><Esc>p2l/begin{equation}<Enter>dd1ki<++><Esc>2k$A<++><Esc>
-" Equation copy normal
-autocmd FileType tex nnoremap `e i<Space>begin{equation}<Esc>0/begin{equation}<Enter>N0v/end{equation}<Enter>$yl/end{equation}<Enter>A<Enter><Enter><Esc>p2l/begin{equation}<Enter>dd1ki<++><Esc>2k$A<++><Esc>
+let g:NOTES=0
 
+function! ToggleNOTES()
+  if !g:NOTES
+    call NOTESon()
+  else 
+    call NOTESoff()
+  endif
+endfunction
+
+function! NOTESon()
+  let g:NOTES=1
+  echo "NOTE macros ACTIVATED."
+endfunction
+
+function! NOTESoff()
+  let g:NOTES=0
+  echo "NOTE macros DEACTIVATED."
+endfunction
