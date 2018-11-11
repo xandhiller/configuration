@@ -144,19 +144,21 @@ source ~/GitHub/configuration/shortcuts.sh
 
 # Binary files in weird places
 #alias julia='/home/polluticorn/bin/julia/julia'
-alias matlab='/home/polluticorn/bin/MATLAB/2018b/bin/matlab'
+# alias matlab='/home/polluticorn/bin/MATLAB/2018b/bin/matlab'
 
 # Init vi mode in bash
-set -o vi
+#set -o vi
 
 # Sourcing fuzzy finder
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # Fuzzy finder settings
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
-export PATH="/home/polluticorn/anaconda3/bin:/home/polluticorn/bin:/home/polluticorn/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/polluticorn/.fzf/bin=/home/polluticorn/anaconda3/bin:/home/polluticorn/bin:/home/polluticorn/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/bin/julia-1.0.1/bin/:/usr/local/bin/gotop/"
+julia="/usr/local/bin/julia-1.0.1/bin/"
+scripts="$HOME/.scripts/"
+matlab='/home/polluticorn/bin/MATLAB/2018b/bin/matlab'
+export PATH="$PATH:$scripts:$julia:$matlab"
 
-
-wal -R -q
+#wal -R -q
 tmux
 c

@@ -14,7 +14,6 @@ alias c="clear"
 # CLI Program Shortcuts
 alias yt="youtube-dl --add-metadata -ic" # Download video
 alias yta="youtube-dl --add-metadata -xic" # Download audio
-# TODO: Script alias po="" # Reads in pdf name and opens and supresses warnings.
 
 # Config Files
 alias brc="vim ~/.bashrc"
@@ -26,11 +25,12 @@ alias epsct="vim ~/GitHub/configuration/pythonShortcuts.vim"
 alias evsct="vim ~/GitHub/configuration/vimGeneralShortcuts.vim"
 alias ekr="vim ~/GitHub/configuration/keyRemaps.sh"
 
-# TeX Template Shortcuts
+# Template Shortcuts
 alias Txa="cp ~/GitHub/texTemplates/article.tex"
 alias eTxa="vim ~/GitHub/texTemplates/article.tex" # Edit article template.
 alias Txp="cp ~/GitHub/texTemplates/pres.tex"
 alias eTxp="vim ~/GitHub/texTemplates/pres.tex"     #Edit presentation template
+alias jw="~/.scripts/setupJl.sh"
 
 # Custom Scripts
 alias touchpad="bash ~/.scripts/touch_toggle.sh"
@@ -46,7 +46,6 @@ alias kr="ccat ~/GitHub/configuration/keyRemaps.sh"
 
 # Edit pLock
 alias epk="vim ~/.scripts/pLock/pLock.sh"
-
 
 alias tr="tree"
 alias br="sudo vim /sys/class/backlight/intel_backlight/brightness"

@@ -16,6 +16,8 @@ set $listScripts ~/.scripts/listScripts.sh
 
 # Good colours: #ababff (blue), #abffff(green)
 
+gaps inner 10
+gaps outer 2
 # Set colours:
 set $darkblack	 "#000000"
 set $black	     "#222222"
@@ -153,6 +155,19 @@ bindsym $mod+Shift+equal move container to workspace $ws15, workspace $ws15
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -b 'Yes, exit i3' 'i3-msg exit'"
  
+mode "gaps-resize" {
+        bindsym j       gaps inner all minus  5px
+        bindsym k       gaps inner all plus   5px
+        bindsym Shift+j gaps outer all minus  5px
+        bindsym Shift+k gaps outer all plus   5px
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+
+}
+bindsym $mod+g mode "gaps-resize"
+
 mode "resize" {
         # same bindings, but for the arrow keys
         bindsym h resize shrink width   10 px or 10 ppt

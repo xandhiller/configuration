@@ -107,12 +107,16 @@ Plugin 'junegunn/fzf'
 " 'Surround' command
 Plugin 'tpope/vim-surround'
 
+Plugin 'JuliaEditorSupport/julia-vim'
 " Nord Vim
 " Plugin 'articicestudio/nord-vim'
 
 
 call vundle#end()
 filetype plugin indent on
+
+" Turn off YouCompleteMe (1==OFF, 0==ON)
+let g:loaded_youcompleteme = 1
 
 highlight Visual cterm=reverse
 
@@ -193,5 +197,3 @@ vnoremap <C-p> "+p
 " ------------------------------------------------------------------------------
 "  SHORTCUTS [end]
 " ------------------------------------------------------------------------------
-
-
