@@ -8,5 +8,6 @@ URxvt.iso14755_52: false
 !! Change font size on Control-Plus/Minus
 URxvt.perl-ext-common: font-size
 URxvt.keysym.Control-0x2b: perl:font-size:increase
+URxvt.keysym.Control-0x3d: perl:font-size:increase
 URxvt.keysym.Control-0x2d: perl:font-size:decrease
 

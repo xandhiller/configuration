@@ -10,6 +10,7 @@ alias ref="source ~/.bashrc"
 alias r="ranger"
 alias e="exit"
 alias c="clear"
+alias t="tmux"
 
 # CLI Program Shortcuts
 alias yt="youtube-dl --add-metadata -ic" # Download video
@@ -30,7 +31,7 @@ alias Txa="cp ~/GitHub/texTemplates/article.tex"
 alias eTxa="vim ~/GitHub/texTemplates/article.tex" # Edit article template.
 alias Txp="cp ~/GitHub/texTemplates/pres.tex"
 alias eTxp="vim ~/GitHub/texTemplates/pres.tex"     #Edit presentation template
-alias jw="~/.scripts/setupJl.sh"
+alias jw="~/.scripts/setupJl"
 
 # Custom Scripts
 alias touchpad="bash ~/.scripts/touch_toggle.sh"

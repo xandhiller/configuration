@@ -5,7 +5,7 @@ ith="/home/polluticorn/.config/i3/"
 ithb="/home/polluticorn/.config/i3blocks/"
 xdef="/home/polluticorn/.Xdefaults"
 vimplugins="/home/polluticorn/.vim/"
-keyRemaps="/home/polluticorn/.scripts/keyRemaps.sh"
+keyRemaps="/home/polluticorn/.scripts/keyRemaps"
 tmuxconf="/home/polluticorn/.tmux.conf"
 
 cp    $vimrc      .

@@ -147,7 +147,7 @@ source ~/GitHub/configuration/shortcuts.sh
 # alias matlab='/home/polluticorn/bin/MATLAB/2018b/bin/matlab'
 
 # Init vi mode in bash
-#set -o vi
+set -o vi
 
 # Sourcing fuzzy finder
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
@@ -160,5 +160,5 @@ matlab='/home/polluticorn/bin/MATLAB/2018b/bin/matlab'
 export PATH="$PATH:$scripts:$julia:$matlab"
 
 #wal -R -q
-tmux
+#tmux
 c

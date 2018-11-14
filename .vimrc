@@ -10,7 +10,7 @@ set shiftwidth=2
 set expandtab
 
 " Colourscheme
-colorscheme default
+colorscheme pablo
 
 " Highlight on 80 character limit and make it grey
 set colorcolumn=80

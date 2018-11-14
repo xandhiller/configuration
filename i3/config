@@ -2,14 +2,14 @@
 exec --no-startup-id ~/.bashrc
 set $mod Mod4
 font pango:monospace 8
-set $term urxvt
+set $term urxvt -fg "#FFFFFF" -bg "#000000"
 set $fn   XF86WakeUp
 set $lock ~/.scripts/pLock/pLock.sh
 set $kbLight python3 /usr/local/bin/kb-light.py --up
-set $touchpad exec --no-startup-id sh ~/.scripts/touch_toggle.sh
-set $terminalDraw ~/.scripts/term.sh
-set $textbookOpener ~/.scripts/textbookOpener.sh
-set $listScripts ~/.scripts/listScripts.sh
+set $touchpad exec --no-startup-id sh ~/.scripts/touch_toggle
+set $terminalDraw ~/.scripts/term
+set $textbookOpener ~/.scripts/textbookOpener
+set $listScripts ~/.scripts/listScripts
 
 # Make all windows floating
 #for_window [class="[.]*"] floating enable
@@ -48,19 +48,8 @@ exec --no-startupid hsetroot -solid "#EEEEEE"
 
 new_window pixel 4
 
-set_from_resource $fg i3wm.color7 
-set_from_resource $bg i3wm.color5 
-
-# class                 border  backgr. text indicator child_border
-# client.focused          $bg     $bg     $fg  $bg       
-# client.focused_inactive $bg     $bg     $fg  $bg       
-# client.unfocused        $bg     $bg     $fg  $bg       
-# client.urgent           $bg     $bg     $fg  $bg       
-# client.placeholder      $bg     $bg     $fg  $bg       
-# client.background       $bg
-
-# PROTIP: You can also dynamically set dmenu's colors this way:
-# bindsym $mod+d exec dmenu_run -nb "$fg" -nf "$bg" -sb "$bg" -sf "$fg"
+# set_from_resource $fg i3wm.color7 
+# set_from_resource $bg i3wm.color5 
 
 #                       BORDER		    BACKGROUND	  TEXT		  
 client.focused		      $col	        $col          $black	    $acol
@@ -78,11 +67,11 @@ bar {
   mode hide
   modifier Ctrl
   colors{
-    background "$bg"
+    background "#000000"
     statusline #FFFFFF
-    separator "$bg"
-    focused_workspace $bg $grey $bg
-    inactive_workspace $bg $bg $grey
+    separator "#000000"
+    focused_workspace #FFFFFF $grey #000000
+    inactive_workspace $grey #000000 $grey
   }  
   tray_padding 0
 }
@@ -126,31 +115,18 @@ set $ws1 1: α
 set $ws2 2: β 
 set $ws3 3: λ 
 set $ws4 4: φ 
-set $ws11 11: Writing 
-set $ws12 12: Programming 
-set $ws14 14: Textbooks 
-set $ws15 15: Configuration 
 
 # Workspace Movements
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
 bindsym $mod+3 workspace $ws3
 bindsym $mod+4 workspace $ws4
-bindsym $mod+9 workspace $ws11
-bindsym $mod+0 workspace $ws12
-bindsym $mod+minus workspace $ws14
-bindsym $mod+equal workspace $ws15
 
 # Move to a workspace and go there.
 bindsym $mod+Shift+1 move container to workspace $ws1, workspace $ws1
 bindsym $mod+Shift+2 move container to workspace $ws2, workspace $ws2
 bindsym $mod+Shift+3 move container to workspace $ws3, workspace $ws3
 bindsym $mod+Shift+4 move container to workspace $ws4, workspace $ws4
-bindsym $mod+Shift+9 move container to workspace $ws11, workspace $ws11
-bindsym $mod+Shift+0 move container to workspace $ws12, workspace $ws12
-bindsym $mod+Shift+minus move container to workspace $ws14, workspace $ws14
-bindsym $mod+Shift+equal move container to workspace $ws15, workspace $ws15
-
 
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -b 'Yes, exit i3' 'i3-msg exit'"
@@ -164,9 +140,11 @@ mode "gaps-resize" {
         # back to normal: Enter or Escape
         bindsym Return mode "default"
         bindsym Escape mode "default"
-
 }
 bindsym $mod+g mode "gaps-resize"
+bindsym $mod+Shift+g gaps inner all set 0; gaps outer all set 0;
+# Reset gaps without having to refresh config
+bindsym $mod+Mod1+g gaps inner all set 10; gaps outer all set 2;
 
 mode "resize" {
         # same bindings, but for the arrow keys
@@ -189,8 +167,8 @@ for_window [instance="terminal process"] move position 550 400
 
 bindsym $mod+p exec --no-startup-id $term -name "terminal process"
 
-bindsym $mod+Shift+F8 move scratchpad
-bindsym $mod+F8 scratchpad show
+bindsym $mod+Shift+Next move scratchpad
+bindsym $mod+Next scratchpad show
 bindsym $mod+Shift+m exec --no-startup-id $term -n math -e octave --no-gui
 
 # Bind certain kinds of windows to certain workspaces
@@ -202,6 +180,8 @@ for_window [title="float-search"] resize set 625 400
 bindsym $mod+Shift+Return exec --no-startup-id google-chrome-stable 
 bindsym $mod+Ctrl+Return exec --no-startup-id google-chrome-stable #make it float
 bindsym $mod+Shift+p exec --no-startup-id $term -e python3 
+
+bindsym $mod+Shift+o exec --no-startup-id $term -e julia
 bindsym $mod+c            move position center
 bindsym $mod+Shift+c      resize set 625 400
 bindsym $mod+Ctrl+space   floating toggle, resize set 625 400, move position center
@@ -209,32 +189,32 @@ bindsym $mod+Ctrl+space   floating toggle, resize set 625 400, move position cen
 # nb: Mod1 = alt keys
 bindsym $mod+Mod1+space   floating toggle, resize set 700 870, move position center
 #bindsym $mod+End          exec --no-startup-id systemctl suspend
-bindsym $mod+i exec scrot
+bindsym $mod+i exec scrot && notify-send "Screenshot taken" -t 25
+
 
 # Compton
-exec --no-startup-id compton -f -i 0.9 --config ~/.config/compton.conf
-# exec --no-startup-id compton -f --config ~/.config/compton.conf
+exec --no-startup-id compton -f -i 1.0 
 
 # bindsym $mod+Shift+v [class="urxvt" title="vim"] focus
 exec --no-startup-id hsetroot -solid "#FFFFFF"
-
 
 # Keyboard backlight
 bindsym $fn+space $kbLight
 bindsym $mod+t $touchpad
 
-exec --no-startup-id sh ~/.scripts/keyRemaps.sh 
-bindsym $mod+y exec --no-startup-id sh ~/.scripts/keyRemaps.sh && notify-send "Key mappings refreshed" -t 25
+exec --no-startup-id sh ~/.scripts/keyRemaps 
+bindsym $mod+y exec --no-startup-id sh ~/.scripts/keyRemaps && notify-send "Key mappings refreshed" -t 25
 
 # bindsym $fn exec rofi -config ~/.config/rofi/config -show
 
-exec --no-startup-id wal -R -q 
+exec --no-startup-id wal -i ~/Pictures/Wallpapers/rain_sybP.jpg
 for_window [class="URxvt" instance="floating"] floating enable
 bindsym $mod+z exec --no-startup-id $terminalDraw 
 bindsym $mod+a exec --no-startup-id $textbookOpener
 bindsym $mod+Up exec --no-startup-id $lock
 bindsym $mod+s exec --no-startup-id $listScripts
 
+exec --no-startup-id hsetroot -solid "#88eb88"
 #  TODO:
 # Sync background with status bar colour.
 # Place text over the top of background -- stats, todo(s)
