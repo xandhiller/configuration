@@ -42,7 +42,7 @@ set wildignore+=*.swp,.lock,.DS_Store,._*
 set laststatus=2
 
 " set mouse active
-set mouse=a
+"set mouse=a
 
 " confirm if user wants to save a file instead of error
 set confirm
@@ -107,6 +107,8 @@ Plugin 'junegunn/fzf'
 " 'Surround' command
 Plugin 'tpope/vim-surround'
 
+" 'Repeat' command to repeat plugin behaviour.
+Plugin 'tpope/vim-repeat'
 Plugin 'JuliaEditorSupport/julia-vim'
 " Nord Vim
 " Plugin 'articicestudio/nord-vim'

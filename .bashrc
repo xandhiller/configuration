@@ -148,6 +148,7 @@ source ~/GitHub/configuration/shortcuts.sh
 
 # Init vi mode in bash
 set -o vi
+set show-mode-in-prompt on
 
 # Sourcing fuzzy finder
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
