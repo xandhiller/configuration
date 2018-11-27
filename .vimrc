@@ -179,14 +179,6 @@ vnoremap <Left>   <Nop>
 vnoremap <Up>     <Nop>
 vnoremap <Down>   <Nop>
 
-" Screen Adjustments
-inoremap <F8> <Esc>zti
-inoremap <F6> <Esc>zbi
-inoremap <F7> <Esc>zzi
-nnoremap <F8> zt
-nnoremap <F6> zb
-nnoremap <F7> zz
-
 " Copy and paste to the clipboard
 set clipboard=unnamedplus
 inoremap <C-y> <Nop>
@@ -195,6 +187,20 @@ vnoremap <C-y> "+y
 inoremap <C-p> <Esc>"+pi
 nnoremap <C-p> "+p
 vnoremap <C-p> "+p
+
+" Moving around windows
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+" Resizing windows
+nnoremap <C-y> <C-w><
+nnoremap <C-u> <C-w>+
+nnoremap <C-i> <C-w>-
+nnoremap <C-o> <C-w>>
+" Speed up splits
+nnoremap <C-n> <Esc>:vsp<Space>
+nnoremap <C-m> <Esc>:sp<Space>
 
 " ------------------------------------------------------------------------------
 "  SHORTCUTS [end]
