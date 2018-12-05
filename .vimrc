@@ -1,29 +1,27 @@
-" ------------------------------------------------------------------------------
-"  APPEARANCE [start]
-" ------------------------------------------------------------------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"  APPEARANCE [end]
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
-syntax on
-
-" Make tabs input two spaces.
 set tabstop=2
 set shiftwidth=2
 set expandtab
-
-" Colourscheme
 colorscheme pablo
-
-" Highlight on 80 character limit and make it grey
+highlight Visual cterm=reverse
+syntax on
+set number relativenumber
+set confirm
+set cmdheight=1
+set autoindent
+set linebreak
+set ignorecase
+set smartcase
+set updatetime=1000
 set colorcolumn=80
 highlight ColorColumn ctermbg=3
 highlight Visual cterm=reverse ctermbg=NONE
-
-" Give relative line numbers
-set number relativenumber
-
-" Highlight current line
 hi CursorLine ctermbg=7
 hi Cursor ctermbg=green ctermfg=blue
-hi LineNr ctermfg=red
+hi LineNr ctermfg=white
 hi CursorLineNr cterm=bold ctermfg=red
 
 " Ignore files vim doesnt use
@@ -38,107 +36,56 @@ set wildignore+=*.doc,*.pdf,*.cbr,*.cbz
 set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz,*.kgb
 set wildignore+=*.swp,.lock,.DS_Store,._*
 
-" lightline-vim neccessary config
-set laststatus=2
-
-" set mouse active
-"set mouse=a
-
-" confirm if user wants to save a file instead of error
-set confirm
-
-" command window height to 2 lines
-set cmdheight=1
-
-set autoindent
-set linebreak
-
-" use case insensitive search, except when using capital letters
-set ignorecase
-set smartcase
-
-" Time between no edit and .swp file being written.
-set updatetime=1000
-
-" ------------------------------------------------------------------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "  APPEARANCE [end]
-" ------------------------------------------------------------------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" ------------------------------------------------------------------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "  PLUG-INS [start]
-" ------------------------------------------------------------------------------
-
-" run time path for vundle to handle plug-ins
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set rtp+=~/.vim/bundle/Vundle.vim/ 
-
 filetype off
 call vundle#begin()
-
-" plugin manager
 Plugin 'VundleVim/Vundle.vim'     
+Plugin 'scrooloose/nerdtree'      
+	map <C-n> :NERDTreeToggle<CR>
+Plugin 'xuhdev/vim-latex-live-preview'
+  let g:livepreview_previewer = 'okular'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'junegunn/fzf'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-repeat'
+Plugin 'JuliaEditorSupport/julia-vim'
+Plugin 'junegunn/goyo.vim'
+  let g:goyo_width=85
+  let g:goyo_margin_top=0
+  let g:goyo_margin_bottom=0
+call vundle#end()
+filetype plugin indent on
 
 if !has('gui_running')
   set t_Co=256
 endif
 
-Plugin 'itchyny/lightline.vim'    
-" status line plugin
-  let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ }
 
-Plugin 'scrooloose/nerdtree'      
-	" open a NERDTree automatically when vim starts up if no files were specified
-	autocmd StdinReadPre * let s:std_in=1
-	autocmd VimEnter * if argc()==0 && !exists("s:std_in") | NERDTree | endif
-	" close NERDTree when its the only existing window
-	autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-	" Shortcut to open nerdtree
-	map <C-n> :NERDTreeToggle<CR>
-
-Plugin 'xuhdev/vim-latex-live-preview'
-  let g:livepreview_previewer = 'okular'
-
-Plugin 'Valloric/YouCompleteMe'
-
-" Fuzzy file finder
-Plugin 'junegunn/fzf'
-
-" 'Surround' command
-Plugin 'tpope/vim-surround'
-
-" 'Repeat' command to repeat plugin behaviour.
-Plugin 'tpope/vim-repeat'
-Plugin 'JuliaEditorSupport/julia-vim'
-" Nord Vim
-" Plugin 'articicestudio/nord-vim'
-
-
-call vundle#end()
-filetype plugin indent on
-
-" Turn off YouCompleteMe (1==OFF, 0==ON)
-let g:loaded_youcompleteme = 1
-
-highlight Visual cterm=reverse
-
-" ------------------------------------------------------------------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "  PLUG-INS [end]
-" ------------------------------------------------------------------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" ------------------------------------------------------------------------------
-"  SHORTCUTS [start]  
-" ------------------------------------------------------------------------------
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"  SHORTCUTS/MAPPINGS/ABREVIATIONS[start]  
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Source shortcut files. 
 source ~/GitHub/configuration/texShortcuts.vim
 source ~/GitHub/configuration/pythonShortcuts.vim
 source ~/GitHub/configuration/vimGeneralShortcuts.vim
 
-" Make it easier to source vimrc within vim.
-inoremap <F5>   <Esc>:source<Space>~/.vimrc<CR>i
-nnoremap <F5>   :source<Space>~/.vimrc<CR>
-vnoremap <F5>   <Esc>:source<Space>~/.vimrc<CR>
+" Make it easier to refresh vimrc within vim.
+inoremap <F5>   <Esc>:source<Space>$MYVIMRC<CR>i
+nnoremap <F5>   :source<Space>$MYVIMRC<CR>
+vnoremap <F5>   <Esc>:source<Space>$MYVIMRC<CR>
 
 " Unmapping rubbish keys
 nnoremap Q      <Nop>
@@ -188,20 +135,33 @@ inoremap <C-p> <Esc>"+pi
 nnoremap <C-p> "+p
 vnoremap <C-p> "+p
 
-" Moving around windows
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-" Resizing windows
-nnoremap <C-y> <C-w><
-nnoremap <C-u> <C-w>+
-nnoremap <C-i> <C-w>-
-nnoremap <C-o> <C-w>>
-" Speed up splits
-nnoremap <C-n> <Esc>:vsp<Space>
-nnoremap <C-m> <Esc>:sp<Space>
+" Activate Goyo plugin (centering of text)
+nnoremap <C-c> :Goyo<CR>
+inoremap <C-c> <Esc>:Goyo<CR>i
+vnoremap <C-c> <Esc>:Goyo<CR>
 
-" ------------------------------------------------------------------------------
+function! s:goyo_enter()
+  silent !tmux set status off
+  silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+  set noshowmode
+  set noshowcmd
+  set scrolloff=999
+  " ...
+endfunction
+
+function! s:goyo_leave()
+  silent !tmux set status on
+  silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+  set showmode
+  set showcmd
+  set scrolloff=5
+  highlight CursorLineNr ctermfg=red
+  " ...
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "  SHORTCUTS [end]
-" ------------------------------------------------------------------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
