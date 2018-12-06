@@ -1,10 +1,12 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"  APPEARANCE [end]
+"  APPEARANCE/INPUT [end]
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
 set tabstop=2
 set shiftwidth=2
 set expandtab
+set splitright 
+set splitbelow
 colorscheme pablo
 highlight Visual cterm=reverse
 syntax on
@@ -36,9 +38,6 @@ set wildignore+=*.doc,*.pdf,*.cbr,*.cbz
 set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz,*.kgb
 set wildignore+=*.swp,.lock,.DS_Store,._*
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"  APPEARANCE [end]
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "  PLUG-INS [start]
@@ -78,8 +77,6 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Source shortcut files. 
-source ~/GitHub/configuration/texShortcuts.vim
-source ~/GitHub/configuration/pythonShortcuts.vim
 source ~/GitHub/configuration/vimGeneralShortcuts.vim
 
 " Make it easier to refresh vimrc within vim.
@@ -135,11 +132,10 @@ inoremap <C-p> <Esc>"+pi
 nnoremap <C-p> "+p
 vnoremap <C-p> "+p
 
-" Activate Goyo plugin (centering of text)
+" Customise functionality of goyo plugin (centering of text)
 nnoremap <C-c> :Goyo<CR>
 inoremap <C-c> <Esc>:Goyo<CR>i
 vnoremap <C-c> <Esc>:Goyo<CR>
-
 function! s:goyo_enter()
   silent !tmux set status off
   silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
@@ -148,7 +144,6 @@ function! s:goyo_enter()
   set scrolloff=999
   " ...
 endfunction
-
 function! s:goyo_leave()
   silent !tmux set status on
   silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
@@ -158,10 +153,117 @@ function! s:goyo_leave()
   highlight CursorLineNr ctermfg=red
   " ...
 endfunction
-
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "  SHORTCUTS [end]
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" ------ GENERAL TEX SHORTCUTS 
+" General shortcuts for regular typing
+
+autocmd FileType tex inoremap <C-\> <Esc>o\item<Space>
+
+" Toggle MATH mode.
+inoremap  `m <esc>:call ToggleMATH()<CR>
+nnoremap  `m :call ToggleMATH()<CR>
+
+" Mathematics shortcuts to improve the experience of writing equations
+
+" ------TEX MATH MODE
+
+let g:MATH=0
+
+function! ToggleMATH()
+  if !g:MATH
+    call MATHon()
+  else 
+    call MATHOff()
+  endif
+endfunction
+
+function! MATHon()
+  echo "MATH macros ACTIVATED."
+  let g:MATH=1
+  inoremap  ;s \sum^{<++>}_{<++>}<++><esc>Bi
+  inoremap  ;e \begin{equation}<Enter><Enter><Esc>0i\end{equation}<Enter><Enter><++><Esc>3kA<Space><Space><++><Esc>k0i
+  inoremap  ;i \int^{<++>}_{<++>}<++><esc>Bi
+  inoremap  ;f \frac{<++>}{<++>}<++><esc>Bi
+  inoremap  ;<space> ^{<++>}_{<++>}<++><esc>/\^<CR>Ni
+  inoremap  ;t \text{<++>}<++><esc>Bi
+  inoremap  ;d \frac{d}{d<++>}\left( <++> \right)<esc>/frac<CR>Nhi
+  
+  " ---- More infrequent bindings are bound with "o" for "operation"
+  inoremap  ;ol \Lapl{<++>}<++><esc>Bi
+  inoremap  ;oL \Lapl{<++>} = \int^{\infty}_{0} <++> e^{st} dt = <++><esc>/Lapl<CR>Nhi
+
+  " ---- Text formatting based shortcuts
+  inoremap  ;ti \mathit{<++>}<++><esc>Bi 
+  inoremap  ;tb \mathbf{<++>}<++><esc>Bi 
+endfunction
+
+function! MATHOff()
+  echo "MATH macros DEACTIVATED."
+  let g:MATH=0
+  inoremap ;s ;s
+  inoremap ;e ;e
+  inoremap ;i ;i
+  inoremap ;f ;f
+  inoremap ;<space> ;<space>
+  inoremap ;t ;t
+  inoremap ;d ;d
+  inoremap ;ol ;ol
+  inoremap ;oL ;oL
+  inoremap ;ti \textit{<++>}<++><esc>Bi 
+  inoremap ;tb \textbf{<++>}<++><esc>Bi 
+endfunction
+
+" ------- NOTES MODE
+"
+" Toggle NOTES mode.
+inoremap  `n <esc>:call ToggleNOTES()<CR>
+nnoremap  `n :call ToggleNOTES()<CR>
+
+let g:NOTES=0
+
+function! ToggleNOTES()
+  if !g:NOTES
+    call NOTESon()
+  else 
+    call NOTESoff()
+  endif
+endfunction
+
+function! NOTESon()
+  let g:NOTES=1
+  echo "NOTE macros ACTIVATED."
+endfunction
+
+function! NOTESoff()
+  let g:NOTES=0
+  echo "NOTE macros DEACTIVATED."
+endfunction
+
+" ------ GENERAL VIM SHORTCUTS
+" ccc
+" ------ NORMAL MODE SHORTCUTS
+vnoremap `` /<++><Enter>
+vnoremap ~~ /++><Enter>Nh
+nnoremap `` /<++><Enter>
+nnoremap ~~ /++><Enter>Nh
+nnoremap `1 <Esc>/++><Enter>h"_c4l
+nnoremap `vrc :vsplit<Space>~/.vimrc<Enter>
+nnoremap `brc :vsplit<Space>~/.bashrc<Enter>
+nnoremap <C-p> i<++><Esc>4h
+
+" ------ INSERT MODE SHORTCUTS
+inoremap `` <Esc>/<++><Enter>
+inoremap ~~ <Esc>/++><Enter>Nhi
+inoremap `1 <Esc>/++><Enter>h"_c4l
+" Paste hook?
+
+" ------ VISUAL MODE SHORTCUTS
+vnoremap `` /<++><Enter>
+vnoremap ~~ /++><Enter>Nh
+
