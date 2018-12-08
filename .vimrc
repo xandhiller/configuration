@@ -99,11 +99,24 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Make it easier to refresh vimrc within vim.
 
+" Moving around windows
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+" Resizing windows
+noremap <C-y> <C-w><
+noremap <C-u> <C-w>+
+noremap <C-i> <C-w>-
+noremap <C-o> <C-w>>
+
 function! RefreshVimrc()
   inoremap <F5>   <Esc>:source<Space>$MYVIMRC<CR>i
   nnoremap <F5>   :source<Space>$MYVIMRC<CR>
   vnoremap <F5>   <Esc>:source<Space>$MYVIMRC<CR>
 endfunction
+
+call RefreshVimrc()
       
 " Unmapping rubbish keys
 nnoremap Q      <Nop>
