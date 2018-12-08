@@ -1,7 +1,7 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "  APPEARANCE/INPUT [end]
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let mapleader="`"
+let mapleader=";"
 set nocompatible
 set tabstop=2
 set shiftwidth=2
@@ -27,6 +27,8 @@ hi Cursor ctermbg=green ctermfg=blue
 hi LineNr ctermfg=white
 hi CursorLineNr cterm=bold ctermfg=red
 
+nnoremap <Leader>m :w<CR>:silent ! compilemd %<CR>:source $MYVIMRC<CR>
+
 " Ignore files vim doesnt use
 set wildignore+=.git,.hg,.svn
 set wildignore+=*.aux,*.out,*.toc
@@ -38,6 +40,9 @@ set wildignore+=*.eot,*.otf,*.ttf,*.woff
 set wildignore+=*.doc,*.pdf,*.cbr,*.cbz
 set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz,*.kgb
 set wildignore+=*.swp,.lock,.DS_Store,._*
+
+autocmd FileType markdown set tabstop=4 shiftwidth=4
+autocmd FileType wiki set tabstop=4 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "  PLUG-INS [start]
@@ -54,38 +59,36 @@ Plugin 'junegunn/fzf'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'JuliaEditorSupport/julia-vim'
+  let g:latex_to_unicode_file_types = ".*" 
 Plugin 'junegunn/goyo.vim'
   let g:goyo_width=85
   let g:goyo_margin_top=0
   let g:goyo_margin_bottom=0
-" Customise functionality of goyo plugin (centering of text)
-nnoremap <C-c> :Goyo<CR>
-inoremap <C-c> <Esc>:Goyo<CR>i
-vnoremap <C-c> <Esc>:Goyo<CR>
-function! s:goyo_enter()
-  silent !tmux set status off
-  silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
-  set noshowmode
-  set noshowcmd
-  set scrolloff=999
-  " ...
-endfunction
-function! s:goyo_leave()
-  silent !tmux set status on
-  silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
-  set showmode
-  set showcmd
-  set scrolloff=5
-  highlight CursorLineNr ctermfg=red
-  " ...
-endfunction
+  nnoremap <C-c> :Goyo<CR>
+  inoremap <C-c> <Esc>:Goyo<CR>i
+  vnoremap <C-c> <Esc>:Goyo<CR>
+  function! s:goyo_enter()
+    silent !tmux set status off
+    silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+    set noshowmode
+    set noshowcmd
+    set scrolloff=999
+  endfunction
+  function! s:goyo_leave()
+    silent !tmux set status on
+    silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+    set showmode
+    set showcmd
+    set scrolloff=5
+    highlight CursorLineNr ctermfg=red
+  endfunction
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 Plugin 'vimwiki/vimwiki'
+  let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
 call vundle#end()
 filetype plugin indent on
 
-let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
 
 if !has('gui_running')
   set t_Co=256
@@ -95,10 +98,13 @@ endif
 "  SHORTCUTS/MAPPINGS/ABREVIATIONS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Make it easier to refresh vimrc within vim.
-inoremap <F5>   <Esc>:source<Space>$MYVIMRC<CR>i
-nnoremap <F5>   :source<Space>$MYVIMRC<CR>
-vnoremap <F5>   <Esc>:source<Space>$MYVIMRC<CR>
 
+function! RefreshVimrc()
+  inoremap <F5>   <Esc>:source<Space>$MYVIMRC<CR>i
+  nnoremap <F5>   :source<Space>$MYVIMRC<CR>
+  vnoremap <F5>   <Esc>:source<Space>$MYVIMRC<CR>
+endfunction
+      
 " Unmapping rubbish keys
 nnoremap Q      <Nop>
 vnoremap Q      <Nop>
@@ -121,7 +127,7 @@ vnoremap <F11>  <Nop>
 inoremap <F12>  <Nop>
 nnoremap <F12>  <Nop>
 vnoremap <F12>  <Nop>
-
+ 
 " Hardcore Vim
 nnoremap <Home>   <Nop>
 nnoremap <End>    <Nop>
@@ -147,12 +153,12 @@ inoremap <C-p> <Esc>"+pi
 nnoremap <C-p> "+p
 vnoremap <C-p> "+p
 
-vnoremap <Leader><Leader>/<++><Enter>
-nnoremap <Leader><Leader> /<++><Enter>
-nnoremap <Leader>1 <Esc>/++><Enter>h"_c4l
-inoremap <Leader><Leader> <Esc>/<++><Enter>
-inoremap <Leader>1 <Esc>/++><Enter>h"_c4l
-vnoremap <Leader><Leader> /<++><Enter>
+"vnoremap <Leader><Leader>/<++><Enter>
+"nnoremap <Leader><Leader> /<++><Enter>
+"nnoremap <Leader>1 <Esc>/++><Enter>h"_c4l
+"inoremap <Leader><Leader> <Esc>/<++><Enter>
+"inoremap <Leader>1 <Esc>/++><Enter>h"_c4l
+"vnoremap <Leader><Leader> /<++><Enter>
 " Paste hook?
 "vnoremap ~~ /++><Enter>Nh
 "nnoremap <S-Leader><S-Leader> iBLAH<Esc>
@@ -165,13 +171,22 @@ vnoremap <Leader><Leader> /<++><Enter>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GENERAL TEX SHORTCUTS 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd FileType tex inoremap <C-\> <Esc>o\item<Space>
+"autocmd FileType tex inoremap <C-\> <Esc>o\item<Space>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TEX MATH MODE - shortcuts to improve the experience of writing equations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-inoremap  <Leader>m <esc>:call ToggleMATH()<CR>
-nnoremap  <Leader>m :call ToggleMATH()<CR>
+"autocmd FileType tex inoremap  <Leader>m <esc>:call ToggleMATH()<CR>
+
+function! InputTex()
+  nnoremap  <Leader>m :call ToggleMATH()<CR>
+  nnoremap  <Leader>m :call ToggleMATH()<CR>
+endfunction
+
+autocmd FileType tex call InputTex()
+
+"autocmd FileType tex 
+
 let g:MATH=0
 " MATH TOGGLE
 function! ToggleMATH()
@@ -185,35 +200,34 @@ endfunction
 function! MATHon()
   echo "MATH macros ACTIVATED."
   let g:MATH=1
-  inoremap  ;s \sum^{<++>}_{<++>}<++><esc>Bi
-  inoremap  ;e \begin{equation}<Enter><Enter><Esc>0i\end{equation}<Enter><Enter><++><Esc>3kA<Space><Space><++><Esc>k0i
-  inoremap  ;i \int^{<++>}_{<++>}<++><esc>Bi
-  inoremap  ;f \frac{<++>}{<++>}<++><esc>Bi
-  inoremap  ;<space> ^{<++>}_{<++>}<++><esc>/\^<CR>Ni
-  inoremap  ;t \text{<++>}<++><esc>Bi
-  inoremap  ;d \frac{d}{d<++>}\left( <++> \right)<esc>/frac<CR>Nhi
+  inoremap  <Leader>s \sum^{<++>}_{<++>}<++><esc>Bi
+  inoremap  <Leader>e \begin{equation}<Enter><Enter><Esc>0i\end{equation}<Enter><Enter><++><Esc>3kA<Space><Space><++><Esc>k0i
+  inoremap  <Leader>i \int^{<++>}_{<++>}<++><esc>Bi
+  inoremap  <Leader>f \frac{<++>}{<++>}<++><esc>Bi
+  inoremap  <Leader><space> ^{<++>}_{<++>}<++><esc>/\^<CR>Ni
+  inoremap  <Leader>t \text{<++>}<++><esc>Bi
+  inoremap  <Leader>d \frac{d}{d<++>}\left( <++> \right)<esc>/frac<CR>Nhi
   " ---- More infrequent bindings are bound with "o" for "operation"
-  inoremap  ;ol \Lapl{<++>}<++><esc>Bi
-  inoremap  ;oL \Lapl{<++>} = \int^{\infty}_{0} <++> e^{st} dt = <++><esc>/Lapl<CR>Nhi
-  " ---- Text formatting based shortcuts
-  inoremap  ;ti \mathit{<++>}<++><esc>Bi 
-  inoremap  ;tb \mathbf{<++>}<++><esc>Bi 
+  inoremap  <Leader>ol \Lapl{<++>}<++><esc>Bi
+  inoremap  <Leader>oL \Lapl{<++>} = \int^{\infty}_{0} <++> e^{st} dt = <++><esc>/Lapl<CR>Nhi
+  inoremap  <Leader>ti \mathit{<++>}<++><esc>Bi 
+  inoremap  <Leader>tb \mathbf{<++>}<++><esc>Bi 
 endfunction
 " MATH OFF
 function! MATHOff()
   echo "MATH macros DEACTIVATED."
   let g:MATH=0
-  inoremap ;s ;s
-  inoremap ;e ;e
-  inoremap ;i ;i
-  inoremap ;f ;f
-  inoremap ;<space> ;<space>
-  inoremap ;t ;t
-  inoremap ;d ;d
-  inoremap ;ol ;ol
-  inoremap ;oL ;oL
-  inoremap ;ti \textit{<++>}<++><esc>Bi 
-  inoremap ;tb \textbf{<++>}<++><esc>Bi 
+  unmap <Leader>s
+  unmap <Leader>e
+  unmap <Leader>i
+  unmap <Leader>f
+  unmap <Leader><space>
+  unmap <Leader>t
+  unmap <Leader>d
+  unmap <Leader>ol
+  unmap <Leader>oL
+  unmap <Leader>ti \textit{<++>}<++><esc>Bi 
+  unmap <Leader>tb \textbf{<++>}<++><esc>Bi 
 endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

@@ -48,9 +48,6 @@ exec --no-startupid hsetroot -solid "#EEEEEE"
 
 new_window pixel 4
 
-# set_from_resource $fg i3wm.color7 
-# set_from_resource $bg i3wm.color5 
-
 #                       BORDER		    BACKGROUND	  TEXT		  
 client.focused		      $col	        $col          $black	    $acol
 client.unfocused	      $col2	        $col2         $black	    $acol2  
@@ -176,7 +173,6 @@ bindsym $mod+Shift+m exec --no-startup-id $term -n math -e octave --no-gui
 for_window [title="float-search"] floating enable
 for_window [title="float-search"] resize set 625 400
 
-
 bindsym $mod+Shift+Return exec --no-startup-id google-chrome-stable 
 bindsym $mod+Ctrl+Return exec --no-startup-id google-chrome-stable #make it float
 bindsym $mod+Shift+p exec --no-startup-id $term -e python3 
@@ -190,7 +186,6 @@ bindsym $mod+Ctrl+space   floating toggle, resize set 625 400, move position cen
 bindsym $mod+Mod1+space   floating toggle, resize set 700 870, move position center
 #bindsym $mod+End          exec --no-startup-id systemctl suspend
 bindsym $mod+i exec scrot && notify-send "Screenshot taken" -t 25
-
 
 # Compton
 exec --no-startup-id compton -f -i 1.0 
