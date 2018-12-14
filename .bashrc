@@ -163,3 +163,4 @@ export PATH="$PATH:$scripts:$julia:$matlab"
 #wal -R -q
 #tmux
 c
+alias l='ls -1'

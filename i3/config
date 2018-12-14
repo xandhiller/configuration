@@ -14,10 +14,10 @@ set $listScripts ~/.scripts/listScripts
 # Make all windows floating
 #for_window [class="[.]*"] floating enable
 
-# Good colours: #ababff (blue), #abffff(green)
+gaps inner 0
+gaps outer 0
 
-gaps inner 10
-gaps outer 2
+# Good colours: #ababff (blue), #abffff(green)
 # Set colours:
 set $darkblack	 "#000000"
 set $black	     "#222222"
@@ -37,16 +37,17 @@ set $darkgrey    "#606060"
 set $subtlegrey  "#353535"
 
 # This colour is the highlight colour of windows.
-set $col         "#FF5555"
-set $acol        "#AA0000"
-set $col2        "#AADDDD"
-set $acol2       "#55DDDD"
-set $col3        "#DDA0DD" 
+set $col         "#bbbbbb"
+set $acol        "#666666"
+set $col2        "#333333"
+set $acol2       "#333333"
+set $col3        "#333333" 
 set $acol3       "#FFFFFF"
+
 # Background of desktop
 exec --no-startupid hsetroot -solid "#EEEEEE"
 
-new_window pixel 4
+new_window pixel 3
 
 #                       BORDER		    BACKGROUND	  TEXT		  
 client.focused		      $col	        $col          $black	    $acol
@@ -61,14 +62,12 @@ bar {
   status_command i3blocks
 	position top
   strip_workspace_numbers yes
-  mode hide
-  modifier Ctrl
   colors{
-    background "#000000"
-    statusline #FFFFFF
-    separator "#000000"
-    focused_workspace #FFFFFF $grey #000000
-    inactive_workspace $grey #000000 $grey
+    background "#444444"
+    statusline "#FFFFFF"
+    separator "#444444"
+    focused_workspace "#FFFFFF" $grey "#000000"
+    inactive_workspace $grey "#444444" $grey
   }  
   tray_padding 0
 }
@@ -85,14 +84,14 @@ bindsym $mod+semicolon  focus right
 # alternatively, you can use the cursor keys:
 bindsym $mod+h   focus left
 bindsym $mod+j   focus down
-bindsym $mod+k     focus up
-bindsym $mod+l  focus right
+bindsym $mod+k   focus up
+bindsym $mod+l   focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+h   move left
 bindsym $mod+Shift+j   move down
-bindsym $mod+Shift+k     move up
-bindsym $mod+Shift+l  move right
+bindsym $mod+Shift+k   move up
+bindsym $mod+Shift+l   move right
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -157,7 +156,6 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Pop-Up Mode
-#for_window [instance="math"] client.focused $cyan
 for_window [instance="terminal process"] floating enable
 for_window [instance="terminal process"] resize set 500 100
 for_window [instance="terminal process"] move position 550 400
@@ -169,7 +167,6 @@ bindsym $mod+Next scratchpad show
 bindsym $mod+Shift+m exec --no-startup-id $term -n math -e octave --no-gui
 
 # Bind certain kinds of windows to certain workspaces
-# for_window [class="Firefox"] move to workspace 10, workspace 10
 for_window [title="float-search"] floating enable
 for_window [title="float-search"] resize set 625 400
 
@@ -190,9 +187,6 @@ bindsym $mod+i exec scrot && notify-send "Screenshot taken" -t 25
 # Compton
 exec --no-startup-id compton -f -i 1.0 
 
-# bindsym $mod+Shift+v [class="urxvt" title="vim"] focus
-exec --no-startup-id hsetroot -solid "#FFFFFF"
-
 # Keyboard backlight
 bindsym $fn+space $kbLight
 bindsym $mod+t $touchpad
@@ -200,16 +194,14 @@ bindsym $mod+t $touchpad
 exec --no-startup-id sh ~/.scripts/keyRemaps 
 bindsym $mod+y exec --no-startup-id sh ~/.scripts/keyRemaps && notify-send "Key mappings refreshed" -t 25
 
-# bindsym $fn exec rofi -config ~/.config/rofi/config -show
+# exec --no-startup-id wal -i ~/Pictures/Wallpapers/rain_sybP.jpg
 
-exec --no-startup-id wal -i ~/Pictures/Wallpapers/rain_sybP.jpg
 for_window [class="URxvt" instance="floating"] floating enable
-bindsym $mod+z exec --no-startup-id $terminalDraw 
-bindsym $mod+a exec --no-startup-id $textbookOpener
+bindsym $mod+z  exec --no-startup-id $terminalDraw 
+bindsym $mod+a  exec --no-startup-id $textbookOpener
 bindsym $mod+Up exec --no-startup-id $lock
-bindsym $mod+s exec --no-startup-id $listScripts
+bindsym $mod+s  exec --no-startup-id $listScripts
 
-exec --no-startup-id hsetroot -solid "#88eb88"
 #  TODO:
 # Sync background with status bar colour.
 # Place text over the top of background -- stats, todo(s)

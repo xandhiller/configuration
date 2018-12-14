@@ -8,7 +8,7 @@ set shiftwidth=2
 set expandtab
 set splitright 
 set splitbelow
-colorscheme pablo
+colorscheme default
 highlight Visual cterm=reverse
 syntax on
 set number relativenumber
@@ -18,17 +18,15 @@ set autoindent
 set linebreak
 set ignorecase
 set smartcase
-set updatetime=1000
+set updatetime=100
 set colorcolumn=80
 highlight ColorColumn ctermbg=3
+set colorcolumn=81
 highlight Visual cterm=reverse  
 hi CursorLine ctermbg=7
 hi Cursor ctermbg=green ctermfg=blue
 hi LineNr ctermfg=white
 hi CursorLineNr cterm=bold ctermfg=red
-
-nnoremap <Leader>m :w<CR>:silent ! compilemd %<CR>:source $MYVIMRC<CR>
-
 " Ignore files vim doesnt use
 set wildignore+=.git,.hg,.svn
 set wildignore+=*.aux,*.out,*.toc
@@ -40,9 +38,6 @@ set wildignore+=*.eot,*.otf,*.ttf,*.woff
 set wildignore+=*.doc,*.pdf,*.cbr,*.cbz
 set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz,*.kgb
 set wildignore+=*.swp,.lock,.DS_Store,._*
-
-autocmd FileType markdown set tabstop=4 shiftwidth=4
-autocmd FileType wiki set tabstop=4 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "  PLUG-INS [start]
@@ -81,6 +76,7 @@ Plugin 'junegunn/goyo.vim'
     set showcmd
     set scrolloff=5
     highlight CursorLineNr ctermfg=red
+    source $MYVIMRC
   endfunction
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
@@ -89,7 +85,6 @@ Plugin 'vimwiki/vimwiki'
 call vundle#end()
 filetype plugin indent on
 
-
 if !has('gui_running')
   set t_Co=256
 endif
@@ -97,8 +92,8 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "  SHORTCUTS/MAPPINGS/ABREVIATIONS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Make it easier to refresh vimrc within vim.
-
+" Compile the current document into markdown syntax pdf.
+nnoremap <Leader>m :w<CR>:silent ! compilemd %<CR>:source $MYVIMRC<CR>
 " Moving around windows
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
@@ -109,15 +104,10 @@ noremap <C-y> <C-w><
 noremap <C-u> <C-w>+
 noremap <C-i> <C-w>-
 noremap <C-o> <C-w>>
-
-function! RefreshVimrc()
-  inoremap <F5>   <Esc>:source<Space>$MYVIMRC<CR>i
-  nnoremap <F5>   :source<Space>$MYVIMRC<CR>
-  vnoremap <F5>   <Esc>:source<Space>$MYVIMRC<CR>
-endfunction
-
-call RefreshVimrc()
-      
+" Refresh vimrc
+inoremap <F5>   <Esc>:source<Space>$MYVIMRC<CR>:echom ".vimrc refreshed"<CR>i
+nnoremap <F5>   :source<Space>$MYVIMRC<CR>:echom ".vimrc refreshed"<CR>
+vnoremap <F5>   <Esc>:source<Space>$MYVIMRC<CR>:echom ".vimrc refreshed"<CR>
 " Unmapping rubbish keys
 nnoremap Q      <Nop>
 vnoremap Q      <Nop>
@@ -140,7 +130,6 @@ vnoremap <F11>  <Nop>
 inoremap <F12>  <Nop>
 nnoremap <F12>  <Nop>
 vnoremap <F12>  <Nop>
- 
 " Hardcore Vim
 nnoremap <Home>   <Nop>
 nnoremap <End>    <Nop>
@@ -156,7 +145,6 @@ vnoremap <Right>  <Nop>
 vnoremap <Left>   <Nop>
 vnoremap <Up>     <Nop>
 vnoremap <Down>   <Nop>
-
 " Copy and paste to the clipboard
 set clipboard=unnamedplus
 inoremap <C-y> <Nop>
@@ -165,41 +153,73 @@ vnoremap <C-y> "+y
 inoremap <C-p> <Esc>"+pi
 nnoremap <C-p> "+p
 vnoremap <C-p> "+p
-
-"vnoremap <Leader><Leader>/<++><Enter>
-"nnoremap <Leader><Leader> /<++><Enter>
-"nnoremap <Leader>1 <Esc>/++><Enter>h"_c4l
-"inoremap <Leader><Leader> <Esc>/<++><Enter>
-"inoremap <Leader>1 <Esc>/++><Enter>h"_c4l
-"vnoremap <Leader><Leader> /<++><Enter>
+" Make saving quicker
+nnoremap SS :w<CR>
+nnoremap H 0
+vnoremap H 0
+nnoremap L $
+vnoremap L $
+nnoremap K 0i<BS><Space><Esc>h
+nnoremap v <C-v>
+nnoremap M :marks abcdefghijklmnopqrstuvwxyz<CR>
+nnoremap <Leader>dm :delmarks abcdefghijklmnopqrstuvwxyz<CR>:echom "Marks deleted."<CR>
+let g:EIGHTY=0
+set colorcolumn=81
+function! EIGHTYon()
+  highlight ColorColumn ctermbg=grey
+endfunction
+function! EIGHTYoff()
+  highlight ColorColumn ctermbg=none
+endfunction
+function! EIGHTYtoggle()
+  if !g:EIGHTY
+    let g:EIGHTY=1
+    call EIGHTYon()
+  else 
+    let g:EIGHTY=0
+    call EIGHTYoff()
+  endif
+endfunction
+call EIGHTYtoggle()
+nnoremap <Leader>cl :call EIGHTYtoggle()<CR>
+" Text Hooks
+vnoremap <Leader><Leader> /<++><Enter>
+nnoremap <Leader><Leader> /<++><Enter>
+nnoremap <Leader>' <Esc>/++><Enter>h"_c4l
+inoremap <Leader><Leader> <Esc>/<++><Enter>
+inoremap <Leader>' <Esc>/++><Enter>h"_c4l
+vnoremap <Leader><Leader> /<++><Enter>
 " Paste hook?
-"vnoremap ~~ /++><Enter>Nh
-"nnoremap <S-Leader><S-Leader> iBLAH<Esc>
-"nnoremap <S-Leader><S-Leader> /++><Enter>Nh
-"inoremap ~~ <Esc>/++><Enter>Nhi
-"vnoremap ~~ /++><Enter>Nh
-"nnoremap <Leader>vrc :vsplit<Space>~/.vimrc<Enter>
-"nnoremap <Leader>brc :vsplit<Space>~/.bashrc<Enter>
+nnoremap <Leader>vv :vsplit<Space>~/.vimrc<Enter>
+nnoremap <Leader>bb :vsplit<Space>~/.bashrc<Enter>
+vnoremap <Leader>h <Esc><++>
+inoremap <Leader>h <++>
+vnoremap <Leader>h <++>
+" Commenting out paragraphs or lines
+nnoremap <Leader>/ {j>ip0<C-v>}0kc#<Esc>
+nnoremap <Leader>? {j<C-v>}k0x<ip
+" Run python file
+nnoremap <Leader>r :w<CR>:! clear && python3 %<CR>
+" Automatically make a notes file and open it in vsplit
+nnoremap <Leader>g :! touch $(basename % .py).md<CR>:vsp ! basename % .py<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" GENERAL TEX SHORTCUTS 
+" FILETYPE SPECIFIC SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"autocmd FileType tex inoremap <C-\> <Esc>o\item<Space>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" TEX MATH MODE - shortcuts to improve the experience of writing equations
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"autocmd FileType tex inoremap  <Leader>m <esc>:call ToggleMATH()<CR>
-
+autocmd FileType markdown set tabstop=4 shiftwidth=4
+autocmd FileType wiki set tabstop=4 
+" LaTeX Settings
 function! InputTex()
   nnoremap  <Leader>m :call ToggleMATH()<CR>
   nnoremap  <Leader>m :call ToggleMATH()<CR>
+" nnoremap  <Leader>n :call ToggleNOTES()<CR>
+" nnoremap  <Leader>n :call ToggleNOTES()<CR>
 endfunction
-
 autocmd FileType tex call InputTex()
 
-"autocmd FileType tex 
-
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" TEX MATH MODE - shortcuts to improve the experience of writing equations
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:MATH=0
 " MATH TOGGLE
 function! ToggleMATH()

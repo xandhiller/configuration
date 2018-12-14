@@ -1,7 +1,7 @@
 URxvt.font:       xft:monospace:size=8
 URxvt.scrollBar:  false
 !! URxvt.transparent: true
-URxvt.background: [99]#000000
+URxvt.background: [99]#888888
 !! URxvt.fading:     90
 URxvt.iso14755: true
 URxvt.iso14755_52: false
