@@ -8,7 +8,7 @@ set shiftwidth=2
 set expandtab
 set splitright 
 set splitbelow
-colorscheme default
+colorscheme evening
 highlight Visual cterm=reverse
 syntax on
 set number relativenumber

@@ -76,7 +76,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-   PS1='${debian_chroot:+($debian_chroot)}\[\033[01;90m\] [\w]\[\033[00m\] '
+   PS1='${debian_chroot:+($debian_chroot)}\[\033[01;37m\] [\w]\[\033[00m\] '
 else
    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\% '
 fi
@@ -139,7 +139,6 @@ fi
 # Custom Edits
 ################################################################################
 
-$PS1=\[ \W\] 
 
 # Shortcuts for the terminal
 source ~/GitHub/configuration/shortcuts.sh

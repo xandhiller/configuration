@@ -2,7 +2,7 @@
 exec --no-startup-id ~/.bashrc
 set $mod Mod4
 font pango:monospace 8
-set $term urxvt -fg "#FFFFFF" -bg "#000000"
+set $term urxvt 
 set $fn   XF86WakeUp
 set $lock ~/.scripts/pLock/pLock.sh
 set $kbLight python3 /usr/local/bin/kb-light.py --up
@@ -47,7 +47,7 @@ set $acol3       "#FFFFFF"
 # Background of desktop
 exec --no-startupid hsetroot -solid "#EEEEEE"
 
-new_window pixel 3
+new_window pixel 4
 
 #                       BORDER		    BACKGROUND	  TEXT		  
 client.focused		      $col	        $col          $black	    $acol
@@ -66,8 +66,8 @@ bar {
     background "#444444"
     statusline "#FFFFFF"
     separator "#444444"
-    focused_workspace "#FFFFFF" $grey "#000000"
-    inactive_workspace $grey "#444444" $grey
+    focused_workspace "#444444" $grey "#000000"
+    inactive_workspace "#444444" "#444444" $grey
   }  
   tray_padding 0
 }
