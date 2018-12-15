@@ -85,7 +85,18 @@ Plugin 'vimwiki/vimwiki'
   let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
 call vundle#end()
 filetype plugin indent on
+let s:vimwiki = {}
+let s:vimwiki.path = '~/vimwiki'
+let s:vimwiki.ext = '.md'
+let s:vimwiki.syntax = 'default'
 
+" let s:vimwiki.diary_rel_path = 'journal/'
+" let s:vimwiki.diary_index = 'index'
+" let s:vimwiki.diary_header = 'Journal'
+" let s:vimwiki.diary_sort = 'asc'
+
+let s:vimwiki.ext2syntax = {}
+let g:vimwiki_list = [s:vimwiki]
 if !has('gui_running')
   set t_Co=256
 endif
@@ -201,8 +212,9 @@ nnoremap <Leader>/ {j>ip0<C-v>}0kc#<Esc>
 nnoremap <Leader>? {j<C-v>}k0x<ip
 " Run python file
 nnoremap <Leader>r :w<CR>:! clear && python3 %<CR>
-" Automatically make a notes file and open it in vsplit
-noremap <Leader>n :vsp %:r.md
+" Automatically make a notes file in the same firecotry as current file and 
+"   open it in vsplit
+noremap <Leader>nn :vsp %:p:h/_notes.md<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FILETYPE SPECIFIC SETTINGS
