@@ -38,6 +38,7 @@ set wildignore+=*.eot,*.otf,*.ttf,*.woff
 set wildignore+=*.doc,*.pdf,*.cbr,*.cbz
 set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz,*.kgb
 set wildignore+=*.swp,.lock,.DS_Store,._*
+set wildmenu
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "  PLUG-INS [start]
@@ -201,7 +202,7 @@ nnoremap <Leader>? {j<C-v>}k0x<ip
 " Run python file
 nnoremap <Leader>r :w<CR>:! clear && python3 %<CR>
 " Automatically make a notes file and open it in vsplit
-nnoremap <Leader>g :! touch $(basename % .py).md<CR>:vsp ! basename % .py<CR>
+noremap <Leader>n :vsp %:r.md
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FILETYPE SPECIFIC SETTINGS
@@ -266,8 +267,8 @@ endfunction
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TEX NOTES MODE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-inoremap  <Leader>n <esc>:call ToggleNOTES()<CR>
-nnoremap  <Leader>n :call ToggleNOTES()<CR>
+" inoremap  <Leader>n <esc>:call ToggleNOTES()<CR>
+" nnoremap  <Leader>n :call ToggleNOTES()<CR>
 let g:NOTES=0
 function! ToggleNOTES()
   if !g:NOTES
