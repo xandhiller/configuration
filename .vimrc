@@ -8,7 +8,7 @@ set shiftwidth=2
 set expandtab
 set splitright 
 set splitbelow
-colorscheme evening
+colorscheme industry
 highlight Visual cterm=reverse
 syntax on
 set number relativenumber
@@ -23,10 +23,8 @@ set colorcolumn=80
 highlight ColorColumn ctermbg=3
 set colorcolumn=81
 highlight Visual cterm=reverse  
-hi CursorLine ctermbg=7
-hi Cursor ctermbg=green ctermfg=blue
-hi LineNr ctermfg=white
-hi CursorLineNr cterm=bold ctermfg=red
+hi LineNr ctermfg=29
+hi CursorLineNr cterm=reverse ctermfg=29
 " Ignore files vim doesnt use
 set wildignore+=.git,.hg,.svn
 set wildignore+=*.aux,*.out,*.toc
@@ -39,6 +37,8 @@ set wildignore+=*.doc,*.pdf,*.cbr,*.cbz
 set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz,*.kgb
 set wildignore+=*.swp,.lock,.DS_Store,._*
 set wildmenu
+set hlsearch
+hi Function ctermfg=53
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "  PLUG-INS [start]
@@ -83,23 +83,20 @@ autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 Plugin 'vimwiki/vimwiki'
   let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
-call vundle#end()
-filetype plugin indent on
-let s:vimwiki = {}
-let s:vimwiki.path = '~/vimwiki'
-let s:vimwiki.ext = '.md'
-let s:vimwiki.syntax = 'default'
+  call vundle#end()
+  filetype plugin indent on
+  let s:vimwiki = {}
+  let s:vimwiki.path = '~/vimwiki'
+  let s:vimwiki.ext = '.md'
+  let s:vimwiki.syntax = 'default'
+  let s:vimwiki.ext2syntax = {}
+  let g:vimwiki_list = [s:vimwiki]
+Plugin 'connorholyday/vim-snazzy'
 
-" let s:vimwiki.diary_rel_path = 'journal/'
-" let s:vimwiki.diary_index = 'index'
-" let s:vimwiki.diary_header = 'Journal'
-" let s:vimwiki.diary_sort = 'asc'
-
-let s:vimwiki.ext2syntax = {}
-let g:vimwiki_list = [s:vimwiki]
 if !has('gui_running')
   set t_Co=256
 endif
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "  SHORTCUTS/MAPPINGS/ABREVIATIONS
@@ -112,7 +109,7 @@ noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 " Resizing windows
-noremap <C-y> <C-w><
+noremap <C-O> <C-w><
 noremap <C-u> <C-w>+
 noremap <C-i> <C-w>-
 noremap <C-o> <C-w>>
@@ -214,7 +211,13 @@ nnoremap <Leader>? {j<C-v>}k0x<ip
 nnoremap <Leader>r :w<CR>:! clear && python3 %<CR>
 " Automatically make a notes file in the same firecotry as current file and 
 "   open it in vsplit
-noremap <Leader>nn :vsp %:p:h/_notes.md<CR>
+nnoremap <Leader>nn :vsp %:p:h/_notes.md<CR>
+" Turn off highlight search
+nnoremap <Leader><CR> :noh<CR>
+" Insert a line of space above and below the line you're on
+nnoremap <Leader>o ko<Esc>jjO<Esc>k
+nnoremap o o<Esc>
+nnoremap O O<Esc>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FILETYPE SPECIFIC SETTINGS
@@ -229,6 +232,7 @@ function! InputTex()
 " nnoremap  <Leader>n :call ToggleNOTES()<CR>
 endfunction
 autocmd FileType tex call InputTex()
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" TEX MATH MODE - shortcuts to improve the experience of writing equations
@@ -276,6 +280,7 @@ function! MATHOff()
   unmap <Leader>tb \textbf{<++>}<++><esc>Bi 
 endfunction
 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TEX NOTES MODE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -297,3 +302,4 @@ function! NOTESoff()
   let g:NOTES=0
   echo "NOTE macros DEACTIVATED."
 endfunction
+
