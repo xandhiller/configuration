@@ -54,6 +54,8 @@ alias sc="vim ~/.scripts"
 alias tmx="vim ~/.tmux.conf"
 alias xdf="vim ~/.Xdefaults && xrdb -merge ~/.Xdefaults"
 alias vwk="vim ~/vimwiki/index.md"
+alias la="ls -1a"
+alias lsa="la -a"
 
 alias record="ffmpeg -f x11grab -s 1600x900 -i :0.0 ~/Videos/screenRecording.mkv"
 # Ensure that all new scripts have the shebang and are created in ~/.scripts.

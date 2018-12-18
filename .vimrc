@@ -209,6 +209,7 @@ nnoremap <Leader>/ {j>ip0<C-v>}0kc#<Esc>
 nnoremap <Leader>? {j<C-v>}k0x<ip
 " Run python file
 nnoremap <Leader>r :w<CR>:! clear && python3 %<CR>
+nnoremap <Leader>R :w<CR>:! clear && time python3 %<CR>
 " Automatically make a notes file in the same firecotry as current file and 
 "   open it in vsplit
 nnoremap <Leader>nn :vsp %:p:h/_notes.md<CR>

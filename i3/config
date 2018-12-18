@@ -10,6 +10,7 @@ set $touchpad exec --no-startup-id sh ~/.scripts/touch_toggle
 set $terminalDraw ~/.scripts/term
 set $textbookOpener ~/.scripts/textbookOpener
 set $listScripts ~/.scripts/listScripts
+set $fullScChrome ~/.scripts/fullScChrome
 
 # Make all windows floating
 #for_window [class="[.]*"] floating enable
@@ -197,10 +198,16 @@ bindsym $mod+y exec --no-startup-id sh ~/.scripts/keyRemaps && notify-send "Key 
 # exec --no-startup-id wal -i ~/Pictures/Wallpapers/rain_sybP.jpg
 
 for_window [class="URxvt" instance="floating"] floating enable
-bindsym $mod+z  exec --no-startup-id $terminalDraw 
-bindsym $mod+a  exec --no-startup-id $textbookOpener
-bindsym $mod+Up exec --no-startup-id $lock
-bindsym $mod+s  exec --no-startup-id $listScripts
+bindsym $mod+z        exec --no-startup-id $terminalDraw 
+bindsym $mod+a        exec --no-startup-id $textbookOpener
+bindsym $mod+Up       exec --no-startup-id $lock
+bindsym $mod+s        exec --no-startup-id $listScripts
+bindsym $mod+Shift+f  exec --no-startup-id $fullScChrome
+
+
+
+
+
 
 #  TODO:
 # Sync background with status bar colour.
