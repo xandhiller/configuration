@@ -17,6 +17,8 @@ set $fullScChrome ~/.scripts/fullScChrome
 
 gaps inner 0
 gaps outer 0
+new_window pixel 4
+layout tabbed
 
 # Good colours: #ababff (blue), #abffff(green)
 # Set colours:
@@ -48,7 +50,6 @@ set $acol3       "#FFFFFF"
 # Background of desktop
 exec --no-startupid hsetroot -solid "#EEEEEE"
 
-new_window pixel 4
 
 #                       BORDER		    BACKGROUND	  TEXT		  
 client.focused		      $col	        $col          $black	    $acol
@@ -158,8 +159,8 @@ bindsym $mod+r mode "resize"
 
 # Pop-Up Mode
 for_window [instance="terminal process"] floating enable
-for_window [instance="terminal process"] resize set 500 100
-for_window [instance="terminal process"] move position 550 400
+for_window [instance="terminal process"] resize set 400 100
+for_window [instance="terminal process"] move position 1200 800
 
 bindsym $mod+p exec --no-startup-id $term -name "terminal process"
 
@@ -177,7 +178,7 @@ bindsym $mod+Shift+p exec --no-startup-id $term -e python3
 
 bindsym $mod+Shift+o exec --no-startup-id $term -e julia
 bindsym $mod+c            move position center
-bindsym $mod+Shift+c      resize set 625 400
+bindsym $mod+$fn+space    floating toggle, resize set 625 400
 bindsym $mod+Ctrl+space   floating toggle, resize set 625 400, move position center
 
 # nb: Mod1 = alt keys

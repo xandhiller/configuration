@@ -5,7 +5,7 @@ alias grep="grep --color=auto"
 alias ccat="highlight --force --out-format=ansi --quiet"
 alias ag="sudo apt-get"
 alias agi="sudo apt-get install"
-alias mkdir="mkdir -pv"
+alias mkdir="mkdir"
 alias ref="source ~/.bashrc"
 alias r="ranger"
 alias e="exit"
@@ -56,7 +56,8 @@ alias xdf="vim ~/.Xdefaults && xrdb -merge ~/.Xdefaults"
 alias vwk="vim ~/vimwiki/index.md"
 alias la="ls -1a"
 alias lsa="la -a"
+alias sc="scrot -e 'mv $f ~/ScreenShots/'"
+alias scs="scrot -se 'mv $f ~/ScreenShots/'"
 
 alias record="ffmpeg -f x11grab -s 1600x900 -i :0.0 ~/Videos/screenRecording.mkv"
 # Ensure that all new scripts have the shebang and are created in ~/.scripts.
-#alias nsc="echo \"#! /bin/sh \n\" > 

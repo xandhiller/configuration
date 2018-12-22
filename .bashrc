@@ -165,3 +165,5 @@ export PATH="$PATH:$scripts:$julia:$matlab"
 #tmux
 c
 alias l='ls -1'
+feh --bg-fill ~/Pictures/bandwSO.png
+export $(dbus-launch)

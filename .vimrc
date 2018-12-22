@@ -203,7 +203,8 @@ nnoremap <Leader>vv :vsplit<Space>~/.vimrc<Enter>
 nnoremap <Leader>bb :vsplit<Space>~/.bashrc<Enter>
 vnoremap <Leader>h <Esc><++>
 inoremap <Leader>h <++>
-vnoremap <Leader>h <++>
+nnoremap <Leader>h i<++><Esc>
+vnoremap <Leader>h <Esc>i<++><Esc>
 " Commenting out paragraphs or lines
 nnoremap <Leader>/ {j>ip0<C-v>}0kc#<Esc>
 nnoremap <Leader>? {j<C-v>}k0x<ip
