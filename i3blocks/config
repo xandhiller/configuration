@@ -16,6 +16,6 @@ interval=5
 command=~/.scripts/i3battery1
 interval=5
 
-[]
-command=echo " "
-interval=1000
+#   []
+#   command=echo " "
+#    interval=1000

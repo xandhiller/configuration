@@ -1,46 +1,40 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"  APPEARANCE/INPUT [end]
+"  APPEARANCE/INPUT 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader=";"
+colorscheme peachpuff
+syntax on
 set nocompatible
 set tabstop=2
 set shiftwidth=2
 set expandtab
 set splitright 
 set splitbelow
-colorscheme industry
-highlight Visual cterm=reverse
-syntax on
-set number relativenumber
+set number 
+set relativenumber
 set confirm
 set cmdheight=1
 set autoindent
 set linebreak
 set ignorecase
 set smartcase
-set updatetime=100
-set colorcolumn=80
-highlight ColorColumn ctermbg=3
-set colorcolumn=81
-highlight Visual cterm=reverse  
-hi LineNr ctermfg=29
-hi CursorLineNr cterm=reverse ctermfg=29
-" Ignore files vim doesnt use
-set wildignore+=.git,.hg,.svn
-set wildignore+=*.aux,*.out,*.toc
-set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest,*.rbc,*.class
-set wildignore+=*.ai,*.bmp,*.gif,*.ico,*.jpg,*.jpeg,*.png,*.psd,*.webp
-set wildignore+=*.avi,*.divx,*.mp4,*.webm,*.mov,*.m2ts,*.mkv,*.vob,*.mpg,*.mpeg
-set wildignore+=*.mp3,*.oga,*.ogg,*.wav,*.flac
-set wildignore+=*.eot,*.otf,*.ttf,*.woff
-set wildignore+=*.doc,*.pdf,*.cbr,*.cbz
-set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz,*.kgb
-set wildignore+=*.swp,.lock,.DS_Store,._*
+set cursorline
 set wildmenu
 set hlsearch
-hi Function ctermfg=53
+set updatetime=100
+set colorcolumn=81
+hi Visual       cterm=reverse
+hi ColorColumn  ctermbg=3
+hi LineNr       ctermfg=29
+hi CursorLineNr cterm=reverse   ctermfg=29
+hi Folded       ctermfg=61      ctermbg=none
+hi VertSplit    ctermbg=42      ctermfg=41
+hi StatusLine   ctermbg=black   ctermfg=41
+hi StatusLineNC ctermbg=black   ctermfg=23
+hi CursorLine   cterm=none      ctermbg=237
+hi String ctermfg=35
+hi Number ctermfg=134
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 "  PLUG-INS [start]
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set rtp+=~/.vim/bundle/Vundle.vim/ 
@@ -77,7 +71,6 @@ Plugin 'junegunn/goyo.vim'
     set showcmd
     set scrolloff=5
     highlight CursorLineNr ctermfg=red
-    source $MYVIMRC
   endfunction
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
@@ -98,21 +91,20 @@ if !has('gui_running')
 endif
 
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "  SHORTCUTS/MAPPINGS/ABREVIATIONS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Compile the current document into markdown syntax pdf.
-nnoremap <Leader>m :w<CR>:silent ! compilemd %<CR>:source $MYVIMRC<CR>
+nnoremap <Leader>md :w<CR>:silent ! livemd.py %:p %:p<CR>:source $MYVIMRC<CR>
 " Moving around windows
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 " Resizing windows
-noremap <C-O> <C-w><
-noremap <C-u> <C-w>+
-noremap <C-i> <C-w>-
-noremap <C-o> <C-w>>
+noremap <C-Left>  5<C-w><
+noremap <C-Down>  5<C-w>+
+noremap <C-Up>    5<C-w>-
+noremap <C-Right> 5<C-w>>
 " Refresh vimrc
 inoremap <F5>   <Esc>:source<Space>$MYVIMRC<CR>:echom ".vimrc refreshed"<CR>i
 nnoremap <F5>   :source<Space>$MYVIMRC<CR>:echom ".vimrc refreshed"<CR>
@@ -170,7 +162,7 @@ nnoremap L $
 vnoremap L $
 nnoremap K 0i<BS><Space><Esc>h
 nnoremap v <C-v>
-nnoremap M :marks abcdefghijklmnopqrstuvwxyz<CR>
+nnoremap <Leader>m :marks abcdefghijklmnopqrstuvwxyz<CR>
 nnoremap <Leader>dm :delmarks abcdefghijklmnopqrstuvwxyz<CR>:echom "Marks deleted."<CR>
 let g:EIGHTY=0
 set colorcolumn=81
@@ -189,7 +181,8 @@ function! EIGHTYtoggle()
     call EIGHTYoff()
   endif
 endfunction
-call EIGHTYtoggle()
+"call EIGHTYtoggle()
+call EIGHTYoff()
 nnoremap <Leader>cl :call EIGHTYtoggle()<CR>
 " Text Hooks
 vnoremap <Leader><Leader> /<++><Enter>
@@ -220,8 +213,19 @@ nnoremap <Leader><CR> :noh<CR>
 nnoremap <Leader>o ko<Esc>jjO<Esc>k
 nnoremap o o<Esc>
 nnoremap O O<Esc>
+" Change the character below the cursor to uppercase.
+nnoremap <Leader>u vu
+nnoremap <Leader>U vU
+nnoremap <Leader>f zfip
+nnoremap <Leader>e zD
+nnoremap <Leader>E zE
+nnoremap <Leader>F zfip}j
+nnoremap <Leader>= <C-w>=
+nnoremap <Leader>co :vsp col<CR>:source ~/.colorDemo.vim<CR>
+nnoremap QQ :q!<CR>
+nnoremap Y y$
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " FILETYPE SPECIFIC SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd FileType markdown set tabstop=4 shiftwidth=4
@@ -236,8 +240,8 @@ endfunction
 autocmd FileType tex call InputTex()
 
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" TEX MATH MODE - shortcuts to improve the experience of writing equations
+" TEX MATH MODE 
+"   shortcuts to improve the experience of writing equations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:MATH=0
 " MATH TOGGLE
@@ -283,7 +287,6 @@ function! MATHOff()
 endfunction
 
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TEX NOTES MODE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " inoremap  <Leader>n <esc>:call ToggleNOTES()<CR>
@@ -305,3 +308,16 @@ function! NOTESoff()
   echo "NOTE macros DEACTIVATED."
 endfunction
 
+
+" IGNORE FILES VIM DOESN'T USE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set wildignore+=.git,.hg,.svn
+set wildignore+=*.aux,*.out,*.toc
+set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest,*.rbc,*.class
+set wildignore+=*.ai,*.bmp,*.gif,*.ico,*.jpg,*.jpeg,*.png,*.psd,*.webp
+set wildignore+=*.avi,*.divx,*.mp4,*.webm,*.mov,*.m2ts,*.mkv,*.vob,*.mpg,*.mpeg
+set wildignore+=*.mp3,*.oga,*.ogg,*.wav,*.flac
+set wildignore+=*.eot,*.otf,*.ttf,*.woff
+set wildignore+=*.doc,*.pdf,*.cbr,*.cbz
+set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz,*.kgb
+set wildignore+=*.swp,.lock,.DS_Store,._*

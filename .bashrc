@@ -3,7 +3,7 @@
 #################################################################
 
 # Enable 256 colour.
-export TERM="xterm-256color"
+export TERM='xterm-256color'
 
 # added by Anaconda3 5.3.0 installer
 # >>> conda init >>>
@@ -139,31 +139,8 @@ fi
 # Custom Edits
 ################################################################################
 
-
 # Shortcuts for the terminal
 source ~/GitHub/configuration/shortcuts.sh
-
-# Binary files in weird places
-#alias julia='/home/polluticorn/bin/julia/julia'
-# alias matlab='/home/polluticorn/bin/MATLAB/2018b/bin/matlab'
-
-# Init vi mode in bash
+# vi mode in bash
 set -o vi
 set show-mode-in-prompt on
-
-# Sourcing fuzzy finder
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
-# Fuzzy finder settings
-export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
-julia="/usr/local/bin/julia-1.0.1/bin/"
-scripts="$HOME/.scripts/"
-matlab='/home/polluticorn/bin/MATLAB/2018b/bin/matlab'
-export PATH="$PATH:$scripts:$julia:$matlab"
-
-#wal -R -q
-#tmux
-c
-alias l='ls -1'
-feh --bg-fill ~/Pictures/bandwSO.png
-export $(dbus-launch)

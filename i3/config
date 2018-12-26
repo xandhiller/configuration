@@ -2,23 +2,30 @@
 exec --no-startup-id ~/.bashrc
 set $mod Mod4
 font pango:monospace 8
-set $term urxvt 
+set $term st 
 set $fn   XF86WakeUp
-set $lock ~/.scripts/pLock/pLock.sh
+set $lock ~/.scripts/pLock.sh
 set $kbLight python3 /usr/local/bin/kb-light.py --up
 set $touchpad exec --no-startup-id sh ~/.scripts/touch_toggle
 set $terminalDraw ~/.scripts/term
 set $textbookOpener ~/.scripts/textbookOpener
 set $listScripts ~/.scripts/listScripts
-set $fullScChrome ~/.scripts/fullScChrome
 
-# Make all windows floating
-#for_window [class="[.]*"] floating enable
-
+# Default setup
 gaps inner 0
 gaps outer 0
 new_window pixel 4
-layout tabbed
+workspace_layout tabbed
+focus_follows_mouse no
+exec --no-startup-id compton -f -i 1.0 
+exec --no-startupid hsetroot -solid "#EEEEEE"
+exec --nostarup-id feh --bg-fill ~/Pictures/bandwSO.png
+
+# Workspace Names
+set $ws1 1: α 
+set $ws2 2: β 
+set $ws3 3: λ 
+set $ws4 4: φ 
 
 # Good colours: #ababff (blue), #abffff(green)
 # Set colours:
@@ -47,28 +54,25 @@ set $acol2       "#333333"
 set $col3        "#333333" 
 set $acol3       "#FFFFFF"
 
-# Background of desktop
-exec --no-startupid hsetroot -solid "#EEEEEE"
-
 
 #                       BORDER		    BACKGROUND	  TEXT		  
-client.focused		      $col	        $col          $black	    $acol
-client.unfocused	      $col2	        $col2         $black	    $acol2  
-client.focused_inactive	$col3	        $col3         $black	    $acol3
-client.urgent		        $grey	        $grey         $black	    $grey  
-client.placeholder      $grey	        $grey         $black	    $grey  
+client.focused		      $col	        $col          $col	    $acol
+client.unfocused	      $col2	        $col2         $col2	    $acol2  
+client.focused_inactive	$col3	        $col3         $col3	    $acol3
+client.urgent		        $grey	        $grey         $grey	    $grey  
+client.placeholder      $grey	        $grey         $grey	    $grey  
 client.background       $black
 
 bar {
 	font pango:mono 8
   status_command i3blocks
-	position top
+	position bottom
   strip_workspace_numbers yes
   colors{
     background "#444444"
     statusline "#FFFFFF"
     separator "#444444"
-    focused_workspace "#444444" $grey "#000000"
+    focused_workspace $grey $grey "#000000"
     inactive_workspace "#444444" "#444444" $grey
   }  
   tray_padding 0
@@ -108,11 +112,6 @@ bindsym $mod+Shift+space floating toggle, resize set 1200 850, move position cen
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
 
-# Workspace Names
-set $ws1 1: α 
-set $ws2 2: β 
-set $ws3 3: λ 
-set $ws4 4: φ 
 
 # Workspace Movements
 bindsym $mod+1 workspace $ws1
@@ -161,44 +160,27 @@ bindsym $mod+r mode "resize"
 for_window [instance="terminal process"] floating enable
 for_window [instance="terminal process"] resize set 400 100
 for_window [instance="terminal process"] move position 1200 800
-
-bindsym $mod+p exec --no-startup-id $term -name "terminal process"
-
-bindsym $mod+Shift+Next move scratchpad
-bindsym $mod+Next scratchpad show
-bindsym $mod+Shift+m exec --no-startup-id $term -n math -e octave --no-gui
+bindsym $mod+p exec --no-startup-id $term -n "terminal process"
 
 # Bind certain kinds of windows to certain workspaces
 for_window [title="float-search"] floating enable
 for_window [title="float-search"] resize set 625 400
-
 bindsym $mod+Shift+Return exec --no-startup-id google-chrome-stable 
 bindsym $mod+Ctrl+Return exec --no-startup-id google-chrome-stable #make it float
 bindsym $mod+Shift+p exec --no-startup-id $term -e python3 
-
-bindsym $mod+Shift+o exec --no-startup-id $term -e julia
 bindsym $mod+c            move position center
 bindsym $mod+$fn+space    floating toggle, resize set 625 400
 bindsym $mod+Ctrl+space   floating toggle, resize set 625 400, move position center
-
 # nb: Mod1 = alt keys
 bindsym $mod+Mod1+space   floating toggle, resize set 700 870, move position center
-#bindsym $mod+End          exec --no-startup-id systemctl suspend
 bindsym $mod+i exec scrot && notify-send "Screenshot taken" -t 25
-
-# Compton
-exec --no-startup-id compton -f -i 1.0 
-
+bindsym $mod+Shift+Next move scratchpad
+bindsym $mod+Next scratchpad show
+bindsym $mod+t $touchpad
 # Keyboard backlight
 bindsym $fn+space $kbLight
-bindsym $mod+t $touchpad
-
 exec --no-startup-id sh ~/.scripts/keyRemaps 
 bindsym $mod+y exec --no-startup-id sh ~/.scripts/keyRemaps && notify-send "Key mappings refreshed" -t 25
-
-# exec --no-startup-id wal -i ~/Pictures/Wallpapers/rain_sybP.jpg
-
-for_window [class="URxvt" instance="floating"] floating enable
 bindsym $mod+z        exec --no-startup-id $terminalDraw 
 bindsym $mod+a        exec --no-startup-id $textbookOpener
 bindsym $mod+Up       exec --no-startup-id $lock
@@ -206,14 +188,8 @@ bindsym $mod+s        exec --no-startup-id $listScripts
 bindsym $mod+Shift+f  exec --no-startup-id $fullScChrome
 
 
-
-
-
-
 #  TODO:
 # Sync background with status bar colour.
-# Place text over the top of background -- stats, todo(s)
 # Note taking mode macros in vim --  with toggle function like math mode.
 # Circuit drawing mode macros in vim for tex -- with toggle function like math
 #   mode.
-# Config editing window script.
