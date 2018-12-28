@@ -1,5 +1,5 @@
 #! /bin/sh
-vimrc="/home/polluticorn/.vimrc"
+vimrc="/home/polluticorn/.config/nvim/init.vim"
 bashrc="/home/polluticorn/.bashrc"
 ith="/home/polluticorn/.config/i3/"
 ithb="/home/polluticorn/.config/i3blocks/"

@@ -1,5 +1,6 @@
 # Bash Program Customisations
 alias open='xdg-open'
+alias vim='nvim'
 alias ls='ls --color=auto --group-directories-first'
 alias grep='grep --color=auto'
 alias ccat='highlight --force --out-format=ansi --quiet'
@@ -19,7 +20,7 @@ alias yta='youtube-dl --add-metadata -xic' # Download audio
 
 # Config Files
 alias brc='vim ~/.bashrc'
-alias vrc='vim ~/.vimrc'
+alias vrc='nvim ~/.config/nvim/init.vim'
 alias it='vim ~/.config/i3/config'
 alias ebsct='vim ~/GitHub/configuration/shortcuts.sh'  # Bash Shortcuts
 alias etsct='vim ~/GitHub/configuration/texShortcuts.vim'
