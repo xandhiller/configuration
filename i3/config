@@ -14,7 +14,7 @@ set $listScripts ~/.scripts/listScripts
 # Default setup
 gaps inner 0
 gaps outer 0
-new_window pixel 4
+new_window pixel 0
 workspace_layout tabbed
 focus_follows_mouse no
 exec --no-startup-id compton -f -i 1.0 

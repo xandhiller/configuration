@@ -1,4 +1,3 @@
-
 "  APPEARANCE/INPUT 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader=";"
@@ -20,20 +19,29 @@ set ignorecase
 set smartcase
 set cursorline
 set wildmenu
-set hlsearch
+set nohlsearch
 set updatecount=1
 set colorcolumn=81
-hi Visual       cterm=reverse
-hi ColorColumn  ctermbg=3
-hi LineNr       ctermfg=29
-hi CursorLineNr cterm=reverse   ctermfg=29
-hi Folded       ctermfg=61      ctermbg=none
-hi VertSplit    ctermbg=42      ctermfg=41
-hi StatusLine   ctermbg=black   ctermfg=41
-hi StatusLineNC ctermbg=black   ctermfg=23
-hi CursorLine   cterm=none      ctermbg=237
-hi String ctermfg=35
-hi Number ctermfg=134
+set shada='50,<1000,s100,:0,n~/nvim/shada
+function! MyHighlights()
+  hi Visual             cterm=none      ctermbg=239
+  hi ColorColumn        ctermbg=3
+  hi LineNr             ctermfg=29
+  hi CursorLineNr       cterm=reverse   ctermfg=29
+  hi Folded             ctermfg=61      ctermbg=none
+  hi VertSplit          ctermbg=42      ctermfg=41
+  hi StatusLine         ctermbg=black   ctermfg=41
+  hi StatusLineNC       ctermbg=black   ctermfg=23
+  hi CursorLine         cterm=none      ctermbg=237
+  hi String             ctermfg=35
+  hi Number             ctermfg=134
+  hi SignColumn         ctermbg=0
+  hi SignatureMarkText  ctermfg=245     ctermbg=0
+endfunction
+call MyHighlights()
+
+" au BufWrite *.md echom "Hello!"
+
 
 
 "  PLUG-INS [start]
@@ -43,7 +51,7 @@ filetype off
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'     
 Plugin 'scrooloose/nerdtree'      
-	map <C-n> :NERDTreeToggle<CR>
+	map <C-n> :NERDTreeToggle<CR><C-w>=
 Plugin 'xuhdev/vim-latex-live-preview'
   let g:livepreview_previewer = 'zathura'
 Plugin 'junegunn/fzf'
@@ -71,7 +79,8 @@ Plugin 'junegunn/goyo.vim'
     set showmode
     set showcmd
     set scrolloff=5
-    highlight CursorLineNr ctermfg=red
+    call MyHighlights()
+    call EIGHTYoff()
   endfunction
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
@@ -82,11 +91,11 @@ Plugin 'vimwiki/vimwiki'
   let s:vimwiki = {}
   let s:vimwiki.path = '~/vimwiki'
   let s:vimwiki.ext = '.md'
-  let s:vimwiki.syntax = 'default'
+  let s:vimwiki.syntax = 'markdown'
   let s:vimwiki.ext2syntax = {}
   let g:vimwiki_list = [s:vimwiki]
 Plugin 'connorholyday/vim-snazzy'
-
+Plugin 'kshenoy/vim-signature'
 if !has('gui_running')
   set t_Co=256
 endif
@@ -94,22 +103,6 @@ endif
 
 "  SHORTCUTS/MAPPINGS/ABREVIATIONS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Compile the current document into markdown syntax pdf.
-nnoremap <Leader>md :w<CR>:silent ! livemd.py %:p %:p<CR>:source $MYVIMRC<CR>
-" Moving around windows
-noremap <C-h> <C-w>h
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
-" Resizing windows
-noremap <C-Left>  5<C-w><
-noremap <C-Down>  5<C-w>+
-noremap <C-Up>    5<C-w>-
-noremap <C-Right> 5<C-w>>
-" Refresh vimrc
-inoremap <F5>   <Esc>:source<Space>$MYVIMRC<CR>:echom ".vimrc refreshed"<CR>i
-nnoremap <F5>   :source<Space>$MYVIMRC<CR>:echom ".vimrc refreshed"<CR>
-vnoremap <F5>   <Esc>:source<Space>$MYVIMRC<CR>:echom ".vimrc refreshed"<CR>
 " Unmapping rubbish keys
 nnoremap Q      <Nop>
 vnoremap Q      <Nop>
@@ -147,6 +140,22 @@ vnoremap <Right>  <Nop>
 vnoremap <Left>   <Nop>
 vnoremap <Up>     <Nop>
 vnoremap <Down>   <Nop>
+" Compile the current document into markdown syntax pdf.
+nnoremap <Leader>md :w<CR>:silent ! livemd.py %:p %:p<CR>:source $MYVIMRC<CR>
+" Moving around windows
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+" Resizing windows
+nnoremap <C-Left>  <C-w><
+nnoremap <C-Down>  <C-w>+
+nnoremap <C-Up>    <C-w>-
+nnoremap <C-Right> <C-w>>
+" Refresh vimrc
+inoremap <F5>   <Esc>:source<Space>$MYVIMRC<CR>:echom "init.vim refreshed"<CR>i
+nnoremap <F5>   :source<Space>$MYVIMRC<CR>:echom "init.vim refreshed"<CR>
+vnoremap <F5>   <Esc>:source<Space>$MYVIMRC<CR>:echom "init.vim refreshed"<CR>
 " Copy and paste to the clipboard
 set clipboard=unnamedplus
 inoremap <C-y> <Nop>
@@ -163,8 +172,6 @@ nnoremap L $
 vnoremap L $
 nnoremap K 0i<BS><Space><Esc>h
 nnoremap v <C-v>
-nnoremap <Leader>m :marks abcdefghijklmnopqrstuvwxyz<CR>
-nnoremap <Leader>dm :delmarks abcdefghijklmnopqrstuvwxyz<CR>:echom "Marks deleted."<CR>
 let g:EIGHTY=0
 set colorcolumn=81
 function! EIGHTYon()
@@ -186,15 +193,17 @@ endfunction
 call EIGHTYoff()
 nnoremap <Leader>cl :call EIGHTYtoggle()<CR>
 " Text Hooks
-vnoremap <Leader><Leader> /<++><Enter>
-nnoremap <Leader><Leader> /<++><Enter>
-nnoremap <Leader>' <Esc>/++><Enter>h"_c4l
-inoremap <Leader><Leader> <Esc>/<++><Enter>
-inoremap <Leader>' <Esc>/++><Enter>h"_c4l
-vnoremap <Leader><Leader> /<++><Enter>
+vnoremap <Leader><Leader> /<++><CR>
+vnoremap <Leader>l ?<++><CR>
+nnoremap <Leader><Leader> /<++><CR>
+nnoremap <Leader>l ?<++><CR>
+nnoremap <Leader>' <Esc>/++><CR>h"_c4l
+inoremap <Leader><Leader> <Esc>/<++><CR>
+inoremap <Leader>l <Esc>?<++><CR>
+inoremap <Leader>' <Esc>/++><CR>h"_c4l
 " Paste hook?
-nnoremap <Leader>vv :vsplit<Space>~/.vimrc<Enter>
-nnoremap <Leader>bb :vsplit<Space>~/.bashrc<Enter>
+nnoremap <Leader>vv :vsplit<Space>$MYVIMRC<CR>
+nnoremap <Leader>bb :vsplit<Space>~/.bashrc<CR>
 vnoremap <Leader>h <Esc><++>
 inoremap <Leader>h <++>
 nnoremap <Leader>h i<++><Esc>
@@ -225,6 +234,39 @@ nnoremap <Leader>= <C-w>=
 nnoremap <Leader>co :vsp col<CR>:source ~/.colorDemo.vim<CR>
 nnoremap QQ :q!<CR>
 nnoremap Y y$
+" Navigating marks in a sane manner
+nnoremap <Left> [' 
+vnoremap <Left> [' 
+nnoremap <Right> ]' 
+vnoremap <Right> ]' 
+" Replacing spaces with underlines in visual selection + the inverse
+vnoremap <Leader>_ :s/\%V /_/g<CR>
+vnoremap <Leader>- :s/\%V /_/g<CR>
+nnoremap <Leader>_ :s/ /_/g<CR>
+nnoremap <Leader>- :s/ /_/g<CR>
+vnoremap <Leader><Space> :s/\%V_/ /g<CR>
+nnoremap <Leader><Space> :s/_/ /g<CR>
+" Bring up command history quicker
+nnoremap <Leader>q q:
+nnoremap <Leader>Q q:k<CR>
+" Function keys being actually functional
+" F1 - write only
+nnoremap <F1> :w<CR>
+inoremap <F1> <Esc>:w<CR>li
+" F2 - write and quit
+nnoremap <F2> :wq<CR>
+inoremap <F2> <Esc>:wq<CR>li
+" F10 - write and quit all
+nnoremap <F10> :wqa<CR>
+inoremap <F10> <Esc>:wqa<CR>li
+" F12 - force quit
+nnoremap <F12> :q!<CR>
+inoremap <F12> <Esc>:q!<CR>li
+
+
+" SHORTCUT COMMENTING
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 
 
 " FILETYPE SPECIFIC SETTINGS
@@ -258,12 +300,13 @@ function! MATHon()
   echo "MATH macros ACTIVATED."
   let g:MATH=1
   inoremap  <Leader>s \sum^{<++>}_{<++>}<++><esc>Bi
-  inoremap  <Leader>e \begin{equation}<Enter><Enter><Esc>0i\end{equation}<Enter><Enter><++><Esc>3kA<Space><Space><++><Esc>k0i
+  inoremap  <Leader>e \begin{equation}<CR><CR><Esc>0i\end{equation}<CR><CR><++><Esc>3kA<Space><Space><++><Esc>k0i
   inoremap  <Leader>i \int^{<++>}_{<++>}<++><esc>Bi
   inoremap  <Leader>f \frac{<++>}{<++>}<++><esc>Bi
   inoremap  <Leader><space> ^{<++>}_{<++>}<++><esc>/\^<CR>Ni
   inoremap  <Leader>t \text{<++>}<++><esc>Bi
   inoremap  <Leader>d \frac{d}{d<++>}\left( <++> \right)<esc>/frac<CR>Nhi
+  inoremap  <Leader>b \begin{<++>}<CR><CR>\end{<++>}<Esc>kk0/<++><CR>
   " ---- More infrequent bindings are bound with "o" for "operation"
   inoremap  <Leader>ol \Lapl{<++>}<++><esc>Bi
   inoremap  <Leader>oL \Lapl{<++>} = \int^{\infty}_{0} <++> e^{st} dt = <++><esc>/Lapl<CR>Nhi
@@ -293,13 +336,8 @@ endfunction
 " inoremap  <Leader>n <esc>:call ToggleNOTES()<CR>
 " nnoremap  <Leader>n :call ToggleNOTES()<CR>
 let g:NOTES=0
-function! ToggleNOTES()
-  if !g:NOTES
-    call NOTESon()
-  else 
-    call NOTESoff()
-  endif
-endfunction
+
+
 function! NOTESon()
   let g:NOTES=1
   echo "NOTE macros ACTIVATED."
@@ -309,6 +347,13 @@ function! NOTESoff()
   echo "NOTE macros DEACTIVATED."
 endfunction
 
+function! ToggleNOTES()
+  if !g:NOTES
+    call NOTESon()
+  else 
+    call NOTESoff()
+  endif
+endfunction
 
 " IGNORE FILES VIM DOESN'T USE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
