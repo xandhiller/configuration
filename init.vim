@@ -107,7 +107,6 @@ endif
 nnoremap Q      <Nop>
 vnoremap Q      <Nop>
 vnoremap <F8>   <Nop>
-vnoremap <F6>   <Nop>
 vnoremap <F7>   <Nop>
 nnoremap <F3>   <Nop>
 nnoremap <F4>   <Nop>
@@ -126,8 +125,6 @@ inoremap <F12>  <Nop>
 nnoremap <F12>  <Nop>
 vnoremap <F12>  <Nop>
 " Hardcore Vim
-nnoremap <Home>   <Nop>
-nnoremap <End>    <Nop>
 nnoremap <Right>  <Nop>
 nnoremap <Left>   <Nop>
 nnoremap <Up>     <Nop>
@@ -262,73 +259,29 @@ inoremap <F10> <Esc>:wqa<CR>li
 " F12 - force quit
 nnoremap <F12> :q!<CR>
 inoremap <F12> <Esc>:q!<CR>li
+nnoremap <Home> ?<++><CR>
+vnoremap <Home> <Esc>?<++><CR>
+inoremap <Home> <Esc>?<++><CR>
+nnoremap <End> /<++><CR>
+vnoremap <End> <Esc>/<++><CR>
+inoremap <End> <Esc>/<++><CR>
+nnoremap <Leader>t :LLPStartPreview<CR>
+" Mathdoc
+nnoremap  <Leader>m :call ToggleMATH()<CR>
+nnoremap <Leader>M vsp ~/.scripts/math.vim
+nnoremap <F6> :source ~/.scripts/math.vim<CR>
+nnoremap <Leader>i :! inkfig %:p:h<CR>
 
 
 " SHORTCUT COMMENTING
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+" TODO
 
 
 " FILETYPE SPECIFIC SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd FileType markdown set tabstop=4 shiftwidth=4
 autocmd FileType wiki set tabstop=4 
-" LaTeX Settings
-function! InputTex()
-  nnoremap  <Leader>m :call ToggleMATH()<CR>
-  nnoremap  <Leader>m :call ToggleMATH()<CR>
-" nnoremap  <Leader>n :call ToggleNOTES()<CR>
-" nnoremap  <Leader>n :call ToggleNOTES()<CR>
-endfunction
-autocmd FileType tex call InputTex()
-
-
-" TEX MATH MODE 
-"   shortcuts to improve the experience of writing equations
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:MATH=0
-" MATH TOGGLE
-function! ToggleMATH()
-  if !g:MATH
-    call MATHon()
-  else 
-    call MATHOff()
-  endif
-endfunction
-" MATH ON
-function! MATHon()
-  echo "MATH macros ACTIVATED."
-  let g:MATH=1
-  inoremap  <Leader>s \sum^{<++>}_{<++>}<++><esc>Bi
-  inoremap  <Leader>e \begin{equation}<CR><CR><Esc>0i\end{equation}<CR><CR><++><Esc>3kA<Space><Space><++><Esc>k0i
-  inoremap  <Leader>i \int^{<++>}_{<++>}<++><esc>Bi
-  inoremap  <Leader>f \frac{<++>}{<++>}<++><esc>Bi
-  inoremap  <Leader><space> ^{<++>}_{<++>}<++><esc>/\^<CR>Ni
-  inoremap  <Leader>t \text{<++>}<++><esc>Bi
-  inoremap  <Leader>d \frac{d}{d<++>}\left( <++> \right)<esc>/frac<CR>Nhi
-  inoremap  <Leader>b \begin{<++>}<CR><CR>\end{<++>}<Esc>kk0/<++><CR>
-  " ---- More infrequent bindings are bound with "o" for "operation"
-  inoremap  <Leader>ol \Lapl{<++>}<++><esc>Bi
-  inoremap  <Leader>oL \Lapl{<++>} = \int^{\infty}_{0} <++> e^{st} dt = <++><esc>/Lapl<CR>Nhi
-  inoremap  <Leader>ti \mathit{<++>}<++><esc>Bi 
-  inoremap  <Leader>tb \mathbf{<++>}<++><esc>Bi 
-endfunction
-" MATH OFF
-function! MATHOff()
-  echo "MATH macros DEACTIVATED."
-  let g:MATH=0
-  unmap <Leader>s
-  unmap <Leader>e
-  unmap <Leader>i
-  unmap <Leader>f
-  unmap <Leader><space>
-  unmap <Leader>t
-  unmap <Leader>d
-  unmap <Leader>ol
-  unmap <Leader>oL
-  unmap <Leader>ti \textit{<++>}<++><esc>Bi 
-  unmap <Leader>tb \textbf{<++>}<++><esc>Bi 
-endfunction
 
 
 " TEX NOTES MODE

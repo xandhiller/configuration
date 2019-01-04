@@ -32,9 +32,13 @@ alias zrc='vim ~/.config/zathura/zathurarc'
 # Template Shortcuts
 alias Txa='cp ~/GitHub/texTemplates/article.tex'
 alias eTxa='vim ~/GitHub/texTemplates/article.tex' # Edit article template.
+alias eTxm='vim ~/GitHub/texTemplates/math.tex'
 alias Txp='cp ~/GitHub/texTemplates/pres.tex'
 alias eTxp='vim ~/GitHub/texTemplates/pres.tex'     #Edit presentation template
 alias jw='~/.scripts/setupJl'
+alias mdc='mathdoc'
+alias emdc='vim ~/.scripts/mathdoc'
+alias emv='vim ~/.scripts/math.vim'
 
 # Custom Scripts
 alias touchpad='bash ~/.scripts/touch_toggle.sh'

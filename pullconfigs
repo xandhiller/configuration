@@ -7,12 +7,14 @@ xdef="/home/polluticorn/.Xdefaults"
 vimplugins="/home/polluticorn/.vim/"
 keyRemaps="/home/polluticorn/.scripts/keyRemaps"
 tmuxconf="/home/polluticorn/.tmux.conf"
+scripts="/home/polluticorn/.scripts/"
 
 cp    $vimrc      .
 cp    $bashrc     .
-cp -R $ith        .
-cp -R $ithb       .
 cp    $xdef       .
-cp -R $vimplugins .
 cp    $keyRemaps  . 
 cp    $tmuxconf   .
+cp -R $ith        .
+cp -R $ithb       .
+cp -R $vimplugins .
+cp -R $scripts    .

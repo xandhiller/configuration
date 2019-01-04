@@ -42,12 +42,12 @@ set $orange      "#DD7020"
 set $darkorange  "#000000"
 set $blue        "#5A65FF"
 set $darkblue    "#2F3690"
-set $grey        "#D0D0D0"
+set $grey        "#666666"
 set $darkgrey    "#606060"
 set $subtlegrey  "#353535"
 
 # This colour is the highlight colour of windows.
-set $col         "#bbbbbb"
+set $col         "#666666"
 set $acol        "#666666"
 set $col2        "#333333"
 set $acol2       "#333333"
@@ -72,8 +72,8 @@ bar {
     background "#444444"
     statusline "#FFFFFF"
     separator "#444444"
-    focused_workspace $grey $grey "#000000"
-    inactive_workspace "#444444" "#444444" $grey
+    focused_workspace $grey $grey "#FFFFFF"
+    inactive_workspace "#444444" "#444444" "#999999"
   }  
   tray_padding 0
 }
@@ -161,6 +161,9 @@ for_window [instance="terminal process"] floating enable
 for_window [instance="terminal process"] resize set 400 100
 for_window [instance="terminal process"] move position 1200 800
 bindsym $mod+p exec --no-startup-id $term -n "terminal process"
+
+
+for_window [class="inkscape"] fullscreen toggle
 
 # Bind certain kinds of windows to certain workspaces
 for_window [title="float-search"] floating enable
