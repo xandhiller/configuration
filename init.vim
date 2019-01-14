@@ -1,5 +1,4 @@
-"  APPEARANCE/INPUT 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"  APPEARANCE/INPUT """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader=";"
 colorscheme peachpuff
 syntax on
@@ -39,9 +38,6 @@ function! MyHighlights()
   hi SignatureMarkText  ctermfg=245     ctermbg=0
 endfunction
 call MyHighlights()
-
-" au BufWrite *.md echom "Hello!"
-
 
 
 "  PLUG-INS [start]
@@ -86,8 +82,6 @@ autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 Plugin 'vimwiki/vimwiki'
   let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
-  call vundle#end()
-  filetype plugin indent on
   let s:vimwiki = {}
   let s:vimwiki.path = '~/vimwiki'
   let s:vimwiki.ext = '.md'
@@ -96,6 +90,8 @@ Plugin 'vimwiki/vimwiki'
   let g:vimwiki_list = [s:vimwiki]
 Plugin 'connorholyday/vim-snazzy'
 Plugin 'kshenoy/vim-signature'
+call vundle#end()
+filetype plugin indent on
 if !has('gui_running')
   set t_Co=256
 endif
@@ -139,6 +135,8 @@ vnoremap <Up>     <Nop>
 vnoremap <Down>   <Nop>
 " Compile the current document into markdown syntax pdf.
 nnoremap <Leader>md :w<CR>:silent ! livemd.py %:p %:p<CR>:source $MYVIMRC<CR>
+" Edit init.vim on the fly
+nnoremap <Leader>vv :vsp $MYVIMRC<CR>
 " Moving around windows
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
@@ -186,25 +184,9 @@ function! EIGHTYtoggle()
     call EIGHTYoff()
   endif
 endfunction
-"call EIGHTYtoggle()
-call EIGHTYoff()
+call EIGHTYtoggle()
+call EIGHTYtoggle()
 nnoremap <Leader>cl :call EIGHTYtoggle()<CR>
-" Text Hooks
-vnoremap <Leader><Leader> /<++><CR>
-vnoremap <Leader>l ?<++><CR>
-nnoremap <Leader><Leader> /<++><CR>
-nnoremap <Leader>l ?<++><CR>
-nnoremap <Leader>' <Esc>/++><CR>h"_c4l
-inoremap <Leader><Leader> <Esc>/<++><CR>
-inoremap <Leader>l <Esc>?<++><CR>
-inoremap <Leader>' <Esc>/++><CR>h"_c4l
-" Paste hook?
-nnoremap <Leader>vv :vsplit<Space>$MYVIMRC<CR>
-nnoremap <Leader>bb :vsplit<Space>~/.bashrc<CR>
-vnoremap <Leader>h <Esc><++>
-inoremap <Leader>h <++>
-nnoremap <Leader>h i<++><Esc>
-vnoremap <Leader>h <Esc>i<++><Esc>
 " Commenting out paragraphs or lines
 nnoremap <Leader>/ {j>ip0<C-v>}0kc#<Esc>
 nnoremap <Leader>? {j<C-v>}k0x<ip
@@ -249,7 +231,7 @@ nnoremap <Leader>Q q:k<CR>
 " Function keys being actually functional
 " F1 - write only
 nnoremap <F1> :w<CR>
-inoremap <F1> <Esc>:w<CR>li
+inoremap <F1> <Esc>:w<CR>a
 " F2 - write and quit
 nnoremap <F2> :wq<CR>
 inoremap <F2> <Esc>:wq<CR>li
@@ -266,31 +248,79 @@ nnoremap <End> /<++><CR>
 vnoremap <End> <Esc>/<++><CR>
 inoremap <End> <Esc>/<++><CR>
 nnoremap <Leader>t :LLPStartPreview<CR>
+inoremap <Leader>t <Esc>:LLPStartPreview<CR>a
 " Mathdoc
 nnoremap  <Leader>m :call ToggleMATH()<CR>
+inoremap  <Leader>m <Esc>:call ToggleMATH()<CR>a
 nnoremap <Leader>M vsp ~/.scripts/math.vim
 nnoremap <F6> :source ~/.scripts/math.vim<CR>
 nnoremap <Leader>i :! inkfig %:p:h<CR>
+" surround.vim is the best, wth is 'selection mode' good for anyway?
+nmap s ys
+nmap ss yss
+nmap si ysi
+" Hooks
+"         ([)
+"     (l) (;) (') 
+"         (.)
+" <Leader><Leader>    Place hook
+inoremap <Leader><Leader> <++>
+nnoremap <Leader><Leader> i<++><Esc>
+vnoremap <Leader><Leader> <Esc>i<++><Esc>
+" <Leader>l     Eat previous hook and go into insert mode
+inoremap <Leader>l <Esc>?<++><CR>lh"_c4l
+nnoremap <Leader>l <Esc>?<++><CR>lh"_c4l
+vnoremap <Leader>l <Esc>?<++><CR>lh"_c4l
+" <Leader>'     Eat next hook and go into insert mode
+inoremap <Leader>' <Esc>/++><CR>h"_c4l
+nnoremap <Leader>' <Esc>/++><CR>h"_c4l
+vnoremap <Leader>' <Esc>/++><CR>h"_c4l
+" <Leader>[     Go to previous hook
+inoremap <Leader>[ <Esc>?<++><CR>i
+nnoremap <Leader>[ <Esc>?<++><CR>
+vnoremap <Leader>[ <Esc>?<++><CR>
+" <Leader>.     Go to next hook
+inoremap <Leader>. <Esc>/<++><CR>
+nnoremap <Leader>. <Esc>/<++><CR>
+vnoremap <Leader>. <Esc>><CR>
+
+
+" FILETYPE SPECIFIC SETTINGS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" .md
+augroup markdownSettings
+  au FileType markdown set tabstop=4 shiftwidth=4
+augroup END
+" .mathdoc
+augroup mathdocSettings
+  au BufRead *.mathdoc set syntax=tex
+  " BufReadPost (?) to start LLP
+augroup END
+" .c
+augroup cSettings
+  au FileType c call EIGHTYtoggle()
+  au BufNewFile *.c read /home/polluticorn/GitHub/codeTemplates/c.c
+augroup END
+" .py
+augroup pySettings
+  au BufReadPost *.py call EIGHTYtoggle()
+  au FileType py set tabstop=4 shiftwidth=4
+  au BufNewFile *.py read /home/polluticorn/GitHub/codeTemplates/py.py
+augroup END
 
 
 " SHORTCUT COMMENTING
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TODO
+  au FileType py call EIGHTYtoggle()
+  au FileType py call EIGHTYtoggle()
 
 
-" FILETYPE SPECIFIC SETTINGS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd FileType markdown set tabstop=4 shiftwidth=4
-autocmd FileType wiki set tabstop=4 
-
-
-" TEX NOTES MODE
+" VIM+TEX NOTES MODE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " inoremap  <Leader>n <esc>:call ToggleNOTES()<CR>
 " nnoremap  <Leader>n :call ToggleNOTES()<CR>
 let g:NOTES=0
-
-
 function! NOTESon()
   let g:NOTES=1
   echo "NOTE macros ACTIVATED."
@@ -299,7 +329,6 @@ function! NOTESoff()
   let g:NOTES=0
   echo "NOTE macros DEACTIVATED."
 endfunction
-
 function! ToggleNOTES()
   if !g:NOTES
     call NOTESon()

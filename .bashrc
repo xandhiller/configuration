@@ -4,6 +4,8 @@
 
 # Enable 256 colour.
 export TERM='xterm-256color'
+export WALLPAPER='/home/polluticorn/Pictures/bandwSO.png'
+
 
 # added by Anaconda3 5.3.0 installer
 # >>> conda init >>>
@@ -141,3 +143,4 @@ source ~/GitHub/configuration/shortcuts.sh
 # vi mode in bash
 set -o vi
 set show-mode-in-prompt on
+xrdb -merge ~/.Xdefaults

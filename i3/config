@@ -1,6 +1,7 @@
 # Run Scripts/Configs
 exec --no-startup-id ~/.bashrc
 set $mod Mod4
+set $alt Mod1
 font pango:monospace 8
 set $term st 
 set $fn   XF86WakeUp
@@ -10,12 +11,17 @@ set $touchpad exec --no-startup-id sh ~/.scripts/touch_toggle
 set $terminalDraw ~/.scripts/term
 set $textbookOpener ~/.scripts/textbookOpener
 set $listScripts ~/.scripts/listScripts
+set $brightness ~/.scripts/brightness
+set $WALLPAPER ~/Pictures/colorSO.png
+
+bindsym $mod+Right exec --no-startup-id rofi -show window
+bindsym $mod+Left exec --no-startup-id rofi -show windowCD
+bindsym $mod+Down exec --no-startup-id define $(rofi -dmenu -input /dev/null -p "Define: ")
 
 # Default setup
-gaps inner 0
-gaps outer 0
-new_window pixel 0
-workspace_layout tabbed
+gaps inner 10
+gaps outer 2
+new_window pixel 2
 focus_follows_mouse no
 exec --no-startup-id compton -f -i 1.0 
 exec --no-startupid hsetroot -solid "#EEEEEE"
@@ -26,7 +32,9 @@ set $ws1 1: α
 set $ws2 2: β 
 set $ws3 3: λ 
 set $ws4 4: φ 
-
+set $ws5 5: ∩ 
+set $ws6 6: ∪ 
+ 
 # Good colours: #ababff (blue), #abffff(green)
 # Set colours:
 set $darkblack	 "#000000"
@@ -118,12 +126,16 @@ bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
 bindsym $mod+3 workspace $ws3
 bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
 
 # Move to a workspace and go there.
 bindsym $mod+Shift+1 move container to workspace $ws1, workspace $ws1
 bindsym $mod+Shift+2 move container to workspace $ws2, workspace $ws2
 bindsym $mod+Shift+3 move container to workspace $ws3, workspace $ws3
 bindsym $mod+Shift+4 move container to workspace $ws4, workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5, workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6, workspace $ws6
 
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -b 'Yes, exit i3' 'i3-msg exit'"
@@ -138,7 +150,7 @@ mode "gaps-resize" {
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
-bindsym $mod+g mode "gaps-resize"
+bindsym $mod+Control+g mode "gaps-resize"
 bindsym $mod+Shift+g gaps inner all set 0; gaps outer all set 0;
 # Reset gaps without having to refresh config
 bindsym $mod+Mod1+g gaps inner all set 10; gaps outer all set 2;
@@ -159,7 +171,8 @@ bindsym $mod+r mode "resize"
 # Pop-Up Mode
 for_window [instance="terminal process"] floating enable
 for_window [instance="terminal process"] resize set 400 100
-for_window [instance="terminal process"] move position 1200 800
+for_window [instance="terminal process"] move position 1200 i00
+
 bindsym $mod+p exec --no-startup-id $term -n "terminal process"
 
 
@@ -186,10 +199,14 @@ exec --no-startup-id sh ~/.scripts/keyRemaps
 bindsym $mod+y exec --no-startup-id sh ~/.scripts/keyRemaps && notify-send "Key mappings refreshed" -t 25
 bindsym $mod+z        exec --no-startup-id $terminalDraw 
 bindsym $mod+a        exec --no-startup-id $textbookOpener
-bindsym $mod+Up       exec --no-startup-id $lock
+bindsym $mod+F12       exec --no-startup-id $lock
 bindsym $mod+s        exec --no-startup-id $listScripts
-bindsym $mod+Shift+f  exec --no-startup-id $fullScChrome
+bindsym $mod+m  exec --no-startup-id $term -e ranger
+bindsym XF86MonBrightnessDown exec --no-startup-id $brightness down
+bindsym XF86MonBrightnessUp   exec --no-startup-id $brightness up
 
+# Get the wallpaper up and get the fontsize correct
+exec --no-startup-id feh --bg-fill $WALLPAPER && xrdb -merge ~/.Xdefaults
 
 #  TODO:
 # Sync background with status bar colour.

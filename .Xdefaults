@@ -1,4 +1,4 @@
-*.font:	Liberation Mono:pixelsize=10.75:antialias=true:autohint=true;
+*.font:	Liberation Mono:pixelsize=10:antialias=true:autohint=true;
 *.scrollBar:  false
 *.alpha: 250
 
