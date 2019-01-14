@@ -14,9 +14,11 @@ set $listScripts ~/.scripts/listScripts
 set $brightness ~/.scripts/brightness
 set $WALLPAPER ~/Pictures/colorSO.png
 
+# Putting the arrow keys to good use
 bindsym $mod+Right exec --no-startup-id rofi -show window
-bindsym $mod+Left exec --no-startup-id rofi -show windowCD
 bindsym $mod+Down exec --no-startup-id define $(rofi -dmenu -input /dev/null -p "Define: ")
+bindsym $mod+Up exec --no-startup-id search $(rofi -dmenu -input /dev/null -p "Search: ")
+bindsym $mod+Left exec --no-startup-id wikipedia $(rofi -dmenu -input /dev/null -p "Wikipedia: ")
 
 # Default setup
 gaps inner 10
