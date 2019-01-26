@@ -20,6 +20,13 @@ bindsym $mod+Down exec --no-startup-id define $(rofi -dmenu -input /dev/null -p 
 bindsym $mod+Up exec --no-startup-id search $(rofi -dmenu -input /dev/null -p "Search: ")
 bindsym $mod+Left exec --no-startup-id wikipedia $(rofi -dmenu -input /dev/null -p "Wikipedia: ")
 
+
+bindsym $mod+Shift+Right exec --no-startup-id xrandr --output HDMI-1 --rotate right
+bindsym $mod+Shift+Down  exec --no-startup-id xrandr --output HDMI-1 --rotate normal
+bindsym $mod+Shift+Up    exec --no-startup-id xrandr --output HDMI-1 --rotate inverted
+bindsym $mod+Shift+Left  exec --no-startup-id xrandr --output HDMI-1 --rotate left  
+
+
 # Default setup
 gaps inner 10
 gaps outer 2
@@ -79,11 +86,13 @@ bar {
 	position bottom
   strip_workspace_numbers yes
   colors{
-    background "#444444"
+    set $background "#8e3e3a"
+    set $focus "#AF5F4B"
+    background $background
     statusline "#FFFFFF"
-    separator "#444444"
-    focused_workspace $grey $grey "#FFFFFF"
-    inactive_workspace "#444444" "#444444" "#999999"
+    separator $background
+    focused_workspace $focus $focus "#FFFFFF"
+    inactive_workspace $background $background "#999999"
   }  
   tray_padding 0
 }

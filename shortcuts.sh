@@ -4,7 +4,8 @@ alias grep='grep --color=auto'
 alias ccat='highlight --force --out-format=ansi --quiet'
 alias ag='sudo apt-get'
 alias agi='sudo apt-get install'
-alias ref='source ~/.bashrc'
+alias ags='apt-cache search'
+alias ref='source ~/.config/fish/config.fish'
 alias r='ranger'
 alias e='exit'
 alias c='clear'
@@ -23,6 +24,8 @@ alias scs='scrot -s' # Take selection screenshot
 
 # Config Files
 alias brc='vim ~/.bashrc'
+alias frc='vim ~/.config/fish/config.fish'
+alias rrc='vim ~/.config/rofi/config'
 alias vrc='nvim ~/.config/nvim/init.vim'
 alias it='vim ~/.config/i3/config'
 alias ebsct='vim ~/GitHub/configuration/shortcuts.sh'  # Bash Shortcuts
@@ -34,6 +37,7 @@ alias esc='vim ~/.scripts'
 alias tmx='vim ~/.tmux.conf'
 alias xdf='vim ~/.Xdefaults && xrdb -merge ~/.Xdefaults'
 alias vwk='vim ~/vimwiki/index.md'
+alias vw='vim ~/vimwiki/index.md'
 alias itb='vim ~/.config/i3blocks/config'
 
 # Template Shortcuts

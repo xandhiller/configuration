@@ -134,13 +134,8 @@ if ! shopt -oq posix; then
   fi
 fi
 
+fish
 ################################################################################
 # Custom Edits
 ################################################################################
 
-# Shortcuts for the terminal
-source ~/GitHub/configuration/shortcuts.sh
-# vi mode in bash
-set -o vi
-set show-mode-in-prompt on
-xrdb -merge ~/.Xdefaults

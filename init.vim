@@ -232,9 +232,9 @@ nnoremap <Leader>Q q:k<CR>
 " F1 - write only
 nnoremap <F1> :w<CR>
 inoremap <F1> <Esc>:w<CR>a
-" F2 - write and quit
-nnoremap <F2> :wq<CR>
-inoremap <F2> <Esc>:wq<CR>li
+" F3 - write and quit
+nnoremap <F3> :wq<CR>
+inoremap <F3> <Esc>:wq<CR>li
 " F10 - write and quit all
 nnoremap <F10> :wqa<CR>
 inoremap <F10> <Esc>:wqa<CR>li
@@ -312,8 +312,6 @@ augroup END
 " SHORTCUT COMMENTING
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TODO
-  au FileType py call EIGHTYtoggle()
-  au FileType py call EIGHTYtoggle()
 
 
 " VIM+TEX NOTES MODE
