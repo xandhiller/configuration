@@ -1,6 +1,7 @@
 #! /bin/sh
 vimrc="/home/polluticorn/.config/nvim/init.vim"
 bashrc="/home/polluticorn/.bashrc"
+fishrc="/home/polluticorn/.config/fish/config.fish"
 ith="/home/polluticorn/.config/i3/"
 ithb="/home/polluticorn/.config/i3blocks/"
 xdef="/home/polluticorn/.Xdefaults"
@@ -11,6 +12,7 @@ scripts="/home/polluticorn/.scripts/"
 
 cp    $vimrc      .
 cp    $bashrc     .
+cp    $fishrc     .
 cp    $xdef       .
 cp    $keyRemaps  . 
 cp    $tmuxconf   .
