@@ -12,7 +12,7 @@ set $terminalDraw ~/.scripts/term
 set $textbookOpener ~/.scripts/textbookOpener
 set $listScripts ~/.scripts/listScripts
 set $brightness ~/.scripts/brightness
-set $WALLPAPER ~/Pictures/colorSO.png
+set $WALLPAPER ~/Pictures/Wallpapers/bridge.jpg
 
 # Putting the arrow keys to good use
 bindsym $mod+Right exec --no-startup-id rofi -show window
@@ -32,8 +32,8 @@ gaps inner 10
 gaps outer 2
 new_window pixel 2
 focus_follows_mouse no
-exec --no-startup-id compton -f -i 1.0 
-exec --no-startupid hsetroot -solid "#EEEEEE"
+#exec --no-startup-id compton -f -i 1.0 
+exec --no-startupid hsetroot -solid "#000000"
 exec --nostarup-id feh --bg-fill ~/Pictures/bandwSO.png
 
 # Workspace Names
@@ -86,8 +86,8 @@ bar {
 	position bottom
   strip_workspace_numbers yes
   colors{
-    set $background "#8e3e3a"
-    set $focus "#AF5F4B"
+    set $background "#006677"
+    set $focus "#007688"
     background $background
     statusline "#FFFFFF"
     separator $background

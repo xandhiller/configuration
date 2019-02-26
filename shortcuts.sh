@@ -21,6 +21,7 @@ alias record='ffmpeg -f x11grab -s 1600x900 -i :0.0 ~/Videos/screenRecording.mkv
 alias mdc='mathdoc'
 alias vlib='vim /usr/share/vim/vim74/doc/'
 alias scs='scrot -s' # Take selection screenshot
+alias txb='cd ~/Documents/Textbooks'
 
 # Config Files
 alias brc='vim ~/.bashrc'
@@ -56,3 +57,5 @@ alias jw='~/.scripts/setupJl' # Setup julia prototyping workspace
 # Viewing shorcuts in terminal
 alias bsct='ccat ~/GitHub/configuration/shortcuts.sh' 
 alias kr='ccat ~/GitHub/configuration/keyRemaps.sh'
+alias dict='dict -d gcide'
+alias thes='dict -d moby-thesaurus'

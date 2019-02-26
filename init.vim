@@ -4,11 +4,12 @@ colorscheme peachpuff
 syntax on
 set nocompatible
 set tabstop=2
+set mouse=a
 set shiftwidth=2
 set expandtab
-set splitright 
+set splitright
 set splitbelow
-set number 
+set number
 set relativenumber
 set confirm
 set cmdheight=1
@@ -19,28 +20,30 @@ set smartcase
 set cursorline
 set wildmenu
 set nohlsearch
+set breakindent
 set updatecount=1
 set colorcolumn=81
 set shada='50,<1000,s100,:0,n~/nvim/shada
 function! MyHighlights()
-  hi Visual             cterm=none      ctermbg=239
-  hi ColorColumn        ctermbg=3
+  hi Visual             cterm=none   ctermbg=239
+  hi ColorColumn        ctermbg=237
   hi LineNr             ctermfg=29
-  hi CursorLineNr       cterm=reverse   ctermfg=29
-  hi Folded             ctermfg=61      ctermbg=none
-  hi VertSplit          ctermbg=42      ctermfg=41
-  hi StatusLine         ctermbg=black   ctermfg=41
-  hi StatusLineNC       ctermbg=black   ctermfg=23
-  hi CursorLine         cterm=none      ctermbg=237
+  hi Folded             ctermfg=61   ctermbg=none
+  hi VertSplit          ctermbg=42   ctermfg=41
+  hi StatusLine         ctermbg=232  ctermfg=41
+  hi StatusLineNC       ctermbg=232  ctermfg=23
+  hi vCursor            ctermbg=31
+  hi CursorLine         cterm=none   ctermbg=237
+  hi CursorLineNr       cterm=none   ctermfg=29 ctermbg=237
   hi String             ctermfg=35
   hi Number             ctermfg=134
   hi SignColumn         ctermbg=0
-  hi SignatureMarkText  ctermfg=245     ctermbg=0
+  hi SignatureMarkText  ctermfg=245  ctermbg=0
 endfunction
 call MyHighlights()
 
 
-"  PLUG-INS [start]
+"  PLUG-INS 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set rtp+=~/.vim/bundle/Vundle.vim/ 
 filetype off
@@ -134,7 +137,7 @@ vnoremap <Left>   <Nop>
 vnoremap <Up>     <Nop>
 vnoremap <Down>   <Nop>
 " Compile the current document into markdown syntax pdf.
-nnoremap <Leader>md :w<CR>:silent ! livemd.py %:p %:p<CR>:source $MYVIMRC<CR>
+nnoremap <Leader>d :w<CR>:silent ! livemd.py %:p %:p<CR>:source $MYVIMRC<CR>
 " Edit init.vim on the fly
 nnoremap <Leader>vv :vsp $MYVIMRC<CR>
 " Moving around windows
@@ -170,7 +173,7 @@ nnoremap v <C-v>
 let g:EIGHTY=0
 set colorcolumn=81
 function! EIGHTYon()
-  highlight ColorColumn ctermbg=grey
+  highlight ColorColumn ctermbg=235
 endfunction
 function! EIGHTYoff()
   highlight ColorColumn ctermbg=none
@@ -179,7 +182,7 @@ function! EIGHTYtoggle()
   if !g:EIGHTY
     let g:EIGHTY=1
     call EIGHTYon()
-  else 
+  else
     let g:EIGHTY=0
     call EIGHTYoff()
   endif
@@ -214,10 +217,10 @@ nnoremap <Leader>co :vsp col<CR>:source ~/.colorDemo.vim<CR>
 nnoremap QQ :q!<CR>
 nnoremap Y y$
 " Navigating marks in a sane manner
-nnoremap <Left> [' 
-vnoremap <Left> [' 
-nnoremap <Right> ]' 
-vnoremap <Right> ]' 
+nnoremap <Left> ['
+vnoremap <Left> ['
+nnoremap <Right> ]'
+vnoremap <Right> ]'
 " Replacing spaces with underlines in visual selection + the inverse
 vnoremap <Leader>_ :s/\%V /_/g<CR>
 vnoremap <Leader>- :s/\%V /_/g<CR>
@@ -252,13 +255,15 @@ inoremap <Leader>t <Esc>:LLPStartPreview<CR>a
 " Mathdoc
 nnoremap  <Leader>m :call ToggleMATH()<CR>
 inoremap  <Leader>m <Esc>:call ToggleMATH()<CR>a
-nnoremap <Leader>M vsp ~/.scripts/math.vim
+nnoremap <Leader>M :vsp ~/.scripts/math.vim<CR>
 nnoremap <F6> :source ~/.scripts/math.vim<CR>
 nnoremap <Leader>i :! inkfig %:p:h<CR>
 " surround.vim is the best, wth is 'selection mode' good for anyway?
 nmap s ys
 nmap ss yss
 nmap si ysi
+"Show Invisibles
+nnoremap <Leader>i :set list!<CR>
 " Hooks
 "         ([)
 "     (l) (;) (') 
@@ -290,16 +295,31 @@ vnoremap <Leader>. <Esc>><CR>
 " .md
 augroup markdownSettings
   au FileType markdown set tabstop=4 shiftwidth=4
+  au FileType markdown inoremap <M-8> ⋅
+  au FileType markdown inoremap <M-7> ✓
+  au FileType markdown inoremap <M-=> —
+"  au FileType markdown ab ---- ————————————————————————————————————————————————————————————————————————————————
+  au FileType markdown set listchars=eol:¬,tab:\▸\ ,trail:~,extends:>,precedes:<
+  au FileType markdown set textwidth=80
+  au FileType markdown set wrapmargin=0
+  au FileType markdown set linebreak
 augroup END
 " .mathdoc
 augroup mathdocSettings
-  au BufRead *.mathdoc set syntax=tex
-  " BufReadPost (?) to start LLP
+  au BufRead *.mdc set syntax=tex
+  au FileType mdc set textwidth=80
+  au FileType mdc set wrapmargin=0
+  au FileType mdc set linebreak
+  au BufReadPost *.mdc source ~/.scripts/math.vim
+  au BufReadPost *.mdc normal :LLPStartPreview<CR>
 augroup END
 " .c
 augroup cSettings
   au FileType c call EIGHTYtoggle()
   au BufNewFile *.c read /home/polluticorn/GitHub/codeTemplates/c.c
+  au FileType c inoremap <Leader>r <Esc>:! crun %
+  au FileType c nnoremap <Leader>r <Esc>:! crun %
+  au FileType c vnoremap <Leader>r <Esc>:! crun %
 augroup END
 " .py
 augroup pySettings
@@ -307,30 +327,43 @@ augroup pySettings
   au FileType py set tabstop=4 shiftwidth=4
   au BufNewFile *.py read /home/polluticorn/GitHub/codeTemplates/py.py
 augroup END
+" .tex
+augroup texSettings
+  au FileType tex set listchars=eol:¬,tab:\▸\ ,trail:~,extends:>,precedes:<
+  au FileType tex set textwidth=80
+  au FileType tex set wrapmargin=0
+  au FileType tex set linebreak
+  au FileType tex normal zfip
+augroup END
 
 
-" SHORTCUT COMMENTING
+" SHORTCUT FOR COMMENTING
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TODO
 
 
 " VIM+TEX NOTES MODE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" inoremap  <Leader>n <esc>:call ToggleNOTES()<CR>
-" nnoremap  <Leader>n :call ToggleNOTES()<CR>
+inoremap  <Leader>n <esc>:call ToggleNOTES()<CR>
+nnoremap  <Leader>n :call ToggleNOTES()<CR>
 let g:NOTES=0
 function! NOTESon()
   let g:NOTES=1
+  ab qanda \qanda{<++>}{<++>}
+  ab code \begin{lstlisting}<CR><Space><Space><++><CR><BS>\end{lstlisting}
   echo "NOTE macros ACTIVATED."
+  silent ! notify-send "NOTE macros ACTIVATED." -t 25
 endfunction
 function! NOTESoff()
   let g:NOTES=0
+  abclear
   echo "NOTE macros DEACTIVATED."
+  silent ! notify-send "NOTE macros DEACTIVATED." -t 25
 endfunction
 function! ToggleNOTES()
   if !g:NOTES
     call NOTESon()
-  else 
+  else
     call NOTESoff()
   endif
 endfunction

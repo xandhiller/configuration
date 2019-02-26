@@ -6,15 +6,15 @@ function fish_prompt
   switch $fish_bind_mode
   case default
       set_color "#FF7777"
-      echo -n "n"
+      echo -n "[n]"
   case insert
       set_color "#85FF7A"
-      echo -n "i"
+      echo -n "[i]"
   case replace
-      echo -n "r"
+      echo -n "[r]"
   case visual
       set_color "#F3A0FF"
-      echo -n "v"
+      echo -n "[v]"
   end
   set_color normal
   set_color "#adaaa9" --bold
@@ -37,3 +37,7 @@ export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
 export LESS=" -R "
 alias less='less -m -g -i -J --underline-special --SILENT'
 alias more='less'
+set VISUAL nvim
+export VISUAL 
+set EDITOR nvim
+export EDITOR
