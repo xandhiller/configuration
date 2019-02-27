@@ -191,8 +191,8 @@ call EIGHTYtoggle()
 call EIGHTYtoggle()
 nnoremap <Leader>cl :call EIGHTYtoggle()<CR>
 " Commenting out paragraphs or lines
-nnoremap <Leader>/ {j>ip0<C-v>}0kc#<Esc>
-nnoremap <Leader>? {j<C-v>}k0x<ip
+" nnoremap <Leader>/ {j>ip0<C-v>}0kc#<Esc>
+" nnoremap <Leader>? {j<C-v>}k0x<ip
 " Run python file
 nnoremap <Leader>r :w<CR>:! clear && python3 %<CR>
 nnoremap <Leader>R :w<CR>:! clear && time python3 %<CR>
@@ -317,12 +317,20 @@ augroup END
 augroup cSettings
   au FileType c call EIGHTYtoggle()
   au BufNewFile *.c read /home/polluticorn/GitHub/codeTemplates/c.c
-  au FileType c inoremap <Leader>r <Esc>:! crun %
-  au FileType c nnoremap <Leader>r <Esc>:! crun %
-  au FileType c vnoremap <Leader>r <Esc>:! crun %
+  au FileType c inoremap <Leader>r <Esc>:w<CR><Esc>:! crun %<CR>
+  au FileType c nnoremap <Leader>r <Esc>:w<CR><Esc>:! crun %<CR>
+  au FileType c vnoremap <Leader>r <Esc>:w<CR><Esc>:! crun %<CR>
+  au FileType c inoremap <Leader>/ <Esc>0i<Space><Space><Esc>0<C-v>lc/*<Esc>A<Space><Space>*/
+  au FileType c nnoremap <Leader>/ <Esc>0i<Space><Space><Esc>0<C-v>lc/*<Esc>A<Space><Space>*/<Esc>
+  au FileType c vnoremap <Leader>/ <Esc>0i<Space><Space><Esc>0<C-v>lc/*<Esc>A<Space><Space>*/<Esc>
+  au FileType c inoremap <Leader>? <Esc>$diWa<BS><BS><Esc>0xxi
+  au FileType c nnoremap <Leader>? <Esc>$diWa<BS><BS><Esc>0xx
+  au FileType c vnoremap <Leader>? <Esc>$diWa<BS><BS><Esc>0xx
 augroup END
 " .py
 augroup pySettings
+  au FileType py nnoremap <Leader>/ {j>ip0<C-v>}0kc#<Esc>
+  au FileType py nnoremap <Leader>? {j<C-v>}k0x<ip
   au BufReadPost *.py call EIGHTYtoggle()
   au FileType py set tabstop=4 shiftwidth=4
   au BufNewFile *.py read /home/polluticorn/GitHub/codeTemplates/py.py
@@ -334,6 +342,10 @@ augroup texSettings
   au FileType tex set wrapmargin=0
   au FileType tex set linebreak
   au FileType tex normal zfip
+augroup END
+" .sh
+augroup shSettings
+  
 augroup END
 
 
