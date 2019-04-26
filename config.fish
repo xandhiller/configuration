@@ -3,32 +3,29 @@ source ~/GitHub/configuration/shortcuts.sh
 # vi mode in bash
 xrdb -merge ~/.Xdefaults
 function fish_prompt
-  switch $fish_bind_mode
-  case default
-      set_color "#FF7777"
-      echo -n "[n]"
-  case insert
-      set_color "#85FF7A"
-      echo -n "[i]"
-  case replace
-      echo -n "[r]"
-  case visual
-      set_color "#F3A0FF"
-      echo -n "[v]"
-  end
-  set_color normal
-  set_color "#adaaa9" --bold
-  printf ' ['
+# switch $fish_bind_mode
+# case default
+#     set_color "#FF7777"
+#     echo -n "n"
+# case insert
+#     set_color "#85FF7A"
+#     echo -n "i"
+# case replace
+#     echo -n "r"
+# case visual
+#     set_color "#F3A0FF"
+#     echo -n "v"
+# end
+# set_color normal
+# set_color "#adaaa9" --bold
+# printf ' '
   set_color normal
   set_color "#adaaa9"
   printf (pwd)
   set_color "#adaaa9" --bold
-  printf '/] '
+  printf ' '
   set_color normal
   set_color "#515151"
-  printf '['
-  printf (date +%H:%M:%S)
-  printf '] '
   set_color normal
 end
 

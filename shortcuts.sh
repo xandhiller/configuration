@@ -33,13 +33,15 @@ alias ebsct='vim ~/GitHub/configuration/shortcuts.sh'  # Bash Shortcuts
 alias ekr='vim ~/GitHub/configuration/keyRemaps.sh'
 alias zrc='vim ~/.config/zathura/zathurarc'
 alias br='vim /sys/class/backlight/intel_backlight/brightness'
-alias sc='cd ~/.scripts'
+alias scr='cd ~/.scripts'
+alias fundc='cd ~/Documents/fundc/'
 alias esc='vim ~/.scripts'
 alias tmx='vim ~/.tmux.conf'
 alias xdf='vim ~/.Xdefaults && xrdb -merge ~/.Xdefaults'
 alias vwk='vim ~/vimwiki/index.md'
 alias vw='vim ~/vimwiki/index.md'
 alias itb='vim ~/.config/i3blocks/config'
+alias ebv='ebook-viewer --detach'
 
 # Template Shortcuts
 alias txa='cp ~/GitHub/texTemplates/article.tex'
@@ -59,3 +61,5 @@ alias bsct='ccat ~/GitHub/configuration/shortcuts.sh'
 alias kr='ccat ~/GitHub/configuration/keyRemaps.sh'
 alias dict='dict -d gcide'
 alias thes='dict -d moby-thesaurus'
+
+alias labSetup='~/.scripts/twoScreens.sh && sudo ~/.scripts/keyRemaps'

@@ -8,6 +8,7 @@ interval=5
 command=date +%R
 interval=5
 
+
 [battery]
 command=~/.scripts/i3battery0
 interval=5
@@ -15,6 +16,7 @@ interval=5
 [battery]
 command=~/.scripts/i3battery1
 interval=5
+
 
 #   []
 #   command=echo " "

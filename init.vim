@@ -3,9 +3,10 @@ let mapleader=";"
 colorscheme peachpuff
 syntax on
 set nocompatible
-set tabstop=2
+set noshowmatch
+set tabstop=4
 set mouse=a
-set shiftwidth=2
+set shiftwidth=4
 set expandtab
 set splitright
 set splitbelow
@@ -26,6 +27,9 @@ set colorcolumn=81
 set shada='50,<1000,s100,:0,n~/nvim/shada
 function! MyHighlights()
   hi Visual             cterm=none   ctermbg=239
+  hi Todo               cterm=none ctermbg=237 ctermfg=3
+  syn match   myTodo    contained   "\<\(TODO\|FIXME\|OPTIMISE\)"
+  hi def link myTodo Todo
   hi ColorColumn        ctermbg=237
   hi LineNr             ctermfg=29
   hi Folded             ctermfg=61   ctermbg=none
@@ -194,8 +198,8 @@ nnoremap <Leader>cl :call EIGHTYtoggle()<CR>
 " nnoremap <Leader>/ {j>ip0<C-v>}0kc#<Esc>
 " nnoremap <Leader>? {j<C-v>}k0x<ip
 " Run python file
-nnoremap <Leader>r :w<CR>:! clear && python3 %<CR>
-nnoremap <Leader>R :w<CR>:! clear && time python3 %<CR>
+au FileType python nnoremap <Leader>r :w<CR>:! python3 %<CR>
+au FileType python nnoremap <Leader>R :w<CR>:! time python3 %<CR>
 " Automatically make a notes file in the same firecotry as current file and 
 "   open it in vsplit
 nnoremap <Leader>nn :vsp %:p:h/_notes.md<CR>
@@ -221,7 +225,7 @@ nnoremap <Left> ['
 vnoremap <Left> ['
 nnoremap <Right> ]'
 vnoremap <Right> ]'
-" Replacing spaces with underlines in visual selection + the inverse
+"Replacing spaces with underlines in visual selection + the inverse
 vnoremap <Leader>_ :s/\%V /_/g<CR>
 vnoremap <Leader>- :s/\%V /_/g<CR>
 nnoremap <Leader>_ :s/ /_/g<CR>
@@ -236,14 +240,14 @@ nnoremap <Leader>Q q:k<CR>
 nnoremap <F1> :w<CR>
 inoremap <F1> <Esc>:w<CR>a
 " F3 - write and quit
-nnoremap <F3> :wq<CR>
-inoremap <F3> <Esc>:wq<CR>li
+" nnoremap <F3> :wq<CR>
+" inoremap <F3> <Esc>:wq<CR>li
 " F10 - write and quit all
-nnoremap <F10> :wqa<CR>
-inoremap <F10> <Esc>:wqa<CR>li
+"nnoremap <F10> :wqa<CR>
+" inoremap <F10> <Esc>:wqa<CR>li
 " F12 - force quit
-nnoremap <F12> :q!<CR>
-inoremap <F12> <Esc>:q!<CR>li
+"nnoremap <F12> :q!<CR>
+"inoremap <F12> <Esc>:q!<CR>li
 nnoremap <Home> ?<++><CR>
 vnoremap <Home> <Esc>?<++><CR>
 inoremap <Home> <Esc>?<++><CR>
@@ -253,9 +257,10 @@ inoremap <End> <Esc>/<++><CR>
 nnoremap <Leader>t :LLPStartPreview<CR>
 inoremap <Leader>t <Esc>:LLPStartPreview<CR>a
 " Mathdoc
-nnoremap  <Leader>m :call ToggleMATH()<CR>
-inoremap  <Leader>m <Esc>:call ToggleMATH()<CR>a
-nnoremap <Leader>M :vsp ~/.scripts/math.vim<CR>
+nnoremap <Leader>m :call ToggleMATH()<CR>
+inoremap <Leader>m <Esc>:call ToggleMATH()<CR>a
+vnoremap <Leader>m <Esc>:call ToggleMATH()<CR>a
+nnoremap <Leader>F6 :vsp ~/.scripts/math.vim<CR>
 nnoremap <F6> :source ~/.scripts/math.vim<CR>
 nnoremap <Leader>i :! inkfig %:p:h<CR>
 " surround.vim is the best, wth is 'selection mode' good for anyway?
@@ -282,12 +287,16 @@ nnoremap <Leader>' <Esc>/++><CR>h"_c4l
 vnoremap <Leader>' <Esc>/++><CR>h"_c4l
 " <Leader>[     Go to previous hook
 inoremap <Leader>[ <Esc>?<++><CR>i
-nnoremap <Leader>[ <Esc>?<++><CR>
-vnoremap <Leader>[ <Esc>?<++><CR>
+nnoremap <Leader>{ <Esc>?<++><CR>
+vnoremap <Leader>{ <Esc>?<++><CR>
 " <Leader>.     Go to next hook
 inoremap <Leader>. <Esc>/<++><CR>
 nnoremap <Leader>. <Esc>/<++><CR>
 vnoremap <Leader>. <Esc>><CR>
+" To allow the undoing of a line at a time:
+inoremap <CR> <Esc>a<CR>
+" I don't really use [ and ] so, remapping them to what I do use: { and }
+" Only in normal mode and visual mode though, that way typing is not affected.
 
 
 " FILETYPE SPECIFIC SETTINGS
@@ -316,23 +325,29 @@ augroup END
 " .c
 augroup cSettings
   au FileType c call EIGHTYtoggle()
+  au FileType c set shiftwidth=4
   au BufNewFile *.c read /home/polluticorn/GitHub/codeTemplates/c.c
   au FileType c inoremap <Leader>r <Esc>:w<CR><Esc>:! crun %<CR>
   au FileType c nnoremap <Leader>r <Esc>:w<CR><Esc>:! crun %<CR>
   au FileType c vnoremap <Leader>r <Esc>:w<CR><Esc>:! crun %<CR>
-  au FileType c inoremap <Leader>/ <Esc>0i<Space><Space><Esc>0<C-v>lc/*<Esc>A<Space><Space>*/
-  au FileType c nnoremap <Leader>/ <Esc>0i<Space><Space><Esc>0<C-v>lc/*<Esc>A<Space><Space>*/<Esc>
-  au FileType c vnoremap <Leader>/ <Esc>0i<Space><Space><Esc>0<C-v>lc/*<Esc>A<Space><Space>*/<Esc>
-  au FileType c inoremap <Leader>? <Esc>$diWa<BS><BS><Esc>0xxi
-  au FileType c nnoremap <Leader>? <Esc>$diWa<BS><BS><Esc>0xx
-  au FileType c vnoremap <Leader>? <Esc>$diWa<BS><BS><Esc>0xx
+  au FileType c inoremap <Leader>/ <Esc>g^i/*<Space><Esc>g_a<Space>*/
+  au FileType c nnoremap <Leader>/ <Esc>g^i/*<Space><Esc>g_a<Space>*/<Esc>
+  au FileType c vnoremap <Leader>/ <Esc>g^i/*<Space><Esc>g_a<Space>*/<Esc>
+  au FileType c inoremap <Leader>? <Esc>g^d3lg_2hd3lA
+  au FileType c nnoremap <Leader>? <Esc>g^d3lg_2hd3l
+  au FileType c vnoremap <Leader>? <Esc>g^d3lg_2hd3l
 augroup END
 " .py
 augroup pySettings
-  au FileType py nnoremap <Leader>/ {j>ip0<C-v>}0kc#<Esc>
-  au FileType py nnoremap <Leader>? {j<C-v>}k0x<ip
+  au FileType python inoremap <Leader>/ <Esc>g^i#<Space><Esc>$
+  au FileType python nnoremap <Leader>/ <Esc>g^i#<Space><Esc>$
+  au FileType python vnoremap <Leader>/ <Esc>g^i#<Space><Esc>$
+  au FileType python inoremap <Leader>? <Esc>g^xx
+  au FileType python nnoremap <Leader>? <Esc>g^xx
+  au FileType python vnoremap <Leader>? <Esc>g^xx
   au BufReadPost *.py call EIGHTYtoggle()
-  au FileType py set tabstop=4 shiftwidth=4
+  au FileType python set tabstop=4 shiftwidth=4
+  " TODO: Read in `which python` and add w/ shebang to top of files.
   au BufNewFile *.py read /home/polluticorn/GitHub/codeTemplates/py.py
 augroup END
 " .tex
@@ -347,6 +362,45 @@ augroup END
 augroup shSettings
   
 augroup END
+" cpp
+augroup cppSettings
+  au FileType cpp call EIGHTYtoggle()
+  au FileType cpp set shiftwidth=4
+  au BufNewFile *.cpp read /home/polluticorn/GitHub/codeTemplates/cpp.cpp
+  au FileType cpp inoremap <Leader>/ <Esc>g^i//<Space><Esc>$
+  au FileType cpp nnoremap <Leader>/ <Esc>g^i//<Space><Esc>$
+  au FileType cpp vnoremap <Leader>/ <Esc>g^i//<Space><Esc>$
+  au FileType cpp inoremap <Leader>? <Esc>g^xxx
+  au FileType cpp nnoremap <Leader>? <Esc>g^xxx
+  au FileType cpp vnoremap <Leader>? <Esc>g^xxx
+  au FileType cpp inoremap <Leader>r <Esc>:w<CR><Esc>:! cpprun %<CR>
+  au FileType cpp nnoremap <Leader>r <Esc>:w<CR><Esc>:! cpprun %<CR>
+  au FileType cpp vnoremap <Leader>r <Esc>:w<CR><Esc>:! cpprun %<CR>
+  au FileType cpp inoremap <Leader>b <Esc>:w<CR><Esc>:! cpprun % -build<CR>
+  au FileType cpp nnoremap <Leader>b <Esc>:w<CR><Esc>:! cpprun % -build<CR>
+  au FileType cpp vnoremap <Leader>b <Esc>:w<CR><Esc>:! cpprun % -build<CR>
+augroup END
+
+" Settings for plain text note taking/`sent` presentations
+function! TextShortcuts()
+  ab <==> ⟺ <Space>
+  ab * ⋅
+  ab alpha α
+  ab beta β
+  ab gamma γ
+  ab tau τ
+  ab Gamma Γ
+  ab pi π
+  ab sigma σ
+  ab Sigma Σ
+  ab ==> ⟹ <space>
+endfunction
+au BufReadPost *.sent call TextShortcuts()
+"au BufReadPost *.sent nnoremap <Leader>r <Esc>:w<CR><Esc>:! sent %<CR>
+au BufReadPost *.sent nnoremap <Leader>r :w<Esc>:silent ! sent %<CR>
+au BufReadPost *.s call TextShortcuts()
+au BufReadPost *.txt call TextShortcuts()
+
 
 
 " SHORTCUT FOR COMMENTING
