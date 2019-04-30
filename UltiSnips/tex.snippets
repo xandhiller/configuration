@@ -34,8 +34,15 @@ snippet frac "Fraction"
 endsnippet
 
 
-snippet Dd "Differentiate"
-\frac{$1}{$2} \left( $3 \right)
+snippet ddx "Differentiate"
+\frac{d}{${1:dx}} \left( ${2:F} \right) $3
+endsnippet
+
+
+snippet fig "Create LaTeX Figure"
+\begin{figure}
+	$1
+\end{figure}
 endsnippet
 
 
@@ -50,22 +57,32 @@ snippet table "Create LaTeX table"
 endsnippet
 
 
-snippet sec "Section"
+snippet sec "Section" bA
 \section{$1}
+$2
 endsnippet
 
 
-snippet ssec "Subsection"
+snippet ssec "Subsection" bA
 \subsection{$1}
+$2
 endsnippet
 
 
-snippet sssec "Subsubsection"
+snippet sssec "Subsubsection" bA
 \subsubsection{$1}
+$2
 endsnippet
 
 
 snippet bmat "Bracket Matrix"
+\begin{bmatrix}
+	$1
+\end{bmatrix}
+endsnippet
+
+
+snippet mat "Also bracket Matrix"
 \begin{bmatrix}
 	$1
 \end{bmatrix}
@@ -93,27 +110,6 @@ endsnippet
 
 snippet td "superscript" iA
 ^{$1}$0
-endsnippet
-
-
-snippet sympy "sympy block " w
-sympy $1 sympy$0
-endsnippet
-
-
-priority 10000
-snippet 'sympy(.*)sympy' "evaluate sympy" wr
-`!p
-from sympy import *
-x, y, z, t = symbols('x y z t')
-k, m, n = symbols('k m n', integer=True)
-f, g, h = symbols('f g h', cls=Function)
-init_printing()
-snip.rv = eval('latex(' + match.group(1).replace('\\', '') \
-    .replace('^', '**') \
-    .replace('{', '(') \
-    .replace('}', ')') + ')')
-`
 endsnippet
 
 
@@ -151,6 +147,10 @@ snippet !> "mapsto" iA
 \mapsto 
 endsnippet
 
+
+snippet <! "mapsfrom" iA
+\mapsfrom 
+endsnippet
 
 snippet td "to the ... power" iA
 ^{$1}$0
@@ -222,6 +222,26 @@ y_{j}
 endsnippet
 
 
+snippet xkk "xk" iA
+x_{k}
+endsnippet
+
+
+snippet ykk "yk" iA
+y_{k}
+endsnippet
+
+
+snippet xmm "xm" iA
+x_{m}
+endsnippet
+
+
+snippet ykk "yk" iA
+y_{k}
+endsnippet
+
+
 snippet sum "sum" w
 \sum_{n=${1:1}}^{${2:\infty}} ${3:a_n z^n}
 endsnippet
@@ -252,16 +272,69 @@ snippet part "d/dx" w
 endsnippet
 
 
+snippet ... "ldots" iA
+\ldots
+endsnippet
 
 
+snippet inn "contained in" 
+\in
+endsnippet
 
 
+snippet set "Set Notation"
+\\{ ${1:x} \in ${2:\R} : $3 \\}
+endsnippet
 
 
+snippet sq "square" i
+^{2}
+endsnippet
 
 
+snippet cb "cube" i
+^{3}
+endsnippet
 
 
+snippet ss "subscript superscript" i
+^{$1}_{$2}
+endsnippet
+
+
+snippet sb "Subscript" i
+_{$1} $2
+endsnippet
+
+
+snippet sr "Superscript" i
+^{$1} $2
+endsnippet
+
+
+snippet => "implies" iA
+\Rightarrow $1
+endsnippet
+
+
+snippet =< "implied from" iA
+\Leftarrow $1
+endsnippet
+
+
+snippet =/ "Not equal" iA
+\neq
+endsnippet
+
+
+snippet int "Integrate"
+\int${1:^{b}_{a}} $2 \ ${3:dx} $4
+endsnippet
+
+
+snippet text "Text"
+\text{${1: }$2} $3
+endsnippet
 
 
 

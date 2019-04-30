@@ -1,7 +1,6 @@
 "  APPEARANCE/INPUT """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader=";"
 colorscheme peachpuff
-syntax on
 set nocompatible
 set noshowmatch
 set tabstop=4
@@ -43,8 +42,8 @@ function! MyHighlights()
   hi Number             ctermfg=134
   hi SignColumn         ctermbg=0
   hi SignatureMarkText  ctermfg=245  ctermbg=0
+  hi Conceal            ctermfg=3    ctermbg=0
 endfunction
-call MyHighlights()
 
 
 "  PLUG-INS 
@@ -63,6 +62,12 @@ Plugin 'SirVer/ultisnips'
   nnoremap <C-u> <Esc>:UltiSnipsEdit<CR>
   vnoremap <C-u> <Esc>:UltiSnipsEdit<CR>
 Plugin 'lervag/vimtex'
+  let g:tex_flavor='latex'
+  let g:vimtex_view_method='zathura'
+  let g:vimtex_quickfix_mode=0
+  set conceallevel=0
+  let g:vimtex_matchparen_enabled=0
+  let g:tex_conceal='abdmg'
 Plugin 'scrooloose/nerdtree'      
 	map <C-n> :NERDTreeToggle<CR><C-w>=
 Plugin 'xuhdev/vim-latex-live-preview'
@@ -71,7 +76,7 @@ Plugin 'junegunn/fzf'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'JuliaEditorSupport/julia-vim'
-  let g:latex_to_unicode_file_types = ".*" 
+  let g:latex_to_unicode_file_types = ".md" 
 Plugin 'junegunn/goyo.vim'
   let g:goyo_width=85
   let g:goyo_margin_top=0
@@ -110,6 +115,8 @@ Plugin 'connorholyday/vim-snazzy'
 Plugin 'kshenoy/vim-signature'
 call vundle#end()
 filetype plugin indent on
+syntax on
+call MyHighlights()
 if !has('gui_running')
   set t_Co=256
 endif
@@ -250,6 +257,8 @@ nnoremap <Leader>Q q:k<CR>
 " F1 - write only
 nnoremap <F1> :w<CR>
 inoremap <F1> <Esc>:w<CR>a
+vnoremap <F1> <Esc>:w<CR>a
+snoremap <F1> <Esc>:w<CR>a
 " F3 - write and quit
 " nnoremap <F3> :wq<CR>
 " inoremap <F3> <Esc>:wq<CR>li
@@ -265,8 +274,8 @@ inoremap <Home> <Esc>?<++><CR>
 nnoremap <End> /<++><CR>
 vnoremap <End> <Esc>/<++><CR>
 inoremap <End> <Esc>/<++><CR>
-nnoremap <Leader>t :LLPStartPreview<CR>
-inoremap <Leader>t <Esc>:LLPStartPreview<CR>a
+nnoremap <C-t> <Esc>:LLPStartPreview<CR>
+inoremap <C-t> <Esc>:LLPStartPreview<CR>a
 " Mathdoc
 nnoremap <Leader>m :call ToggleMATH()<CR>
 inoremap <Leader>m <Esc>:call ToggleMATH()<CR>a

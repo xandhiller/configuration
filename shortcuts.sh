@@ -63,3 +63,4 @@ alias dict='dict -d gcide'
 alias thes='dict -d moby-thesaurus'
 
 alias labSetup='~/.scripts/twoScreens.sh && sudo ~/.scripts/keyRemaps'
+alias snip='nvim ~/.config/UltiSnips/'
