@@ -53,6 +53,16 @@ set rtp+=~/.vim/bundle/Vundle.vim/
 filetype off
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'     
+Plugin 'SirVer/ultisnips'
+  let g:UltiSnipsEditSplit="vertical"
+  let g:UltiSnipsExpandTrigger= '<Tab>'
+  let g:UltiSnipsJumpForwardTrigger = '<Tab>'
+  let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
+  let g:UltiSnipsSnippetDirectories=[$HOME.'/.config/UltiSnips']
+  inoremap <C-u> <Esc>:UltiSnipsEdit<CR>
+  nnoremap <C-u> <Esc>:UltiSnipsEdit<CR>
+  vnoremap <C-u> <Esc>:UltiSnipsEdit<CR>
+Plugin 'lervag/vimtex'
 Plugin 'scrooloose/nerdtree'      
 	map <C-n> :NERDTreeToggle<CR><C-w>=
 Plugin 'xuhdev/vim-latex-live-preview'
@@ -75,6 +85,7 @@ Plugin 'junegunn/goyo.vim'
     set noshowmode
     set noshowcmd
     set scrolloff=999
+    call EIGHTYon()
   endfunction
   function! s:goyo_leave()
     silent !tmux set status on
@@ -274,27 +285,27 @@ nnoremap <Leader>i :set list!<CR>
 "     (l) (;) (') 
 "         (.)
 " <Leader><Leader>    Place hook
-inoremap <Leader><Leader> <++>
-nnoremap <Leader><Leader> i<++><Esc>
-vnoremap <Leader><Leader> <Esc>i<++><Esc>
-" <Leader>l     Eat previous hook and go into insert mode
-inoremap <Leader>l <Esc>?<++><CR>lh"_c4l
-nnoremap <Leader>l <Esc>?<++><CR>lh"_c4l
-vnoremap <Leader>l <Esc>?<++><CR>lh"_c4l
-" <Leader>'     Eat next hook and go into insert mode
-inoremap <Leader>' <Esc>/++><CR>h"_c4l
-nnoremap <Leader>' <Esc>/++><CR>h"_c4l
-vnoremap <Leader>' <Esc>/++><CR>h"_c4l
-" <Leader>[     Go to previous hook
-inoremap <Leader>[ <Esc>?<++><CR>i
-nnoremap <Leader>{ <Esc>?<++><CR>
-vnoremap <Leader>{ <Esc>?<++><CR>
-" <Leader>.     Go to next hook
-inoremap <Leader>. <Esc>/<++><CR>
-nnoremap <Leader>. <Esc>/<++><CR>
-vnoremap <Leader>. <Esc>><CR>
-" To allow the undoing of a line at a time:
-inoremap <CR> <Esc>a<CR>
+"inoremap <Leader><Leader> <++>
+"nnoremap <Leader><Leader> i<++><Esc>
+"vnoremap <Leader><Leader> <Esc>i<++><Esc>
+"" <Leader>l     Eat previous hook and go into insert mode
+"inoremap <Leader>l <Esc>?<++><CR>lh"_c4l
+"nnoremap <Leader>l <Esc>?<++><CR>lh"_c4l
+"vnoremap <Leader>l <Esc>?<++><CR>lh"_c4l
+"" <Leader>'     Eat next hook and go into insert mode
+"inoremap <Leader>' <Esc>/++><CR>h"_c4l
+"nnoremap <Leader>' <Esc>/++><CR>h"_c4l
+"vnoremap <Leader>' <Esc>/++><CR>h"_c4l
+"" <Leader>[     Go to previous hook
+"inoremap <Leader>[ <Esc>?<++><CR>i
+"nnoremap <Leader>{ <Esc>?<++><CR>
+"vnoremap <Leader>{ <Esc>?<++><CR>
+"" <Leader>.     Go to next hook
+"inoremap <Leader>. <Esc>/<++><CR>
+"nnoremap <Leader>. <Esc>/<++><CR>
+"vnoremap <Leader>. <Esc>><CR>
+"" To allow the undoing of a line at a time:
+"inoremap <CR> <Esc>a<CR>
 " I don't really use [ and ] so, remapping them to what I do use: { and }
 " Only in normal mode and visual mode though, that way typing is not affected.
 

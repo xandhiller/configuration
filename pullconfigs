@@ -9,6 +9,7 @@ vimplugins="/home/polluticorn/.vim/"
 keyRemaps="/home/polluticorn/.scripts/keyRemaps"
 tmuxconf="/home/polluticorn/.tmux.conf"
 scripts="/home/polluticorn/.scripts/"
+snippets="/home/polluticorn/.config/UltiSnips"
 
 cp    $vimrc      .
 cp    $bashrc     .
@@ -20,3 +21,4 @@ cp -R $ith        .
 cp -R $ithb       .
 cp -R $vimplugins .
 cp -R $scripts    .
+cp -R $snippets   .
