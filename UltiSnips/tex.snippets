@@ -1,3 +1,24 @@
+global !p
+texMathZones = ['texMathZone'+x for x in ['A', 'AS', 'B', 'BS', 'C', 'CS', 'D', 'DS', 'E', 'ES', 'F', 'FS', 'G', 'GS', 'H', 'HS', 'I', 'IS', 'J', 'JS', 'K', 'KS', 'L', 'LS', 'DS', 'V', 'W', 'X', 'Y', 'Z']]
+
+texIgnoreMathZones = ['texMathText']
+
+texMathZoneIds = vim.eval('map('+str(texMathZones)+", 'hlID(v:val)')")
+texIgnoreMathZoneIds = vim.eval('map('+str(texIgnoreMathZones)+", 'hlID(v:val)')")
+
+ignore = texIgnoreMathZoneIds[0]
+
+def math():
+	synstackids = vim.eval("synstack(line('.'), col('.') - (col('.')>=2 ? 1 : 0))")
+	try:
+		first = next(i for i in reversed(synstackids) if i in texIgnoreMathZoneIds or i in texMathZoneIds)
+		return first != ignore
+	except StopIteration:
+		return False
+endglobal
+
+
+
 snippet beg
 \begin{$1}
 	$2
@@ -13,28 +34,28 @@ endsnippet
 
 
 snippet dm "Display Math"
-\[
+\[%
 	$1
-.\]
+\]%
 endsnippet
 
 
 snippet im "Math" wA
-$${1}$`!p
+$ ${1} $`!p
 if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
     snip.rv = ' '
 else:
     snip.rv = ''
-`$2
+` $2
 endsnippet
 
 
-snippet frac "Fraction"
-\frac{$1}{$2} $3
+snippet frac "Fraction" i
+\frac{$1}{$2}$3
 endsnippet
 
 
-snippet ddx "Differentiate"
+snippet ddx "Differentiate" A
 \frac{d}{${1:dx}} \left( ${2:F} \right) $3
 endsnippet
 
@@ -58,20 +79,17 @@ endsnippet
 
 
 snippet sec "Section" bA
-\section{$1}
-$2
+\section{$1} $2
 endsnippet
 
 
 snippet ssec "Subsection" bA
-\subsection{$1}
-$2
+\subsection{$1} $2
 endsnippet
 
 
 snippet sssec "Subsubsection" bA
-\subsubsection{$1}
-$2
+\subsubsection{$1} $2
 endsnippet
 
 
@@ -133,6 +151,11 @@ snippet ZZ "Z" iA
 endsnippet
 
 
+snippet CC "Z" iA
+\C
+endsnippet
+
+
 snippet ~~ "~" iA
 \sim 
 endsnippet
@@ -144,20 +167,20 @@ endsnippet
 
 
 snippet !> "mapsto" iA
-\mapsto 
+\mapsto $1
 endsnippet
 
 
 snippet <! "mapsfrom" iA
-\mapsfrom 
+\mapsfrom $1
 endsnippet
 
-snippet td "to the ... power" iA
+snippet td "to the ... power" i
 ^{$1}$0
 endsnippet
 
 
-snippet rd "to the ... power" iA
+snippet rd "to the ... power" i
 ^{($1)}$0
 endsnippet
 
@@ -282,8 +305,13 @@ snippet inn "contained in"
 endsnippet
 
 
-snippet set "Set Notation"
+snippet pset "Proper Set Notation"
 \\{ ${1:x} \in ${2:\R} : $3 \\}
+endsnippet
+
+
+snippet set "Set Notation" i
+\\{ $1 \\}
 endsnippet
 
 
@@ -312,6 +340,11 @@ snippet sr "Superscript" i
 endsnippet
 
 
+snippet srr "Superscript" i
+^{($1)} $2
+endsnippet
+
+
 snippet => "implies" iA
 \Rightarrow $1
 endsnippet
@@ -327,13 +360,122 @@ snippet =/ "Not equal" iA
 endsnippet
 
 
-snippet int "Integrate"
-\int${1:^{b}_{a}} $2 \ ${3:dx} $4
+snippet intl "Integrate with limits"
+\int^{$2}_{$1} $2 \ ${3:dx} $4
 endsnippet
 
 
 snippet text "Text"
-\text{${1: }$2} $3
+\text{$1} $2
+endsnippet
+
+
+snippet int "Integrate"
+\int $1 \ ${2:dx}
+endsnippet
+
+
+snippet cint "Contour integral"
+\oint $1 \ ${2:dz}
+endsnippet
+
+
+snippet cintl "Integrate with limits"
+\oint^{$2}_{$1} $2 \ ${3:dz} $4
+endsnippet
+
+
+snippet sin "Sine" A
+\sin\left($1\right) $2
+endsnippet
+
+
+snippet cos "Cosine" A
+\cos\left($1\right) $2
+endsnippet
+
+
+snippet tan "Tangent" A
+\tan\left($1\right) $2
+endsnippet
+
+context "math()"
+snippet omega "Omega" A
+\omega$1
+endsnippet
+
+
+snippet of "Function of..." i
+($1)$2
+endsnippet
+
+
+snippet <> "iff" A
+\iff $1
+endsnippet
+
+
+snippet span "Span" w
+\text{Span} \\{ $1 \\}
+endsnippet
+
+
+snippet qanda "Q&A" w
+\qanda{$1}{$2} $3
+endsnippet
+
+
+snippet . "Dot Prod" w
+\cdot$1
+endsnippet
+
+
+snippet pp "Parantheses" w
+\left($1\right)
+endsnippet
+
+
+context "math()"
+snippet pi "PI" iA
+{\pi}$1
+endsnippet
+
+
+snippet pi "PI" i
+{\pi}$1
+endsnippet
+
+
+context "math()"
+snippet '((\d+)|(\d*)(\\)?([A-Za-z\)\(\}\{\-]+)((\^|_)(\{\d+\}|\d))*)/' "Fraction" wrA
+\\frac{`!p snip.rv = match.group(1)`}{$1} $0
+endsnippet
+
+
+context "math()"
+snippet // "Frac" wA
+\frac{$1}{$2}$3
+endsnippet
+
+
+context "math()"
+snippet bigfun "Big function" iA
+\begin{align*}
+	$1: $2 &\longrightarrow $3 \\\\
+	$4 &\longmapsto $1($4) = $0
+.\end{align*}
+endsnippet
+
+
+context "math()"
+snippet "([a-zA-Z]*)txt" "Text in Math Mode" ri
+\text{`!p snip.rv=match.group(1)`$1}$2
+endsnippet
+
+
+context "math()"
+snippet "([a-zA-Z])dot" "Dot" riA
+\dot{`!p snip.rv=match.group(1)`} 
 endsnippet
 
 

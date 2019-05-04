@@ -3,7 +3,7 @@ exec --no-startup-id ~/.bashrc
 set $mod Mod4
 set $alt Mod1
 font pango:monospace 8
-set $term st 
+set $term gnome-terminal
 set $fn   XF86WakeUp
 set $lock ~/.scripts/pLock.sh
 set $kbLight python3 /usr/local/bin/kb-light.py --up
@@ -13,20 +13,25 @@ set $textbookOpener ~/.scripts/textbookOpener
 set $listScripts ~/.scripts/listScripts
 set $brightness ~/.scripts/brightness
 
+
 # Default setup
-gaps inner              10
+gaps inner              4
 gaps outer              1
-new_window pixel        2
+new_window pixel        0
 focus_follows_mouse     no
 floating_modifier       $mod
 
 # Workspace Names
-set $ws1 1: α 
-set $ws2 2: β 
-set $ws3 3: λ 
-set $ws4 4: φ 
-set $ws5 5: ∩ 
-set $ws6 6: ∪ 
+set $ws1 1: 1 
+set $ws2 2: 2 
+set $ws3 3: 3 
+set $ws4 4: 4 
+set $ws5 5: 5 
+set $ws6 6: 6 
+set $ws7 7: 7 
+set $ws8 8: 8 
+set $ws9 9: 9 
+set $ws10 10: 10 
  
 # Set colours:
 set $darkblack	 "#000000"
@@ -65,11 +70,11 @@ client.background         $black
 bar {
 	font pango:mono 8
   status_command i3blocks
-	position bottom
+	position top
   strip_workspace_numbers yes
   colors{
-    set $background "#444444"
-    set $focus "#666666"
+    set $background "#202020"
+    set $focus "#353535"
     background $background
     statusline "#FFFFFF"
     separator $background
@@ -78,8 +83,9 @@ bar {
   }  
   tray_padding 10
 }
-exec --no-startup-id hsetroot -solid "#393939"
+exec --no-startup-id hsetroot -solid "#151515"
 
+bindsym $mod+n exec i3-input -F 'rename workspace to "'`i3-msg -t get_workspaces | jq '.[] | select(.visible == true)' | jq .num`'%s"' -P "Pin and rename workspace > "
 # Define, search, wikipedia and window access
 bindsym $mod+Right              exec --no-startup-id rofi -show window
 bindsym $mod+Down               exec --no-startup-id define $(rofi -dmenu -input /dev/null -p "Define: ")
@@ -132,13 +138,21 @@ bindsym $mod+3                  workspace $ws3
 bindsym $mod+4                  workspace $ws4
 bindsym $mod+5                  workspace $ws5
 bindsym $mod+6                  workspace $ws6
+bindsym $mod+7                  workspace $ws7
+bindsym $mod+8                  workspace $ws8
+bindsym $mod+9                  workspace $ws9
+bindsym $mod+0                  workspace $ws10
 # Move to a workspace and go there.
-bindsym $mod+Shift+1            move container to workspace $ws1, workspace $ws1
-bindsym $mod+Shift+2            move container to workspace $ws2, workspace $ws2
-bindsym $mod+Shift+3            move container to workspace $ws3, workspace $ws3
-bindsym $mod+Shift+4            move container to workspace $ws4, workspace $ws4
-bindsym $mod+Shift+5            move container to workspace $ws5, workspace $ws5
-bindsym $mod+Shift+6            move container to workspace $ws6, workspace $ws6
+bindsym $mod+Shift+1            move container to workspace $ws1
+bindsym $mod+Shift+2            move container to workspace $ws2
+bindsym $mod+Shift+3            move container to workspace $ws3
+bindsym $mod+Shift+4            move container to workspace $ws4
+bindsym $mod+Shift+5            move container to workspace $ws5
+bindsym $mod+Shift+6            move container to workspace $ws6
+bindsym $mod+Shift+7            move container to workspace $ws7
+bindsym $mod+Shift+8            move container to workspace $ws8
+bindsym $mod+Shift+9            move container to workspace $ws9
+bindsym $mod+Shift+0            move container to workspace $ws10
 bindsym $mod+Shift+r            restart
 bindsym $mod+Shift+e            exec "i3-nagbar -b 'Yes, exit i3' 'i3-msg exit'"
 #Browser
@@ -185,8 +199,8 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-# Pop-Up Mode
-for_window [instance="terminal process"] floating enable
-for_window [instance="terminal process"] resize set 400 100
-for_window [instance="terminal process"] move position 1200 i00
-bindsym $mod+p exec --no-startup-id $term -n "terminal process"
+# Pop-Up Mode -- off for the moment, not supported by gnome terminal
+#   for_window [instance="terminal process"] floating enable
+#   for_window [instance="terminal process"] resize set 400 100
+#   for_window [instance="terminal process"] move position 1200 i00
+#   bindsym $mod+p exec --no-startup-id $term -n "terminal process"

@@ -22,28 +22,30 @@ set wildmenu
 set nohlsearch
 set breakindent
 set updatecount=1
+set updatetime=100
 set colorcolumn=81
 set shada='50,<1000,s100,:0,n~/nvim/shada
 function! MyHighlights()
-  hi Visual             cterm=none   ctermbg=239
+  hi Visual             cterm=none   ctermbg=235
   hi Todo               cterm=none ctermbg=237 ctermfg=3
   syn match   myTodo    contained   "\<\(TODO\|FIXME\|OPTIMISE\)"
   hi def link myTodo Todo
-  hi ColorColumn        ctermbg=237
-  hi LineNr             ctermfg=29
+  hi ColorColumn        ctermbg=233
+  hi LineNr             ctermfg=238
   hi Folded             ctermfg=61   ctermbg=none
   hi VertSplit          ctermbg=42   ctermfg=41
   hi StatusLine         ctermbg=232  ctermfg=41
   hi StatusLineNC       ctermbg=232  ctermfg=23
   hi vCursor            ctermbg=31
-  hi CursorLine         cterm=none   ctermbg=237
-  hi CursorLineNr       cterm=none   ctermfg=29 ctermbg=237
+  hi CursorLine         cterm=none   ctermbg=233
+  hi CursorLineNr       cterm=bold   ctermfg=240 ctermbg=233
   hi String             ctermfg=35
   hi Number             ctermfg=134
   hi SignColumn         ctermbg=0
   hi SignatureMarkText  ctermfg=245  ctermbg=0
-  hi Conceal            ctermfg=3    ctermbg=0
+  hi Conceal            ctermfg=3    ctermbg=232
 endfunction
+call UpdateTypesFile
 
 
 "  PLUG-INS 
@@ -52,6 +54,7 @@ set rtp+=~/.vim/bundle/Vundle.vim/
 filetype off
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'     
+Plugin 'vim-scripts/TagHighlight'
 Plugin 'SirVer/ultisnips'
   let g:UltiSnipsEditSplit="vertical"
   let g:UltiSnipsExpandTrigger= '<Tab>'
@@ -65,7 +68,7 @@ Plugin 'lervag/vimtex'
   let g:tex_flavor='latex'
   let g:vimtex_view_method='zathura'
   let g:vimtex_quickfix_mode=0
-  set conceallevel=0
+  set conceallevel=1
   let g:vimtex_matchparen_enabled=0
   let g:tex_conceal='abdmg'
 Plugin 'scrooloose/nerdtree'      
@@ -195,7 +198,7 @@ nnoremap v <C-v>
 let g:EIGHTY=0
 set colorcolumn=81
 function! EIGHTYon()
-  highlight ColorColumn ctermbg=235
+  highlight ColorColumn ctermbg=232
 endfunction
 function! EIGHTYoff()
   highlight ColorColumn ctermbg=none
@@ -274,8 +277,8 @@ inoremap <Home> <Esc>?<++><CR>
 nnoremap <End> /<++><CR>
 vnoremap <End> <Esc>/<++><CR>
 inoremap <End> <Esc>/<++><CR>
-nnoremap <C-t> <Esc>:LLPStartPreview<CR>
-inoremap <C-t> <Esc>:LLPStartPreview<CR>a
+nnoremap <C-S-t> <Esc>:LLPStartPreview<CR>
+inoremap <C-S-t> <Esc>:LLPStartPreview<CR>a
 " Mathdoc
 nnoremap <Leader>m :call ToggleMATH()<CR>
 inoremap <Leader>m <Esc>:call ToggleMATH()<CR>a
@@ -294,25 +297,25 @@ nnoremap <Leader>i :set list!<CR>
 "     (l) (;) (') 
 "         (.)
 " <Leader><Leader>    Place hook
-"inoremap <Leader><Leader> <++>
-"nnoremap <Leader><Leader> i<++><Esc>
-"vnoremap <Leader><Leader> <Esc>i<++><Esc>
+inoremap <Leader><Leader> <++>
+nnoremap <Leader><Leader> i<++><Esc>
+vnoremap <Leader><Leader> <Esc>i<++><Esc>
 "" <Leader>l     Eat previous hook and go into insert mode
-"inoremap <Leader>l <Esc>?<++><CR>lh"_c4l
-"nnoremap <Leader>l <Esc>?<++><CR>lh"_c4l
-"vnoremap <Leader>l <Esc>?<++><CR>lh"_c4l
-"" <Leader>'     Eat next hook and go into insert mode
-"inoremap <Leader>' <Esc>/++><CR>h"_c4l
-"nnoremap <Leader>' <Esc>/++><CR>h"_c4l
-"vnoremap <Leader>' <Esc>/++><CR>h"_c4l
-"" <Leader>[     Go to previous hook
-"inoremap <Leader>[ <Esc>?<++><CR>i
-"nnoremap <Leader>{ <Esc>?<++><CR>
-"vnoremap <Leader>{ <Esc>?<++><CR>
-"" <Leader>.     Go to next hook
-"inoremap <Leader>. <Esc>/<++><CR>
-"nnoremap <Leader>. <Esc>/<++><CR>
-"vnoremap <Leader>. <Esc>><CR>
+inoremap <Leader>l <Esc>?<++><CR>lh"_c4l
+nnoremap <Leader>l <Esc>?<++><CR>lh"_c4l
+vnoremap <Leader>l <Esc>?<++><CR>lh"_c4l
+" <Leader>'     Eat next hook and go into insert mode
+inoremap <Leader>' <Esc>/++><CR>h"_c4l
+nnoremap <Leader>' <Esc>/++><CR>h"_c4l
+vnoremap <Leader>' <Esc>/++><CR>h"_c4l
+" <Leader>[     Go to previous hook
+inoremap <Leader>[ <Esc>?<++><CR>i
+nnoremap <Leader>{ <Esc>?<++><CR>
+vnoremap <Leader>{ <Esc>?<++><CR>
+" <Leader>.     Go to next hook
+inoremap <Leader>. <Esc>/<++><CR>
+nnoremap <Leader>. <Esc>/<++><CR>
+vnoremap <Leader>. <Esc>><CR>
 "" To allow the undoing of a line at a time:
 "inoremap <CR> <Esc>a<CR>
 " I don't really use [ and ] so, remapping them to what I do use: { and }
