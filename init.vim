@@ -45,7 +45,6 @@ function! MyHighlights()
   hi SignatureMarkText  ctermfg=245  ctermbg=0
   hi Conceal            ctermfg=3    ctermbg=232
 endfunction
-call UpdateTypesFile
 
 
 "  PLUG-INS 
@@ -56,7 +55,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'     
 Plugin 'vim-scripts/TagHighlight'
 Plugin 'SirVer/ultisnips'
-  let g:UltiSnipsEditSplit="vertical"
+  let g:UltiSnipsEditSplit="horizontal"
   let g:UltiSnipsExpandTrigger= '<Tab>'
   let g:UltiSnipsJumpForwardTrigger = '<Tab>'
   let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
@@ -277,15 +276,15 @@ inoremap <Home> <Esc>?<++><CR>
 nnoremap <End> /<++><CR>
 vnoremap <End> <Esc>/<++><CR>
 inoremap <End> <Esc>/<++><CR>
-nnoremap <C-S-t> <Esc>:LLPStartPreview<CR>
-inoremap <C-S-t> <Esc>:LLPStartPreview<CR>a
+nnoremap <C-t> <Esc>:LLPStartPreview<CR>
+inoremap <C-t> <Esc>:LLPStartPreview<CR>a
 " Mathdoc
 nnoremap <Leader>m :call ToggleMATH()<CR>
 inoremap <Leader>m <Esc>:call ToggleMATH()<CR>a
 vnoremap <Leader>m <Esc>:call ToggleMATH()<CR>a
 nnoremap <Leader>F6 :vsp ~/.scripts/math.vim<CR>
 nnoremap <F6> :source ~/.scripts/math.vim<CR>
-nnoremap <Leader>i :! inkfig %:p:h<CR>
+"nnoremap <Leader>i :! inkfig %:p:h<CR>
 " surround.vim is the best, wth is 'selection mode' good for anyway?
 nmap s ys
 nmap ss yss
@@ -316,6 +315,10 @@ vnoremap <Leader>{ <Esc>?<++><CR>
 inoremap <Leader>. <Esc>/<++><CR>
 nnoremap <Leader>. <Esc>/<++><CR>
 vnoremap <Leader>. <Esc>><CR>
+" For syntax highlighting based on ctags.
+nnoremap <F8> <Esc>:w<CR><Esc>:! ctags -R<CR><Esc>:UpdateTypesFile<CR>
+inoremap <F8> <Esc>:w<CR><Esc>:! ctags -R<CR><Esc>:UpdateTypesFile<CR>
+vnoremap <F8> <Esc>:w<CR><Esc>:! ctags -R<CR><Esc>:UpdateTypesFile<CR>
 "" To allow the undoing of a line at a time:
 "inoremap <CR> <Esc>a<CR>
 " I don't really use [ and ] so, remapping them to what I do use: { and }

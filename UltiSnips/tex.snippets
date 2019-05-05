@@ -40,7 +40,17 @@ snippet dm "Display Math"
 endsnippet
 
 
-snippet im "Math" wA
+snippet im "Math" w
+$ ${1} $`!p
+if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
+    snip.rv = ' '
+else:
+    snip.rv = ''
+` $2
+endsnippet
+
+
+snippet iM "Math" wA
 $ ${1} $`!p
 if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
     snip.rv = ' '
@@ -60,11 +70,11 @@ snippet ddx "Differentiate" A
 endsnippet
 
 
-snippet fig "Create LaTeX Figure"
-\begin{figure}
-	$1
-\end{figure}
-endsnippet
+#snippet fig "Create LaTeX Figure"
+#\begin{figure}
+#	$1
+#\end{figure}
+#endsnippet
 
 
 snippet table "Create LaTeX table"
@@ -94,13 +104,6 @@ endsnippet
 
 
 snippet bmat "Bracket Matrix"
-\begin{bmatrix}
-	$1
-\end{bmatrix}
-endsnippet
-
-
-snippet mat "Also bracket Matrix"
 \begin{bmatrix}
 	$1
 \end{bmatrix}
@@ -479,6 +482,38 @@ snippet "([a-zA-Z])dot" "Dot" riA
 endsnippet
 
 
+snippet mat "sympy block " w
+matrix $1$2matrix$3
+endsnippet
 
 
+snippet 'matrix (\d) (\d) matrix'  "test" r
+$0`!p
+width = int(match.group(1))
+height = int(match.group(2))
+s = ""
+for j in range(width):
+	for i in range(height-1):
+		s += "<++> & " 
+	s += r"<++> \\" 
+	if j != height-1:
+		s+="\n\t\t"
+	else:
+		s+="\t\t"
+snip.rv = s
+`
+endsnippet
 
+
+priority 1000
+snippet '(\d) (\d) (\d)' "" r
+`!p
+snip.rv = match.group(1) + match.group(2) + match.group(3) 
+`
+endsnippet
+
+
+context "math()"
+snippet "([a-zA-Z]*)bf" "Text in Math Mode" ri
+\mathbf{`!p snip.rv=match.group(1)`}$2
+endsnippet
