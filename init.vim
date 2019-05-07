@@ -300,13 +300,13 @@ inoremap <Leader><Leader> <++>
 nnoremap <Leader><Leader> i<++><Esc>
 vnoremap <Leader><Leader> <Esc>i<++><Esc>
 "" <Leader>l     Eat previous hook and go into insert mode
-inoremap <Leader>l <Esc>?<++><CR>lh"_c4l
-nnoremap <Leader>l <Esc>?<++><CR>lh"_c4l
-vnoremap <Leader>l <Esc>?<++><CR>lh"_c4l
+inoremap <Leader>l <Esc>a<Esc>?<++><CR>lh"_c4l
+nnoremap <Leader>l <Esc>a<Esc>?<++><CR>lh"_c4l
+vnoremap <Leader>l <Esc>a<Esc>?<++><CR>lh"_c4l
 " <Leader>'     Eat next hook and go into insert mode
-inoremap <Leader>' <Esc>/++><CR>h"_c4l
-nnoremap <Leader>' <Esc>/++><CR>h"_c4l
-vnoremap <Leader>' <Esc>/++><CR>h"_c4l
+inoremap <Leader>' <Esc>a<Esc>/++><CR>h"_c4l
+nnoremap <Leader>' <Esc>a<Esc>/++><CR>h"_c4l
+vnoremap <Leader>' <Esc>a<Esc>/++><CR>h"_c4l
 " <Leader>[     Go to previous hook
 inoremap <Leader>[ <Esc>?<++><CR>i
 nnoremap <Leader>{ <Esc>?<++><CR>
