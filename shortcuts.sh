@@ -1,3 +1,7 @@
+alias manim='clear && sudo MANIM_PATH=/home/polluticorn/bin/manim docker-compose run manim'
+
+
+
 alias vim='nvim'
 alias ls='ls --color=auto --group-directories-first'
 alias grep='grep --color=auto'

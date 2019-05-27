@@ -23,12 +23,12 @@ endsnippet
 
 
 snippet sc "scanf" w
-scanf("$1", $2);
+scanf("$1", ${2:&var});
 endsnippet
 
 
 snippet scanf "scanf" wA
-scanf("$1", $2);
+scanf("$1", ${2:&var});
 endsnippet
 
 
@@ -38,3 +38,15 @@ for ($1 = $2; $1 ${3:<} $4; $5) {
 }$7
 endsnippet
 
+
+snippet /**/ "Comment Block" bA
+/******************************************************************************/
+endsnippet
+
+
+snippet enum "enumeration" wA
+enum {
+	$1,
+	$2,
+};
+endsnippet

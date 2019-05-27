@@ -1,6 +1,7 @@
 "  APPEARANCE/INPUT """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"set tags=./tags,tags;
 let mapleader=";"
-colorscheme peachpuff
+colorscheme zellner
 set nocompatible
 set noshowmatch
 set tabstop=4
@@ -26,24 +27,29 @@ set updatetime=100
 set colorcolumn=81
 set shada='50,<1000,s100,:0,n~/nvim/shada
 function! MyHighlights()
-  hi Visual             cterm=none   ctermbg=235
-  hi Todo               cterm=none ctermbg=237 ctermfg=3
-  syn match   myTodo    contained   "\<\(TODO\|FIXME\|OPTIMISE\)"
-  hi def link myTodo Todo
-  hi ColorColumn        ctermbg=233
-  hi LineNr             ctermfg=238
-  hi Folded             ctermfg=61   ctermbg=none
-  hi VertSplit          ctermbg=42   ctermfg=41
-  hi StatusLine         ctermbg=232  ctermfg=41
-  hi StatusLineNC       ctermbg=232  ctermfg=23
-  hi vCursor            ctermbg=31
-  hi CursorLine         cterm=none   ctermbg=233
-  hi CursorLineNr       cterm=bold   ctermfg=240 ctermbg=233
-  hi String             ctermfg=35
-  hi Number             ctermfg=134
-  hi SignColumn         ctermbg=0
-  hi SignatureMarkText  ctermfg=245  ctermbg=0
-  hi Conceal            ctermfg=3    ctermbg=232
+    hi Visual             cterm=none ctermfg=none ctermbg=254
+    hi Todo               cterm=none ctermbg=237 ctermfg=3
+    syn match   myTodo    contained   "\<\(TODO\|FIXME\|OPTIMISE\)"
+    hi def link myTodo Todo
+    hi ColorColumn          ctermbg=250
+    hi LineNr               ctermfg=252 
+    hi Folded               ctermfg=61   ctermbg=none
+    hi VertSplit            ctermbg=246  ctermfg=246
+    hi StatusLine           ctermbg=246  ctermfg=255
+    hi StatusLineNC         ctermbg=246  ctermfg=255
+    hi vCursor              ctermbg=1
+    hi CursorLine           cterm=none   ctermbg=253
+    hi CursorLineNr         cterm=bold   ctermfg=240    ctermbg=253
+    hi String               ctermfg=35
+    hi Number               ctermfg=134
+    hi SignColumn           ctermbg=0
+    hi SignatureMarkText    ctermfg=245  ctermbg=0
+    hi Conceal              ctermfg=1    ctermbg=255
+    hi Comment              ctermfg=246
+    hi Identifier           ctermfg=62
+    hi String               ctermfg=30
+    hi Statement            ctermfg=124
+    hi PreProc              ctermfg=98   cterm=none
 endfunction
 
 
@@ -55,72 +61,50 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'     
 Plugin 'vim-scripts/TagHighlight'
 Plugin 'SirVer/ultisnips'
-  let g:UltiSnipsEditSplit="horizontal"
-  let g:UltiSnipsExpandTrigger= '<Tab>'
-  let g:UltiSnipsJumpForwardTrigger = '<Tab>'
-  let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
-  let g:UltiSnipsSnippetDirectories=[$HOME.'/.config/UltiSnips']
-  inoremap <C-u> <Esc>:UltiSnipsEdit<CR>
-  nnoremap <C-u> <Esc>:UltiSnipsEdit<CR>
-  vnoremap <C-u> <Esc>:UltiSnipsEdit<CR>
+    let g:UltiSnipsEditSplit="vertical"
+    let g:UltiSnipsExpandTrigger= '<Tab>'
+    let g:UltiSnipsJumpForwardTrigger = '<Tab>'
+    let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
+    let g:UltiSnipsSnippetDirectories=[$HOME.'/.config/UltiSnips']
+    inoremap <C-u> <Esc>:UltiSnipsEdit<CR>
+    nnoremap <C-u> <Esc>:UltiSnipsEdit<CR>
+    vnoremap <C-u> <Esc>:UltiSnipsEdit<CR>
 Plugin 'lervag/vimtex'
-  let g:tex_flavor='latex'
-  let g:vimtex_view_method='zathura'
-  let g:vimtex_quickfix_mode=0
-  set conceallevel=1
-  let g:vimtex_matchparen_enabled=0
-  let g:tex_conceal='abdmg'
+    let g:tex_flavor='latex'
+    let g:vimtex_view_method='zathura'
+    let g:vimtex_quickfix_mode=0
+    set conceallevel=1
+    let g:vimtex_matchparen_enabled=0
+    let g:tex_conceal='abdmg'
 Plugin 'scrooloose/nerdtree'      
-	map <C-n> :NERDTreeToggle<CR><C-w>=
+    map <C-n> :NERDTreeToggle<CR><C-w>=
 Plugin 'xuhdev/vim-latex-live-preview'
-  let g:livepreview_previewer = 'zathura'
+    let g:livepreview_previewer = 'zathura'
 Plugin 'junegunn/fzf'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'JuliaEditorSupport/julia-vim'
-  let g:latex_to_unicode_file_types = ".md" 
+    let g:latex_to_unicode_file_types = ".md" 
 Plugin 'junegunn/goyo.vim'
-  let g:goyo_width=85
-  let g:goyo_margin_top=0
-  let g:goyo_margin_bottom=0
-  nnoremap <C-c> :Goyo<CR>
-  inoremap <C-c> <Esc>:Goyo<CR>i
-  vnoremap <C-c> <Esc>:Goyo<CR>
-  function! s:goyo_enter()
+    let g:goyo_width=85
+    let g:goyo_margin_top=0
+    let g:goyo_margin_bottom=0
+    nnoremap <C-c> :Goyo<CR>
+    inoremap <C-c> <Esc>:Goyo<CR>i
+    vnoremap <C-c> <Esc>:Goyo<CR>
+    function! s:goyo_enter()
     silent !tmux set status off
     silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
     set noshowmode
     set noshowcmd
-    set scrolloff=999
-    call EIGHTYon()
-  endfunction
-  function! s:goyo_leave()
-    silent !tmux set status on
-    silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
-    set showmode
-    set showcmd
-    set scrolloff=5
-    call MyHighlights()
-    call EIGHTYoff()
-  endfunction
-autocmd! User GoyoEnter nested call <SID>goyo_enter()
-autocmd! User GoyoLeave nested call <SID>goyo_leave()
-Plugin 'vimwiki/vimwiki'
-  let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
-  let s:vimwiki = {}
-  let s:vimwiki.path = '~/vimwiki'
-  let s:vimwiki.ext = '.md'
-  let s:vimwiki.syntax = 'markdown'
-  let s:vimwiki.ext2syntax = {}
-  let g:vimwiki_list = [s:vimwiki]
-Plugin 'connorholyday/vim-snazzy'
+endfunction
 Plugin 'kshenoy/vim-signature'
 call vundle#end()
 filetype plugin indent on
 syntax on
 call MyHighlights()
 if !has('gui_running')
-  set t_Co=256
+    set t_Co=256
 endif
 
 
@@ -176,7 +160,7 @@ nnoremap <C-Up>    <C-w>-
 nnoremap <C-Right> <C-w>>
 " Refresh vimrc
 inoremap <F5>   <Esc>:source<Space>$MYVIMRC<CR>:echom "init.vim refreshed"<CR>i
-nnoremap <F5>   :source<Space>$MYVIMRC<CR>:echom "init.vim refreshed"<CR>
+nnoremap <F5>   <Esc>:source<Space>$MYVIMRC<CR>:echom "init.vim refreshed"<CR>
 vnoremap <F5>   <Esc>:source<Space>$MYVIMRC<CR>:echom "init.vim refreshed"<CR>
 " Copy and paste to the clipboard
 set clipboard=unnamedplus
@@ -187,7 +171,8 @@ inoremap <C-p> <Esc>"+pi
 nnoremap <C-p> "+p
 vnoremap <C-p> "+p
 " Make saving quicker
-nnoremap SS :w<CR>
+nnoremap SS <Esc>:w<CR>
+" Make moving around lines more intuitive
 nnoremap H 0
 vnoremap H 0
 nnoremap L $
@@ -197,19 +182,19 @@ nnoremap v <C-v>
 let g:EIGHTY=0
 set colorcolumn=81
 function! EIGHTYon()
-  highlight ColorColumn ctermbg=232
+    highlight ColorColumn ctermbg=254
 endfunction
 function! EIGHTYoff()
-  highlight ColorColumn ctermbg=none
+    highlight ColorColumn ctermbg=none
 endfunction
 function! EIGHTYtoggle()
-  if !g:EIGHTY
-    let g:EIGHTY=1
-    call EIGHTYon()
-  else
-    let g:EIGHTY=0
-    call EIGHTYoff()
-  endif
+    if !g:EIGHTY
+        let g:EIGHTY=1
+        call EIGHTYon()
+    else
+        let g:EIGHTY=0
+        call EIGHTYoff()
+    endif
 endfunction
 call EIGHTYtoggle()
 call EIGHTYtoggle()
@@ -218,8 +203,8 @@ nnoremap <Leader>cl :call EIGHTYtoggle()<CR>
 " nnoremap <Leader>/ {j>ip0<C-v>}0kc#<Esc>
 " nnoremap <Leader>? {j<C-v>}k0x<ip
 " Run python file
-au FileType python nnoremap <Leader>r :w<CR>:! python3 %<CR>
-au FileType python nnoremap <Leader>R :w<CR>:! time python3 %<CR>
+au FileType python nnoremap <Leader>r <Esc>:w<CR>:! python3 %<CR>
+au FileType python nnoremap <Leader>R <Esc>:w<CR>:! time python3 %<CR>
 " Automatically make a notes file in the same firecotry as current file and 
 "   open it in vsplit
 nnoremap <Leader>nn :vsp %:p:h/_notes.md<CR>
@@ -261,15 +246,6 @@ nnoremap <F1> :w<CR>
 inoremap <F1> <Esc>:w<CR>a
 vnoremap <F1> <Esc>:w<CR>a
 snoremap <F1> <Esc>:w<CR>a
-" F3 - write and quit
-" nnoremap <F3> :wq<CR>
-" inoremap <F3> <Esc>:wq<CR>li
-" F10 - write and quit all
-"nnoremap <F10> :wqa<CR>
-" inoremap <F10> <Esc>:wqa<CR>li
-" F12 - force quit
-"nnoremap <F12> :q!<CR>
-"inoremap <F12> <Esc>:q!<CR>li
 nnoremap <Home> ?<++><CR>
 vnoremap <Home> <Esc>?<++><CR>
 inoremap <Home> <Esc>?<++><CR>
@@ -278,14 +254,9 @@ vnoremap <End> <Esc>/<++><CR>
 inoremap <End> <Esc>/<++><CR>
 nnoremap <C-t> <Esc>:LLPStartPreview<CR>
 inoremap <C-t> <Esc>:LLPStartPreview<CR>a
-" Mathdoc
-nnoremap <Leader>m :call ToggleMATH()<CR>
-inoremap <Leader>m <Esc>:call ToggleMATH()<CR>a
-vnoremap <Leader>m <Esc>:call ToggleMATH()<CR>a
 nnoremap <Leader>F6 :vsp ~/.scripts/math.vim<CR>
 nnoremap <F6> :source ~/.scripts/math.vim<CR>
-"nnoremap <Leader>i :! inkfig %:p:h<CR>
-" surround.vim is the best, wth is 'selection mode' good for anyway?
+" surround.vim is the best
 nmap s ys
 nmap ss yss
 nmap si ysi
@@ -319,92 +290,91 @@ vnoremap <Leader>. <Esc>><CR>
 nnoremap <F8> <Esc>:w<CR><Esc>:! ctags -R<CR><Esc>:UpdateTypesFile<CR>
 inoremap <F8> <Esc>:w<CR><Esc>:! ctags -R<CR><Esc>:UpdateTypesFile<CR>
 vnoremap <F8> <Esc>:w<CR><Esc>:! ctags -R<CR><Esc>:UpdateTypesFile<CR>
-"" To allow the undoing of a line at a time:
-"inoremap <CR> <Esc>a<CR>
-" I don't really use [ and ] so, remapping them to what I do use: { and }
-" Only in normal mode and visual mode though, that way typing is not affected.
+vnoremap <C-g> g<C-g>
+inoremap <Leader>m <Esc>:! python3.7 /home/polluticorn/GitHub/grading/FOC/marker.py %<CR>
+vnoremap <Leader>m <Esc>:! python3.7 /home/polluticorn/GitHub/grading/FOC/marker.py %<CR>
+nnoremap <Leader>m <Esc>:! python3.7 /home/polluticorn/GitHub/grading/FOC/marker.py %<CR>
 
 
 " FILETYPE SPECIFIC SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " .md
 augroup markdownSettings
-  au FileType markdown set tabstop=4 shiftwidth=4
-  au FileType markdown inoremap <M-8> ⋅
-  au FileType markdown inoremap <M-7> ✓
-  au FileType markdown inoremap <M-=> —
-"  au FileType markdown ab ---- ————————————————————————————————————————————————————————————————————————————————
-  au FileType markdown set listchars=eol:¬,tab:\▸\ ,trail:~,extends:>,precedes:<
-  au FileType markdown set textwidth=80
-  au FileType markdown set wrapmargin=0
-  au FileType markdown set linebreak
+    au FileType markdown set tabstop=4 shiftwidth=4
+    au FileType markdown inoremap <M-8> ⋅
+    au FileType markdown inoremap <M-7> ✓
+    au FileType markdown inoremap <M-=> —
+    au FileType markdown set listchars=eol:¬,tab:\▸\ ,trail:~,extends:>,precedes:<
+    au FileType markdown set textwidth=80
+    au FileType markdown set wrapmargin=0
+    au FileType markdown set linebreak
 augroup END
 " .mathdoc
 augroup mathdocSettings
-  au BufRead *.mdc set syntax=tex
-  au FileType mdc set textwidth=80
-  au FileType mdc set wrapmargin=0
-  au FileType mdc set linebreak
-  au BufReadPost *.mdc source ~/.scripts/math.vim
-  au BufReadPost *.mdc normal :LLPStartPreview<CR>
+    au BufRead *.mdc set syntax=tex
+    au FileType mdc set textwidth=80
+    au FileType mdc set wrapmargin=0
+    au FileType mdc set linebreak
+    au BufReadPost *.mdc source ~/.scripts/math.vim
+    au BufReadPost *.mdc normal :LLPStartPreview<CR>
 augroup END
 " .c
 augroup cSettings
-  au FileType c call EIGHTYtoggle()
-  au FileType c set shiftwidth=4
-  au BufNewFile *.c read /home/polluticorn/GitHub/codeTemplates/c.c
-  au FileType c inoremap <Leader>r <Esc>:w<CR><Esc>:! crun %<CR>
-  au FileType c nnoremap <Leader>r <Esc>:w<CR><Esc>:! crun %<CR>
-  au FileType c vnoremap <Leader>r <Esc>:w<CR><Esc>:! crun %<CR>
-  au FileType c inoremap <Leader>/ <Esc>g^i/*<Space><Esc>g_a<Space>*/
-  au FileType c nnoremap <Leader>/ <Esc>g^i/*<Space><Esc>g_a<Space>*/<Esc>
-  au FileType c vnoremap <Leader>/ <Esc>g^i/*<Space><Esc>g_a<Space>*/<Esc>
-  au FileType c inoremap <Leader>? <Esc>g^d3lg_2hd3lA
-  au FileType c nnoremap <Leader>? <Esc>g^d3lg_2hd3l
-  au FileType c vnoremap <Leader>? <Esc>g^d3lg_2hd3l
+    au FileType c call EIGHTYtoggle()
+    au FileType c set shiftwidth=4
+    au BufNewFile *.c read /home/polluticorn/GitHub/codeTemplates/c.c
+    au FileType c inoremap <Leader>r <Esc>:w<CR><Esc>:! crun %<CR>
+    au FileType c nnoremap <Leader>r <Esc>:w<CR><Esc>:! crun %<CR>
+    au FileType c vnoremap <Leader>r <Esc>:w<CR><Esc>:! crun %<CR>
+    au FileType c inoremap <Leader>/ <Esc>g^i/*<Space><Esc>g_a<Space>*/
+    au FileType c nnoremap <Leader>/ <Esc>g^i/*<Space><Esc>g_a<Space>*/<Esc>
+    au FileType c vnoremap <Leader>/ <Esc>g^i/*<Space><Esc>g_a<Space>*/<Esc>
+    au FileType c inoremap <Leader>? <Esc>g^d3lg_2hd3lA
+    au FileType c nnoremap <Leader>? <Esc>g^d3lg_2hd3l
+    au FileType c vnoremap <Leader>? <Esc>g^d3lg_2hd3l
 augroup END
 " .py
 augroup pySettings
-  au FileType python inoremap <Leader>/ <Esc>g^i#<Space><Esc>$
-  au FileType python nnoremap <Leader>/ <Esc>g^i#<Space><Esc>$
-  au FileType python vnoremap <Leader>/ <Esc>g^i#<Space><Esc>$
-  au FileType python inoremap <Leader>? <Esc>g^xx
-  au FileType python nnoremap <Leader>? <Esc>g^xx
-  au FileType python vnoremap <Leader>? <Esc>g^xx
-  au BufReadPost *.py call EIGHTYtoggle()
-  au FileType python set tabstop=4 shiftwidth=4
-  " TODO: Read in `which python` and add w/ shebang to top of files.
-  au BufNewFile *.py read /home/polluticorn/GitHub/codeTemplates/py.py
+    au FileType python inoremap <Leader>/ <Esc>g^i#<Space><Esc>$
+    au FileType python nnoremap <Leader>/ <Esc>g^i#<Space><Esc>$
+    au FileType python vnoremap <Leader>/ <Esc>g^i#<Space><Esc>$
+    au FileType python inoremap <Leader>? <Esc>g^xx
+    au FileType python nnoremap <Leader>? <Esc>g^xx
+    au FileType python vnoremap <Leader>? <Esc>g^xx
+    au BufReadPost *.py call EIGHTYtoggle()
+    au FileType python set tabstop=4 shiftwidth=4
+    au BufNewFile *.py read /home/polluticorn/GitHub/codeTemplates/py.py
 augroup END
 " .tex
 augroup texSettings
-  au FileType tex set listchars=eol:¬,tab:\▸\ ,trail:~,extends:>,precedes:<
-  au FileType tex set textwidth=80
-  au FileType tex set wrapmargin=0
-  au FileType tex set linebreak
-  au FileType tex normal zfip
+    au FileType tex set listchars=eol:¬,tab:\▸\ ,trail:~,extends:>,precedes:<
+    au FileType tex set textwidth=80
+    au FileType tex set wrapmargin=0
+    au FileType tex set linebreak
+    au FileType tex normal zfip
 augroup END
 " .sh
 augroup shSettings
-  
 augroup END
 " cpp
 augroup cppSettings
-  au FileType cpp call EIGHTYtoggle()
-  au FileType cpp set shiftwidth=4
-  au BufNewFile *.cpp read /home/polluticorn/GitHub/codeTemplates/cpp.cpp
-  au FileType cpp inoremap <Leader>/ <Esc>g^i//<Space><Esc>$
-  au FileType cpp nnoremap <Leader>/ <Esc>g^i//<Space><Esc>$
-  au FileType cpp vnoremap <Leader>/ <Esc>g^i//<Space><Esc>$
-  au FileType cpp inoremap <Leader>? <Esc>g^xxx
-  au FileType cpp nnoremap <Leader>? <Esc>g^xxx
-  au FileType cpp vnoremap <Leader>? <Esc>g^xxx
-  au FileType cpp inoremap <Leader>r <Esc>:w<CR><Esc>:! cpprun %<CR>
-  au FileType cpp nnoremap <Leader>r <Esc>:w<CR><Esc>:! cpprun %<CR>
-  au FileType cpp vnoremap <Leader>r <Esc>:w<CR><Esc>:! cpprun %<CR>
-  au FileType cpp inoremap <Leader>b <Esc>:w<CR><Esc>:! cpprun % -build<CR>
-  au FileType cpp nnoremap <Leader>b <Esc>:w<CR><Esc>:! cpprun % -build<CR>
-  au FileType cpp vnoremap <Leader>b <Esc>:w<CR><Esc>:! cpprun % -build<CR>
+    au FileType cpp call EIGHTYtoggle()
+    au FileType cpp set shiftwidth=4
+    au BufNewFile *.cpp read /home/polluticorn/GitHub/codeTemplates/cpp.cpp
+    " Comment
+    au FileType cpp inoremap <Leader>/ <Esc>g^i//<Space><Esc>$
+    au FileType cpp nnoremap <Leader>/ <Esc>g^i//<Space><Esc>$
+    au FileType cpp vnoremap <Leader>/ <Esc>g^i//<Space><Esc>$
+    " Uncomment
+    au FileType cpp inoremap <Leader>? <Esc>g^xxx
+    au FileType cpp nnoremap <Leader>? <Esc>g^xxx
+    au FileType cpp vnoremap <Leader>? <Esc>g^xxx
+    au FileType cpp inoremap <Leader>r <Esc>:w<CR><Esc>:! cpprun %<CR>
+    au FileType cpp nnoremap <Leader>r <Esc>:w<CR><Esc>:! cpprun %<CR>
+    au FileType cpp vnoremap <Leader>r <Esc>:w<CR><Esc>:! cpprun %<CR>
+    au FileType cpp inoremap <Leader>b <Esc>:w<CR><Esc>:! cpprun % -build<CR>
+    au FileType cpp nnoremap <Leader>b <Esc>:w<CR><Esc>:! cpprun % -build<CR>
+    au FileType cpp vnoremap <Leader>b <Esc>:w<CR><Esc>:! cpprun % -build<CR>
 augroup END
 
 " Settings for plain text note taking/`sent` presentations
@@ -426,13 +396,6 @@ au BufReadPost *.sent call TextShortcuts()
 au BufReadPost *.sent nnoremap <Leader>r :w<Esc>:silent ! sent %<CR>
 au BufReadPost *.s call TextShortcuts()
 au BufReadPost *.txt call TextShortcuts()
-
-
-
-" SHORTCUT FOR COMMENTING
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" TODO
-
 
 " VIM+TEX NOTES MODE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -459,6 +422,7 @@ function! ToggleNOTES()
     call NOTESoff()
   endif
 endfunction
+
 
 " IGNORE FILES VIM DOESN'T USE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

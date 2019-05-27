@@ -15,6 +15,9 @@ def math():
 		return first != ignore
 	except StopIteration:
 		return False
+
+def text():
+	return (not math())
 endglobal
 
 
@@ -26,6 +29,7 @@ snippet beg
 endsnippet
 
 
+context "text()"
 snippet equ 
 \begin{equation}
 	$1
@@ -33,15 +37,18 @@ snippet equ
 endsnippet
 
 
-snippet dm "Display Math"
-\[%
-	$1
-\]%
+context "text()"
+snippet dm "Display Math" wA
+${1:
+}\[%
+	$2
+\]%$3
 endsnippet
 
 
-snippet im "Math" w
-$ ${1} $`!p
+context "text()"
+snippet mn "Math" wA
+$${1}$`!p
 if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
     snip.rv = ' '
 else:
@@ -50,76 +57,66 @@ else:
 endsnippet
 
 
-snippet iM "Math" wA
-$ ${1} $`!p
-if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
-    snip.rv = ' '
-else:
-    snip.rv = ''
-`$2
-endsnippet
-
-
+context "math()"
 snippet frac "Fraction" i
 \frac{$1}{$2}$3
 endsnippet
 
 
+context "math()"
 snippet ddx "Differentiate" A
 \frac{d}{${1:dx}} \left( ${2:F} \right) $3
 endsnippet
 
 
-#snippet fig "Create LaTeX Figure"
-#\begin{figure}
-#	$1
-#\end{figure}
-#endsnippet
-
-
+context "text()"
 snippet table "Create LaTeX table"
 \begin{table}[!htbp]
 	\centering
-	\begin{tabular}{$1}
-	\hline
-	$1
-	\hline
+	\begin{tabular}{$1} \hline
+		$2
+		\hline
+	\end{tabular}
 \end{table}
 endsnippet
 
 
+context "text()"
 snippet sec "Section" bA
 \section{$1} $2
 endsnippet
 
 
+context "text()"
 snippet ssec "Subsection" bA
 \subsection{$1} $2
 endsnippet
 
 
+context "text()"
 snippet sssec "Subsubsection" bA
 \subsubsection{$1} $2
 endsnippet
 
 
-snippet bmat "Bracket Matrix"
-\begin{bmatrix}
-	$1
-\end{bmatrix}
+context "math()"
+snippet bmat "Bracket Matrix" wA
+\begin{bmatrix}$1\end{bmatrix}
 endsnippet
 
 
-snippet svg "Figure"
+context "text()"
+snippet svg "Figure with svg graphics"
 \begin{figure}[!htbp]
 	\centering
-	\includesvg[width=$3\textwidth]{$1} % No file extension.
-	\caption{$2}
+	\includesvg[width=0.3\textwidth]{$1} % No file extension.
+	% \caption{$2}
 \end{figure}
 endsnippet
 
 
-snippet pic "Figure"
+context "text()"
+snippet pic "Figure with picture"
 \begin{figure}[!htbp]
 	\centering
 	\includegraphics[width=$3\textwidth]{$1}
@@ -128,6 +125,7 @@ snippet pic "Figure"
 endsnippet
 
 
+context "text()"
 snippet fig "Figure"
 \begin{figure}[!htbp]
 	\centering
@@ -137,288 +135,288 @@ snippet fig "Figure"
 endsnippet
 
 
+context "math()"
 snippet '([A-Za-z])(\d)' "auto subscript" wrA
 `!p snip.rv = match.group(1)`_`!p snip.rv = match.group(2)`
 endsnippet
 
 
+context "math()"
 snippet '([A-Za-z])_(\d\d)' "auto subscript2" wrA
 `!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`}
 endsnippet
 
 
+context "math()"
 snippet td "superscript" iA
 ^{$1}$0
 endsnippet
 
 
+context "math()"
 snippet OO "emptyset" iA
 \O
 endsnippet
 
 
+context "math()"
 snippet RR "real" iA
 \R
 endsnippet
 
 
+context "math()"
 snippet QQ "Q" iA
 \Q
 endsnippet
 
 
+context "math()"
 snippet ZZ "Z" iA
 \Z
 endsnippet
 
 
+context "math()"
 snippet CC "Z" iA
 \C
 endsnippet
 
 
+context "math()"
 snippet ~~ "~" iA
 \sim 
 endsnippet
 
 
+context "math()"
 snippet invs "inverse" iA
 ^{-1}
 endsnippet
 
 
+context "math()"
 snippet !> "mapsto" iA
 \mapsto $1
 endsnippet
 
 
+context "math()"
 snippet <! "mapsfrom" iA
 \mapsfrom $1
 endsnippet
 
+
+context "math()"
 snippet td "to the ... power" i
 ^{$1}$0
 endsnippet
 
 
+context "math()"
 snippet rd "to the ... power" i
 ^{($1)}$0
 endsnippet
 
 
+context "math()"
 snippet __ "subscript" iA
 _{$1}$0
 endsnippet
 
 
+context "math()"
 snippet ooo "\infty" iA
 \infty
 endsnippet
 
 
+context "math()"
 snippet <= "leq" iA
 \le 
 endsnippet
 
 
+context "math()"
 snippet >= "geq" iA
 \ge 
 endsnippet
 
 
+context "math()"
 snippet EE "geq" iA
 \exists 
 endsnippet
 
 
+context "math()"
 snippet AA "forall" iA
 \forall 
 endsnippet
 
 
-snippet xnn "xn" iA
-x_{n}
-endsnippet
-
-
-snippet ynn "yn" iA
-y_{n}
-endsnippet
-
-
-snippet xii "xi" iA
-x_{i}
-endsnippet
-
-
-snippet yii "yi" iA
-y_{i}
-endsnippet
-
-
-snippet xjj "xj" iA
-x_{j}
-endsnippet
-
-
-snippet yjj "yj" iA
-y_{j}
-endsnippet
-
-
-snippet xkk "xk" iA
-x_{k}
-endsnippet
-
-
-snippet ykk "yk" iA
-y_{k}
-endsnippet
-
-
-snippet xmm "xm" iA
-x_{m}
-endsnippet
-
-
-snippet ykk "yk" iA
-y_{k}
-endsnippet
-
-
+context "math()"
 snippet sum "sum" w
 \sum_{n=${1:1}}^{${2:\infty}} ${3:a_n z^n}
 endsnippet
 
 
+context "math()"
 snippet taylor "taylor" w
 \sum_{${1:k}=${2:0}}^{${3:\infty}} ${4:c_$1} (x-a)^$1 $0
 endsnippet
 
 
+context "math()"
 snippet lim "limit" w
 \lim_{${1:n} \to ${2:\infty}} 
 endsnippet
 
 
+context "math()"
 snippet limsup "limsup" w
 \limsup_{${1:n} \to ${2:\infty}} 
 endsnippet
 
 
+context "math()"
 snippet prod "product" w
 \prod_{${1:n=${2:1}}}^{${3:\infty}} ${4:${VISUAL}} $0
 endsnippet
 
 
+context "math()"
 snippet part "d/dx" w
 \frac{\partial ${1:V}}{\partial ${2:x}} $0
 endsnippet
 
 
+context "math()"
 snippet ... "ldots" iA
 \ \ldots \\$1
 endsnippet
 
 
-snippet inn "contained in" 
+context "math()"
+snippet iin "contained in" iA
 \in $1
 endsnippet
 
 
+context "math()"
 snippet pset "Proper Set Notation"
 \\{ ${1:x} \in ${2:\R} \ | \ $3 \\}
 endsnippet
 
 
-snippet set "Set Notation" i
+context "math()"
+snippet set "Set Notation" iA
 \\left\\{ $1 \\right\\}
 endsnippet
 
 
-snippet sq "square" i
+context "math()"
+snippet sq "square" iA
 ^{2}
 endsnippet
 
 
-snippet cb "cube" i
-^{3}
-endsnippet
+#context "math()"
+#snippet cb "cube" iA
+#^{3}
+#endsnippet
 
 
+context "math()"
 snippet ss "subscript superscript" i
 ^{$1}_{$2}
 endsnippet
 
 
-snippet sb "Subscript" i
-_{$1} $2
+context "math()"
+snippet sb "Subscript" iA
+_{$1}$2
 endsnippet
 
 
-snippet sr "Superscript" i
+context "math()"
+snippet sr "Superscript" iA
 ^{$1} $2
 endsnippet
 
 
-snippet srr "Superscript" i
+context "math()"
+snippet sd "Superscript" i
 ^{($1)} $2
 endsnippet
 
 
+context "math()"
 snippet => "implies" iA
 \Rightarrow $1
 endsnippet
 
 
+context "math()"
 snippet =< "implied from" iA
 \Leftarrow $1
 endsnippet
 
 
+
+context "math()"
 snippet =/ "Not equal" iA
 \neq
 endsnippet
 
 
-snippet intl "Integrate with limits"
+context "math()"
+snippet intl "Integrate with limits" A
 \int^{$2}_{$1} $2 \ ${3:dx} $4
 endsnippet
 
 
+context "math()"
 snippet text "Text"
 \text{$1} $2
 endsnippet
 
 
+context "math()"
 snippet int "Integrate"
 \int $1 \ ${2:dx}
 endsnippet
 
 
+context "math()"
 snippet cint "Contour integral"
 \oint $1 \ ${2:dz}
 endsnippet
 
 
+context "math()"
 snippet cintl "Integrate with limits"
 \oint^{$2}_{$1} $2 \ ${3:dz} $4
 endsnippet
 
 
+context "math()"
 snippet sin "Sine" A
 \sin\left($1\right) $2
 endsnippet
 
 
+context "math()"
 snippet cos "Cosine" A
 \cos\left($1\right) $2
 endsnippet
 
 
+context "math()"
 snippet tan "Tangent" A
 \tan\left($1\right) $2
 endsnippet
+
 
 context "math()"
 snippet omega "Omega" A
@@ -426,21 +424,26 @@ snippet omega "Omega" A
 endsnippet
 
 
-snippet of "Function of..." i
+context "math()"
+snippet of "Function of..." iA
 ($1)$2
 endsnippet
 
 
+context "math()"
 snippet <> "iff" A
 \iff $1
 endsnippet
 
 
+
+context "math()"
 snippet span "Span" w
-\text{Span} \\{ $1 \\}
+\text{Span} \left\\{ $1 \right\\}
 endsnippet
 
 
+context "text()"
 snippet qanda "Q&A" w
 %
 \qanda
@@ -451,11 +454,13 @@ $3
 endsnippet
 
 
-snippet . "Dot Prod" w
-\cdot$1
+context "math()"
+snippet .. "Dot multiply/inner product" iA
+ \cdot $1
 endsnippet
 
 
+context "math()"
 snippet pp "Parantheses" w
 \left($1\right)
 endsnippet
@@ -467,8 +472,9 @@ snippet pi "PI" iA
 endsnippet
 
 
+
 snippet pi "PI" i
-{\pi}$1
+\pi $1
 endsnippet
 
 
@@ -505,13 +511,15 @@ snippet "([a-zA-Z])dot" "Dot" riA
 endsnippet
 
 
-snippet mat "matrix block " w
+context "math()"
+snippet mat "matrix block " wA
 matrix ($1) ($2) matrix$3
 endsnippet
 
 
-snippet 'matrix \((\d)\) \((\d)\) matrix'  "test" r
-$0`!p
+snippet 'matrix \((\d)\) \((\d)\) matrix'  "test" rA
+\begin{bmatrix} 
+	$0`!p
 row = int(match.group(1))
 columns = int(match.group(2))
 s = ""
@@ -525,18 +533,47 @@ for j in range(row):
 		s += "\t\t"
 snip.rv = s
 `
+\end{bmatrix}
+endsnippet
+
+
+context "text()"
+snippet "([a-zA-Z]*)bf" "bold font in text mode" riA
+\textbf{`!p snip.rv=match.group(1)`$2}
+endsnippet
+
+
+context "text()"
+snippet "([a-zA-Z]*)it" "itallic font in text mode" ri
+\textit{`!p snip.rv=match.group(1)`$2}
 endsnippet
 
 
 context "math()"
-snippet "([a-zA-Z]*)bf" "Text in Math Mode" ri
-\mathbf{`!p snip.rv=match.group(1)`}$2
+snippet "([a-zA-Z]*)(_\w)?bf" "Bold font in mathmode" riA
+\mathbf{`!p 
+if match.group(2) != None:
+	snip.rv=match.group(1)+match.group(2)
+else:
+	snip.rv=match.group(1)
+	`}
 endsnippet
 
+
+context "math()"
+snippet "([a-zA-Z]*)cal" "Calligraphic letters in math mode" riA
+\mathcal{`!p snip.rv=match.group(1)`}
+endsnippet
+
+
+context "math()"
+snippet "([a-zA-Z]*)bas" "Basis" riA
+[\mathbf{`!p snip.rv=match.group(1)`}]_{\mathcal{$1}}
+endsnippet
 
 context "math()"
 snippet rref "reduced row echelon form" 
-\text{rref} ($1) $2
+\text{rref} \left($1\right) $2
 endsnippet
 
 
@@ -547,8 +584,8 @@ endsnippet
 
 
 context "math()"
-snippet xx "times/multiplication" wA
-\times $1
+snippet xx "times/multiplication" iA
+ \times $1
 endsnippet
 
 
@@ -559,10 +596,10 @@ snippet item "itemize" w
 endsnippet		
 
 
-context "math()"
-snippet == "plus" iA
-+ $1
-endsnippet
+#context "math()"
+#snippet == "plus" iA
+#+ $1
+#endsnippet
 
 
 context "math()"
@@ -586,4 +623,133 @@ endsnippet
 context "math()"
 snippet rank "rank()" 
 \text{rank} ( $1 )
+endsnippet
+
+
+snippet wrt "with respect to" wA
+with respect to $1
+endsnippet
+
+
+context "math()"
+snippet := "define" iA
+\coloneqq 
+endsnippet
+
+
+context "math()"
+snippet ;= "define" iA
+\coloneqq 
+endsnippet
+
+
+context "math()"
+snippet "([a-zA-Z])nn" "" riA
+`!p snip.rv=match.group(1)`_n
+endsnippet
+
+
+context "math()"
+snippet "([a-zA-Z])mm" "" riA
+`!p snip.rv=match.group(1)`_m
+endsnippet
+
+
+context "math()"
+snippet "([a-zA-Z])ii" "" riA
+`!p snip.rv=match.group(1)`_i
+endsnippet
+
+
+context "math()"
+snippet "([a-zA-Z])jj" "" riA
+`!p snip.rv=match.group(1)`_j
+endsnippet
+
+
+context "math()"
+snippet "([a-zA-Z])kk" "" riA
+`!p snip.rv=match.group(1)`_k
+endsnippet
+
+context "math()"
+snippet Pb "Basis matrix for B" iA
+\mathbf{P}_{\mathcal{B}}
+endsnippet
+
+context "math()"
+snippet Pc "Basis matrix for C" iA
+\mathbf{P}_{\mathcal{C}}
+endsnippet
+
+context "math()"
+snippet Nul "Null space of a matrix" i
+\text{Nul}(\mathbf{$1})
+endsnippet
+
+context "math()" 
+snippet Col "Column space of a matrix" i
+\text{Col}(\mathbf{$1})
+endsnippet
+
+
+context "math()"
+snippet Row "Row space of a matrix" i
+\text{Row}(\mathbf{$1})
+endsnippet
+
+snippet st "such that" wA
+\ni 
+endsnippet
+
+
+context "text()"
+snippet "([a-zA-Z])mn" "" ri
+$`!p snip.rv=match.group(1)`$
+endsnippet
+
+
+context "math()"
+snippet tf "therefore" iA
+ \therefore 
+endsnippet
+
+
+context "math()"
+snippet nin "not an element of" iA
+ \notin 
+endsnippet
+
+
+context "math()"
+snippet "([a-zA-Z]*)(_\w)?hat" "Bold font in mathmode" riA
+\hat{`!p 
+if match.group(2) != None:
+	snip.rv=match.group(1)+match.group(2)
+else:
+	snip.rv=match.group(1)
+	`}
+endsnippet
+
+
+context "math()"
+snippet "([a-zA-Z]*)(_\w)?vht" "Bold font in mathmode" riA
+\mathbf{\hat{`!p 
+if match.group(2) != None:
+	snip.rv=match.group(1)+match.group(2)
+else:
+	snip.rv=match.group(1)
+	`}}
+endsnippet
+
+
+context "math()" 
+snippet proj "Column space of a matrix" iA
+\text{proj}_{$1}\left($2\right)
+endsnippet
+
+
+context "math()" 
+snippet mod "Modulus" iA
+\|$1\|
 endsnippet

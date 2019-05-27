@@ -25,3 +25,4 @@ entropy
 codec
 obfuscated
 eigen
+electret
