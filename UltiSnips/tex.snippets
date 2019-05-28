@@ -58,7 +58,7 @@ endsnippet
 
 
 context "math()"
-snippet frac "Fraction" i
+snippet frac "Fraction" iA
 \frac{$1}{$2}$3
 endsnippet
 
@@ -256,8 +256,8 @@ endsnippet
 
 
 context "math()"
-snippet sum "sum" w
-\sum_{n=${1:1}}^{${2:\infty}} ${3:a_n z^n}
+snippet sum "sum" wA
+\sum_{${1:n=1}}^{${2:\infty}} ${3:x_i}
 endsnippet
 
 
@@ -290,10 +290,14 @@ snippet part "d/dx" w
 \frac{\partial ${1:V}}{\partial ${2:x}} $0
 endsnippet
 
-
 context "math()"
 snippet ... "ldots" iA
-\ \ldots \\$1
+\ldots \\$1
+endsnippet
+
+context "text()"
+snippet ... "ldots" iA
+\ldots $1
 endsnippet
 
 
@@ -456,7 +460,7 @@ endsnippet
 
 context "math()"
 snippet .. "Dot multiply/inner product" iA
- \cdot $1
+\cdot 
 endsnippet
 
 
@@ -478,10 +482,10 @@ snippet pi "PI" i
 endsnippet
 
 
-context "math()"
-snippet '((\d+)|(\d*)(\\)?([A-Za-z\)\(\}\{\-]+)((\^|_)(\{\d+\}|\d))*)/' "Fraction" wrA
-\\frac{`!p snip.rv = match.group(1)`}{$1} $0
-endsnippet
+#context "math()"
+#snippet '((\d+)|(\d*)(\\)?([A-Za-z\)\(\}\{\-]+)((\^|_)(\{\d+\}|\d))*)/' "Fraction" wrA
+#\\frac{`!p snip.rv = match.group(1)`}{$1} $0
+#endsnippet
 
 
 context "math()"
@@ -734,12 +738,9 @@ endsnippet
 
 context "math()"
 snippet "([a-zA-Z]*)(_\w)?vht" "Bold font in mathmode" riA
-\mathbf{\hat{`!p 
+\mathbf{\hat{`!p snip.rv=match.group(1) `}`!p 
 if match.group(2) != None:
-	snip.rv=match.group(1)+match.group(2)
-else:
-	snip.rv=match.group(1)
-	`}}
+	snip.rv=match.group(2)`}
 endsnippet
 
 
@@ -753,3 +754,48 @@ context "math()"
 snippet mod "Modulus" iA
 \|$1\|
 endsnippet
+
+context "math()"
+snippet == "equals" iA
+
+=
+$1
+endsnippet
+
+
+
+context "math()"
+snippet -- "subtraction" iA
+
+-
+$1
+endsnippet
+
+
+
+context "math()"
+snippet ++ "plus" iA
+
++
+$1
+endsnippet
+
+
+context "math()"
+snippet 2rt "square root" iA
+\sqrt{$1}
+endsnippet
+
+context "math()"
+snippet qu "quad space" wA
+\quad
+
+endsnippet
+
+
+context "math()"
+snippet qqu "quad space" wA
+\qquad
+
+endsnippet
+

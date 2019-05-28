@@ -52,7 +52,6 @@ function! MyHighlights()
     hi PreProc              ctermfg=98   cterm=none
 endfunction
 
-
 "  PLUG-INS 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set rtp+=~/.vim/bundle/Vundle.vim/ 
@@ -60,6 +59,7 @@ filetype off
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'     
 Plugin 'vim-scripts/TagHighlight'
+Plugin 'jiangmiao/auto-pairs'
 Plugin 'SirVer/ultisnips'
     let g:UltiSnipsEditSplit="vertical"
     let g:UltiSnipsExpandTrigger= '<Tab>'
