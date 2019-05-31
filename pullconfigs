@@ -20,5 +20,5 @@ cp    $tmuxconf   .
 cp -R $ith        .
 cp -R $ithb       .
 cp -R $vimplugins .
-cp -R $scripts    .
+cp -R $scripts    ./scripts
 cp -R $snippets   .
