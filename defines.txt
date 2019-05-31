@@ -26,3 +26,6 @@ codec
 obfuscated
 eigen
 electret
+AWGN wireless communications
+bader meinhoff
+reprise

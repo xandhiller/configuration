@@ -50,6 +50,7 @@ function! MyHighlights()
     hi String               ctermfg=30
     hi Statement            ctermfg=124
     hi PreProc              ctermfg=98   cterm=none
+    hi Todo                 ctermfg=59   ctermbg=255
 endfunction
 
 "  PLUG-INS 
@@ -75,6 +76,7 @@ Plugin 'lervag/vimtex'
     let g:vimtex_quickfix_mode=0
     set conceallevel=1
     let g:vimtex_matchparen_enabled=0
+    "let g:tex_fast = 'M'
     let g:tex_conceal='abdmg'
 Plugin 'scrooloose/nerdtree'      
     map <C-n> :NERDTreeToggle<CR><C-w>=
@@ -232,9 +234,9 @@ nnoremap <Right> ]'
 vnoremap <Right> ]'
 "Replacing spaces with underlines in visual selection + the inverse
 vnoremap <Leader>_ :s/\%V /_/g<CR>
-vnoremap <Leader>- :s/\%V /_/g<CR>
+vnoremap <Leader>- :s/\%V /-/g<CR>
 nnoremap <Leader>_ :s/ /_/g<CR>
-nnoremap <Leader>- :s/ /_/g<CR>
+nnoremap <Leader>- :s/ /-/g<CR>
 vnoremap <Leader><Space> :s/\%V_/ /g<CR>
 nnoremap <Leader><Space> :s/_/ /g<CR>
 " Bring up command history quicker
