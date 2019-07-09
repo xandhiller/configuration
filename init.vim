@@ -3,6 +3,8 @@
 let mapleader=";"
 colorscheme zellner
 set nocompatible
+set clipboard+=unnamedplus
+set signcolumn=yes
 set noshowmatch
 set tabstop=4
 set mouse=a
@@ -42,7 +44,7 @@ function! MyHighlights()
     hi CursorLineNr         cterm=bold   ctermfg=240    ctermbg=253
     hi String               ctermfg=35
     hi Number               ctermfg=134
-    hi SignColumn           ctermbg=0
+    hi SignColumn           ctermbg=255
     hi SignatureMarkText    ctermfg=245  ctermbg=0
     hi Conceal              ctermfg=1    ctermbg=255
     hi Comment              ctermfg=246
@@ -51,6 +53,7 @@ function! MyHighlights()
     hi Statement            ctermfg=124
     hi PreProc              ctermfg=98   cterm=none
     hi Todo                 ctermfg=59   ctermbg=255
+    hi ALEErrorSign         ctermbg=255    ctermfg=red
 endfunction
 
 "  PLUG-INS 
@@ -60,6 +63,9 @@ filetype off
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'     
 Plugin 'vim-scripts/TagHighlight'
+Plugin 'w0rp/ale'
+    let g:ale_sign_error = 'x'
+    let g:ale_sign_warning = '-'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'SirVer/ultisnips'
     let g:UltiSnipsEditSplit="vertical"
@@ -87,19 +93,6 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'JuliaEditorSupport/julia-vim'
     let g:latex_to_unicode_file_types = ".md" 
-Plugin 'junegunn/goyo.vim'
-    let g:goyo_width=85
-    let g:goyo_margin_top=0
-    let g:goyo_margin_bottom=0
-    nnoremap <C-c> :Goyo<CR>
-    inoremap <C-c> <Esc>:Goyo<CR>i
-    vnoremap <C-c> <Esc>:Goyo<CR>
-    function! s:goyo_enter()
-    silent !tmux set status off
-    silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
-    set noshowmode
-    set noshowcmd
-endfunction
 Plugin 'kshenoy/vim-signature'
 call vundle#end()
 filetype plugin indent on
@@ -293,9 +286,10 @@ nnoremap <F8> <Esc>:w<CR><Esc>:! ctags -R<CR><Esc>:UpdateTypesFile<CR>
 inoremap <F8> <Esc>:w<CR><Esc>:! ctags -R<CR><Esc>:UpdateTypesFile<CR>
 vnoremap <F8> <Esc>:w<CR><Esc>:! ctags -R<CR><Esc>:UpdateTypesFile<CR>
 vnoremap <C-g> g<C-g>
-inoremap <Leader>m <Esc>:! python3.7 /home/polluticorn/GitHub/grading/FOC/marker.py %<CR>
-vnoremap <Leader>m <Esc>:! python3.7 /home/polluticorn/GitHub/grading/FOC/marker.py %<CR>
-nnoremap <Leader>m <Esc>:! python3.7 /home/polluticorn/GitHub/grading/FOC/marker.py %<CR>
+
+"inoremap <Leader>m <Esc>:! python3.7 /home/polluticorn/GitHub/grading/FOC/marker.py %<CR>
+"vnoremap <Leader>m <Esc>:! python3.7 /home/polluticorn/GitHub/grading/FOC/marker.py %<CR>
+"nnoremap <Leader>m <Esc>:! python3.7 /home/polluticorn/GitHub/grading/FOC/marker.py %<CR>
 
 
 " FILETYPE SPECIFIC SETTINGS
@@ -311,20 +305,11 @@ augroup markdownSettings
     au FileType markdown set wrapmargin=0
     au FileType markdown set linebreak
 augroup END
-" .mathdoc
-augroup mathdocSettings
-    au BufRead *.mdc set syntax=tex
-    au FileType mdc set textwidth=80
-    au FileType mdc set wrapmargin=0
-    au FileType mdc set linebreak
-    au BufReadPost *.mdc source ~/.scripts/math.vim
-    au BufReadPost *.mdc normal :LLPStartPreview<CR>
-augroup END
 " .c
 augroup cSettings
     au FileType c call EIGHTYtoggle()
     au FileType c set shiftwidth=4
-    au BufNewFile *.c read /home/polluticorn/GitHub/codeTemplates/c.c
+    au BufNewFile *.c read $HOME/Templates/code/c.c
     au FileType c inoremap <Leader>r <Esc>:w<CR><Esc>:! crun %<CR>
     au FileType c nnoremap <Leader>r <Esc>:w<CR><Esc>:! crun %<CR>
     au FileType c vnoremap <Leader>r <Esc>:w<CR><Esc>:! crun %<CR>
@@ -364,67 +349,22 @@ augroup cppSettings
     au FileType cpp set shiftwidth=4
     au BufNewFile *.cpp read /home/polluticorn/GitHub/codeTemplates/cpp.cpp
     " Comment
-    au FileType cpp inoremap <Leader>/ <Esc>g^i//<Space><Esc>$
-    au FileType cpp nnoremap <Leader>/ <Esc>g^i//<Space><Esc>$
-    au FileType cpp vnoremap <Leader>/ <Esc>g^i//<Space><Esc>$
+"   au FileType cpp inoremap <Leader>/ <Esc>g^i//<Space><Esc>$
+"   au FileType cpp nnoremap <Leader>/ <Esc>g^i//<Space><Esc>$
+"   au FileType cpp vnoremap <Leader>/ <Esc>g^i//<Space><Esc>$
     " Uncomment
-    au FileType cpp inoremap <Leader>? <Esc>g^xxx
-    au FileType cpp nnoremap <Leader>? <Esc>g^xxx
-    au FileType cpp vnoremap <Leader>? <Esc>g^xxx
-    au FileType cpp inoremap <Leader>r <Esc>:w<CR><Esc>:! cpprun %<CR>
-    au FileType cpp nnoremap <Leader>r <Esc>:w<CR><Esc>:! cpprun %<CR>
-    au FileType cpp vnoremap <Leader>r <Esc>:w<CR><Esc>:! cpprun %<CR>
-    au FileType cpp inoremap <Leader>b <Esc>:w<CR><Esc>:! cpprun % -build<CR>
-    au FileType cpp nnoremap <Leader>b <Esc>:w<CR><Esc>:! cpprun % -build<CR>
-    au FileType cpp vnoremap <Leader>b <Esc>:w<CR><Esc>:! cpprun % -build<CR>
+"   au FileType cpp inoremap <Leader>? <Esc>g^xxx
+"   au FileType cpp nnoremap <Leader>? <Esc>g^xxx
+"   au FileType cpp vnoremap <Leader>? <Esc>g^xxx
+"   au FileType cpp inoremap <Leader>r <Esc>:w<CR><Esc>:! cpprun %<CR>
+"   au FileType cpp nnoremap <Leader>r <Esc>:w<CR><Esc>:! cpprun %<CR>
+"   au FileType cpp vnoremap <Leader>r <Esc>:w<CR><Esc>:! cpprun %<CR>
+"   au FileType cpp inoremap <Leader>b <Esc>:w<CR><Esc>:! cpprun % -build<CR>
+"   au FileType cpp nnoremap <Leader>b <Esc>:w<CR><Esc>:! cpprun % -build<CR>
+"   au FileType cpp vnoremap <Leader>b <Esc>:w<CR><Esc>:! cpprun % -build<CR>
 augroup END
 
-" Settings for plain text note taking/`sent` presentations
-function! TextShortcuts()
-  ab <==> ⟺ <Space>
-  ab * ⋅
-  ab alpha α
-  ab beta β
-  ab gamma γ
-  ab tau τ
-  ab Gamma Γ
-  ab pi π
-  ab sigma σ
-  ab Sigma Σ
-  ab ==> ⟹ <space>
-endfunction
-au BufReadPost *.sent call TextShortcuts()
-"au BufReadPost *.sent nnoremap <Leader>r <Esc>:w<CR><Esc>:! sent %<CR>
 au BufReadPost *.sent nnoremap <Leader>r :w<Esc>:silent ! sent %<CR>
-au BufReadPost *.s call TextShortcuts()
-au BufReadPost *.txt call TextShortcuts()
-
-" VIM+TEX NOTES MODE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-inoremap  <Leader>n <esc>:call ToggleNOTES()<CR>
-nnoremap  <Leader>n :call ToggleNOTES()<CR>
-let g:NOTES=0
-function! NOTESon()
-  let g:NOTES=1
-  ab qanda \qanda{<++>}{<++>}
-  ab code \begin{lstlisting}<CR><Space><Space><++><CR><BS>\end{lstlisting}
-  echo "NOTE macros ACTIVATED."
-  silent ! notify-send "NOTE macros ACTIVATED." -t 25
-endfunction
-function! NOTESoff()
-  let g:NOTES=0
-  abclear
-  echo "NOTE macros DEACTIVATED."
-  silent ! notify-send "NOTE macros DEACTIVATED." -t 25
-endfunction
-function! ToggleNOTES()
-  if !g:NOTES
-    call NOTESon()
-  else
-    call NOTESoff()
-  endif
-endfunction
-
 
 " IGNORE FILES VIM DOESN'T USE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

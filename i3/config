@@ -2,9 +2,9 @@
 exec --no-startup-id ~/.bashrc
 set $mod Mod4
 set $alt Mod1
-font pango:monospace 8
+font pango:Dejavu Sans Mono 16
 set $term gnome-terminal
-set $fn   XF86WakeUp
+# set $fn   XF86WakeUp
 set $lock ~/.scripts/pLock.sh
 set $kbLight python3 /usr/local/bin/kb-light.py --up
 set $touchpad exec --no-startup-id sh ~/.scripts/touch_toggle
@@ -13,12 +13,12 @@ set $textbookOpener ~/.scripts/textbookOpener
 set $listScripts ~/.scripts/listScripts
 set $brightness ~/.scripts/brightness
 exec --no-startup-id unclutter -idle 0.1 -root
-exec --no-startup-id compton -f -i 0.65 --config ~/.config/compton.conf -b
+# exec --no-startup-id compton -f -i 0.8 -b
 
 # Default setup
-gaps inner              4
-gaps outer              1
-new_window pixel        2
+# gaps inner              4
+# gaps outer              1
+new_window pixel        6
 focus_follows_mouse     no
 floating_modifier       $mod
 
@@ -78,19 +78,20 @@ client.urgent		      $grey	        $grey         $grey	    $grey
 client.placeholder        $grey	        $grey         $grey	    $grey  
 client.background         $black
 
+# Status Bar 
 bar {
-	font pango:mono 8
-  status_command i3blocks
+	font pango:mono 18
+    status_command i3blocks
 	position top
-  strip_workspace_numbers yes
-  colors{
-    set $background     "#AAAAAA"
-    set $focus          "#CCCCCC"
-    background          $background
-    statusline          "#000000"
-    separator           $background
-    focused_workspace   $focus $focus "#000000"
-    inactive_workspace  $background $background "#000000"
+    strip_workspace_numbers yes
+    colors {
+        set $background     "#AAAAAA"
+        set $focus          "#CCCCCC"
+        background          $background
+        statusline          "#000000"
+        separator           $background
+        focused_workspace   $focus $focus "#000000"
+        inactive_workspace  $background $background "#000000"
   }  
   tray_padding 10
 }
@@ -139,7 +140,7 @@ bindsym $mod+Shift+l            move right
 # enter fullscreen mode for the focused container
 bindsym $mod+f                  fullscreen toggle
 # change container layout 
-bindsym $mod+w                  layout tabbed
+bindsym $mod+w                  sticky toggle
 bindsym $mod+e                  layout toggle split
 # toggle tiling / floating
 bindsym $mod+Shift+space        floating toggle, resize set 1200 850, move position center
@@ -233,6 +234,9 @@ bindsym $mod+$alt+Control+j resize grow   height  2 px or 2 ppt
 bindsym $mod+$alt+Control+k resize shrink height  2 px or 2 ppt
 bindsym $mod+$alt+Control+l resize grow   width   2 px or 2 ppt
 
+exec --no-startup-id sh ~/.config/keyRemaps
+# exec --no-startup-id sh 
+#
 # Pop-Up Mode -- off for the moment, not supported by gnome terminal
 #   for_window [instance="terminal process"] floating enable
 #   for_window [instance="terminal process"] resize set 400 100

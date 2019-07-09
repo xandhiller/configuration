@@ -1,24 +1,18 @@
 #! /bin/sh
-vimrc="/home/polluticorn/.config/nvim/init.vim"
-bashrc="/home/polluticorn/.bashrc"
-fishrc="/home/polluticorn/.config/fish/config.fish"
-ith="/home/polluticorn/.config/i3/"
-ithb="/home/polluticorn/.config/i3blocks/"
-xdef="/home/polluticorn/.Xdefaults"
-vimplugins="/home/polluticorn/.vim/"
-keyRemaps="/home/polluticorn/.scripts/keyRemaps"
-tmuxconf="/home/polluticorn/.tmux.conf"
-scripts="/home/polluticorn/.scripts/"
-snippets="/home/polluticorn/.config/UltiSnips"
+bash_aliases="$HOME/.bash_aliases"
+init_vim="$HOME/.config/nvim/init.vim"
+bashrc="$HOME/.bashrc"
+ith="$HOME/.config/i3/"
+ithb="$HOME/.config/i3blocks/"
+vimplugins="$HOME/.vim/"
+keyRemaps="$HOME/.scripts/keyRemaps"
+snippets="$HOME/.config/UltiSnips"
 
-cp    $vimrc      .
-cp    $bashrc     .
-cp    $fishrc     .
-cp    $xdef       .
-cp    $keyRemaps  . 
-cp    $tmuxconf   .
-cp -R $ith        .
-cp -R $ithb       .
-cp -R $vimplugins .
-cp -R $scripts    ./scripts
-cp -R $snippets   .
+cp    $bash_aliases .
+cp    $init_vim     .
+cp    $bashrc       .
+cp    $keyRemaps    . 
+cp -R $ith          .
+cp -R $ithb         .
+cp -R $vimplugins   .
+cp -R $snippets     .

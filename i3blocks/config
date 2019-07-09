@@ -1,23 +1,23 @@
-# batscript="~/.scripts/battery.sh"
-
 [date]
 command=date +%F
 interval=5
+
+[space]
+command=echo " "
+interval=500
 
 [time]
 command=date +%R
 interval=5
 
+[space]
+command=echo " "
+interval=500
 
 [battery]
-command=~/.scripts/i3battery0
+command=acpitool | awk  'NR==1{ print $5 };' | sed -e "s/,//g"
 interval=5
 
-[battery]
-command=~/.scripts/i3battery1
-interval=5
-
-
-#   []
-#   command=echo " "
-#    interval=1000
+[space]
+command=echo " "
+interval=500

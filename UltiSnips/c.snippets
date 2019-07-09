@@ -9,8 +9,7 @@ endsnippet
 
 
 snippet struct "structure" w
-struct 
-$1 {
+struct $1 {
 	$2
 };
 typedef struct $1 $1_t;
@@ -47,6 +46,28 @@ endsnippet
 snippet enum "enumeration" wA
 enum {
 	$1,
-	$2,
 };
+endsnippet
+
+snippet switch "Switch statement" bA
+switch($1) {
+	$2
+}
+endsnippet
+
+snippet case "Case statement" bA
+case($1):
+	$2
+	break;
+$3
+endsnippet
+
+snippet doc "Docstring" bA
+/*
+ * $1
+ */
+endsnippet
+
+snippet def "#define" bA
+#define $1
 endsnippet
