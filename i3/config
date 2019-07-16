@@ -1,10 +1,9 @@
 # Run Scripts/Configs
-exec --no-startup-id ~/.bashrc
+font pango:Dejavu Sans Mono 16
 set $mod Mod4
 set $alt Mod1
-font pango:Dejavu Sans Mono 16
-set $term gnome-terminal
 # set $fn   XF86WakeUp
+set $term st
 set $lock ~/.scripts/pLock.sh
 set $kbLight python3 /usr/local/bin/kb-light.py --up
 set $touchpad exec --no-startup-id sh ~/.scripts/touch_toggle
@@ -12,13 +11,23 @@ set $terminalDraw ~/.scripts/term
 set $textbookOpener ~/.scripts/textbookOpener
 set $listScripts ~/.scripts/listScripts
 set $brightness ~/.scripts/brightness
+set $surface_sounds ~/.scripts/surface_sounds
+
+exec --no-startup-id ~/.bashrc
 exec --no-startup-id unclutter -idle 0.1 -root
+exec --no-startup-id $surface_sounds
+exec --no-startup-id xrdb -merge ~/.Xdefaults
+exec --no-startup-id sh ~/.config/keyRemaps
+exec --no-startup-id ~/.scripts/mouse
 # exec --no-startup-id compton -f -i 0.8 -b
 
+bindsym $mod+$alt+Return exec --no-startup-id $term -t "f-follow-mouse" -e nvim "$HOME/.tex_workspace/scratchpad.tex"
+
+
 # Default setup
-# gaps inner              4
-# gaps outer              1
-new_window pixel        6
+#gaps inner              0
+#gaps outer              0
+new_window pixel        4
 focus_follows_mouse     no
 floating_modifier       $mod
 
@@ -80,7 +89,7 @@ client.background         $black
 
 # Status Bar 
 bar {
-	font pango:mono 18
+	font pango:mono 16
     status_command i3blocks
 	position top
     strip_workspace_numbers yes
@@ -198,7 +207,7 @@ bindsym $mod+$fn+space          floating toggle, resize set 625 400
 bindsym $mod+Ctrl+space         floating toggle, resize set 625 400, move position center
 # nb: Mod1 = alt keys
 bindsym $mod+$alt+space         floating toggle, resize set 800 700, move position center
-bindsym $mod+i                  exec scrot && notify-send "Screenshot taken" -t 25
+# bindsym $mod+i                  exec scrot && notify-send "Screenshot taken" -t 25
 bindsym $mod+Shift+Next         move scratchpad
 bindsym $mod+Next               scratchpad show
 bindsym $mod+t                  $touchpad
@@ -234,11 +243,10 @@ bindsym $mod+$alt+Control+j resize grow   height  2 px or 2 ppt
 bindsym $mod+$alt+Control+k resize shrink height  2 px or 2 ppt
 bindsym $mod+$alt+Control+l resize grow   width   2 px or 2 ppt
 
-exec --no-startup-id sh ~/.config/keyRemaps
-# exec --no-startup-id sh 
-#
-# Pop-Up Mode -- off for the moment, not supported by gnome terminal
-#   for_window [instance="terminal process"] floating enable
-#   for_window [instance="terminal process"] resize set 400 100
-#   for_window [instance="terminal process"] move position 1200 i00
-#   bindsym $mod+p exec --no-startup-id $term -n "terminal process"
+
+for_window [ title="f-bottom-middle" ] floating enable, resize set 1200 850, move position mouse 
+for_window [ title="f-follow-mouse" ] floating enable, resize set 1200 500, move position center 
+for_window [ class="Inkscape" ] floating enable
+bindsym $mod+i resize set 2400 1500, move position center
+# for_window [ class="Inkscape" ] 
+# 

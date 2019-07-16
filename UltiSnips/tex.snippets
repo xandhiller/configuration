@@ -40,7 +40,7 @@ endsnippet
 context "text()"
 snippet dm "Display Math" wA
 ${1:
-}\[%
+}\[%%
 	$2
 \]%$3
 endsnippet
@@ -161,25 +161,25 @@ endsnippet
 
 context "math()"
 snippet RR "real" iA
-\R
+\mathbb{R}
 endsnippet
 
 
 context "math()"
 snippet QQ "Q" iA
-\Q
+\mathbb{Q}
 endsnippet
 
 
 context "math()"
 snippet ZZ "Z" iA
-\Z
+\mathbb{Z}
 endsnippet
 
 
 context "math()"
 snippet CC "Z" iA
-\C
+\mathbb{C}
 endsnippet
 
 
@@ -702,8 +702,14 @@ snippet Row "Row space of a matrix" i
 \text{Row}(\mathbf{$1})
 endsnippet
 
+
+context "math()"
 snippet st "such that" wA
-\ni 
+
+\
+|
+\
+$1
 endsnippet
 
 
@@ -809,3 +815,25 @@ context "math()"
 snippet del "Del Operator" iA
 \nabla
 endsnippet
+
+context "text()"
+snippet "\\item([ ].*$)" "Itemize list" r
+\item`!p snip.rv=match.group(1)`
+\item $1
+endsnippet
+
+
+snippet anki "LaTeX mode for anki" bA
+[latex]
+$1
+[/latex]
+endsnippet
+
+snippet code "Make code-like text" bA
+\begin{verbatim}
+	$1
+\end{verbatim}
+endsnippet
+
+
+

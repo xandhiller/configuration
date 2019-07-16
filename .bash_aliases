@@ -48,10 +48,10 @@ alias itb='vim ~/.config/i3blocks/config'
 alias ebv='ebook-viewer --detach'
 
 # Template Shortcuts
-alias txa='cp ~/GitHub/texTemplates/article.tex'
-alias etxarticle='vim ~/GitHub/texTemplates/article.tex' # Edit article template.
-alias etxmath='vim ~/GitHub/texTemplates/math.tex'
-alias etxmacros='vim ~/GitHub/texTemplates/texMacros.tex'
+alias txa='cp ~/Templates/tex/article.tex'
+alias etxarticle='vim ~/Templates/tex/article.tex' # Edit article template.
+alias etxmath='vim ~/Templates/tex/math.tex'
+alias etxmacros='vim ~/Templates/tex/texMacros.tex'
 alias emathdoc='vim ~/.scripts/mathdoc'
 alias evmath='vim ~/.scripts/math.vim'
 
@@ -61,7 +61,7 @@ alias battery='bash ~/.scripts/battery.sh'
 alias jw='~/.scripts/setupJl' # Setup julia prototyping workspace
 
 # Viewing shorcuts in terminal
-alias bsct='ccat ~/GitHub/configuration/shortcuts.sh' 
+alias bsct='ccat ~/.bash_aliases'
 alias kr='ccat ~/GitHub/configuration/keyRemaps.sh'
 alias dict='dict -d gcide'
 alias thes='dict -d moby-thesaurus'

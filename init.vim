@@ -29,7 +29,7 @@ set updatetime=100
 set colorcolumn=81
 set shada='50,<1000,s100,:0,n~/nvim/shada
 function! MyHighlights()
-    hi Visual             cterm=none ctermfg=none ctermbg=254
+    hi Visual             cterm=none ctermfg=none ctermbg=252
     hi Todo               cterm=none ctermbg=237 ctermfg=3
     syn match   myTodo    contained   "\<\(TODO\|FIXME\|OPTIMISE\)"
     hi def link myTodo Todo
@@ -286,6 +286,13 @@ nnoremap <F8> <Esc>:w<CR><Esc>:! ctags -R<CR><Esc>:UpdateTypesFile<CR>
 inoremap <F8> <Esc>:w<CR><Esc>:! ctags -R<CR><Esc>:UpdateTypesFile<CR>
 vnoremap <F8> <Esc>:w<CR><Esc>:! ctags -R<CR><Esc>:UpdateTypesFile<CR>
 vnoremap <C-g> g<C-g>
+" Inkscape figures:
+inoremap <C-f> <Esc>: silent exec '.!inkscape-figures create "'.getline('.').'" "'.b:vimtex.root.'/figures/"'<CR><CR>:w<CR>
+nnoremap <C-f> : silent exec '!inkscape-figures edit "'.b:vimtex.root.'/figures/" > /dev/null 2>&1 &'<CR><CR>:redraw!<CR>
+
+" Terminal stuff in nvim
+nnoremap <C-t> :split<cr><c-w><c-j>:terminal<cr>
+
 
 "inoremap <Leader>m <Esc>:! python3.7 /home/polluticorn/GitHub/grading/FOC/marker.py %<CR>
 "vnoremap <Leader>m <Esc>:! python3.7 /home/polluticorn/GitHub/grading/FOC/marker.py %<CR>
@@ -330,7 +337,7 @@ augroup pySettings
     au FileType python vnoremap <Leader>? <Esc>g^xx
     au BufReadPost *.py call EIGHTYtoggle()
     au FileType python set tabstop=4 shiftwidth=4
-    au BufNewFile *.py read /home/polluticorn/GitHub/codeTemplates/py.py
+    au BufNewFile *.py read /home/alex/Templates/code/py.py
 augroup END
 " .tex
 augroup texSettings
@@ -342,29 +349,52 @@ augroup texSettings
 augroup END
 " .sh
 augroup shSettings
+    " Comment
+    au FileType sh inoremap <Leader>/ <Esc>g^i#<Space><Esc>$
+    au FileType sh nnoremap <Leader>/ <Esc>g^i#<Space><Esc>$
+    au FileType sh vnoremap <Leader>/ <Esc>g^i#<Space><Esc>$
+    " Uncomment
+    au FileType sh inoremap <Leader>? <Esc>g^xx
+    au FileType sh nnoremap <Leader>? <Esc>g^xx
+    au FileType sh vnoremap <Leader>? <Esc>g^xx
+    au BufNewFile *.sh read /home/alex/Templates/code/sh.sh
 augroup END
 " cpp
 augroup cppSettings
     au FileType cpp call EIGHTYtoggle()
     au FileType cpp set shiftwidth=4
-    au BufNewFile *.cpp read /home/polluticorn/GitHub/codeTemplates/cpp.cpp
+    au BufNewFile *.cpp read /home/alex/Templates/code/cpp.cpp
     " Comment
-"   au FileType cpp inoremap <Leader>/ <Esc>g^i//<Space><Esc>$
-"   au FileType cpp nnoremap <Leader>/ <Esc>g^i//<Space><Esc>$
-"   au FileType cpp vnoremap <Leader>/ <Esc>g^i//<Space><Esc>$
+    au FileType cpp inoremap <Leader>/ <Esc>g^i//<Space><Esc>$
+    au FileType cpp nnoremap <Leader>/ <Esc>g^i//<Space><Esc>$
+    au FileType cpp vnoremap <Leader>/ <Esc>g^i//<Space><Esc>$
     " Uncomment
-"   au FileType cpp inoremap <Leader>? <Esc>g^xxx
-"   au FileType cpp nnoremap <Leader>? <Esc>g^xxx
-"   au FileType cpp vnoremap <Leader>? <Esc>g^xxx
-"   au FileType cpp inoremap <Leader>r <Esc>:w<CR><Esc>:! cpprun %<CR>
-"   au FileType cpp nnoremap <Leader>r <Esc>:w<CR><Esc>:! cpprun %<CR>
-"   au FileType cpp vnoremap <Leader>r <Esc>:w<CR><Esc>:! cpprun %<CR>
-"   au FileType cpp inoremap <Leader>b <Esc>:w<CR><Esc>:! cpprun % -build<CR>
-"   au FileType cpp nnoremap <Leader>b <Esc>:w<CR><Esc>:! cpprun % -build<CR>
-"   au FileType cpp vnoremap <Leader>b <Esc>:w<CR><Esc>:! cpprun % -build<CR>
+    au FileType cpp inoremap <Leader>? <Esc>g^xxx
+    au FileType cpp nnoremap <Leader>? <Esc>g^xxx
+    au FileType cpp vnoremap <Leader>? <Esc>g^xxx
+    "Run C++
+    au FileType cpp inoremap <Leader>r <Esc>:w<CR><Esc>:! cpprun %<CR>
+    au FileType cpp nnoremap <Leader>r <Esc>:w<CR><Esc>:! cpprun %<CR>
+    au FileType cpp vnoremap <Leader>r <Esc>:w<CR><Esc>:! cpprun %<CR>
+    au FileType cpp inoremap <Leader>b <Esc>:w<CR><Esc>:! cpprun % -build<CR>
+    au FileType cpp nnoremap <Leader>b <Esc>:w<CR><Esc>:! cpprun % -build<CR>
+    au FileType cpp vnoremap <Leader>b <Esc>:w<CR><Esc>:! cpprun % -build<CR>
 augroup END
+" Differentiate c and c++ headers.
+augroup headers
+    au!
+    autocmd BufNewFile,BufRead *.h set syntax=c
+    autocmd BufNewFile,BufRead *.h UltiSnipsAddFiletypes c
+    autocmd BufNewFile,BufRead *.hpp UltiSnipsAddFiletypes cpp
+    autocmd BufNewFile,BufRead *.hpp set syntax=cpp
+augroup END
+" au BufReadPost *.sent nnoremap <Leader>r :w<Esc>:silent ! sent %<CR>
 
-au BufReadPost *.sent nnoremap <Leader>r :w<Esc>:silent ! sent %<CR>
+" Tex scratchpad
+augroup texScratchpad
+    au!
+    autocmd BufWinLeave /home/alex/.tex_workspace/scratchpad.tex ! cat % | sed -e "s/\%//g" | sed -e "/^$/d" | xclip -selection clipboard
+augroup END
 
 " IGNORE FILES VIM DOESN'T USE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
