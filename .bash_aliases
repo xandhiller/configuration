@@ -1,7 +1,9 @@
 alias manim='clear && sudo MANIM_PATH=/home/polluticorn/bin/manim docker-compose run manim'
 
+#alias rofi='rofi -font "Monospace 18" -bg "#222222" -fg "#FFFFFF"'
 
-
+alias pfms='cd /home/alex/Documents/spr_19/pfms/pfms-2019s-xandhiller'
+alias snips='nvim ~/.config/UltiSnips/'
 alias vim='nvim'
 alias ls='ls --color=auto --group-directories-first'
 alias grep='grep --color=auto'
@@ -42,6 +44,7 @@ alias fundc='cd ~/Documents/fundc/'
 alias esc='vim ~/.scripts'
 alias tmx='vim ~/.tmux.conf'
 alias xdf='vim ~/.Xdefaults && xrdb -merge ~/.Xdefaults'
+alias xrs='vim ~/.Xresources && xrdb -merge ~/.Xresources'
 alias vwk='vim ~/vimwiki/index.md'
 alias vw='vim ~/vimwiki/index.md'
 alias itb='vim ~/.config/i3blocks/config'
@@ -57,7 +60,7 @@ alias evmath='vim ~/.scripts/math.vim'
 
 # Custom Scripts
 alias touchpad='bash ~/.scripts/touch_toggle.sh'
-alias battery='bash ~/.scripts/battery.sh'
+#alias battery='bash ~/.scripts/battery'
 alias jw='~/.scripts/setupJl' # Setup julia prototyping workspace
 
 # Viewing shorcuts in terminal

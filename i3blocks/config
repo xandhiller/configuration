@@ -15,7 +15,7 @@ command=echo " "
 interval=500
 
 [battery]
-command=acpitool | awk  'NR==1{ print $5 };' | sed -e "s/,//g"
+command=battery
 interval=5
 
 [space]

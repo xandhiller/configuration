@@ -21,8 +21,7 @@ def text():
 endglobal
 
 
-
-snippet beg
+snippet beg "Begin" b
 \begin{$1}
 	$2
 \end{$1}
@@ -30,7 +29,7 @@ endsnippet
 
 
 context "text()"
-snippet equ 
+snippet equ "Equation" b
 \begin{equation}
 	$1
 \end{equation}
@@ -40,8 +39,10 @@ endsnippet
 context "text()"
 snippet dm "Display Math" wA
 ${1:
-}\[%%
+}\[%% 
+\begin{split}
 	$2
+\end{split}
 \]%$3
 endsnippet
 
@@ -59,14 +60,14 @@ endsnippet
 
 context "math()"
 snippet frac "Fraction" iA
-\frac{$1}{$2}$3
+\frac{${1:${VISUAL}}}{$2}$0
 endsnippet
 
 
-context "math()"
-snippet ddx "Differentiate" A
-\frac{d}{${1:dx}} \left( ${2:F} \right) $3
-endsnippet
+#context "math()"
+#snippet ddx "Differentiate" A
+#\frac{d}{${1:dx}} \left( ${2:F} \right) $3
+#endsnippet
 
 
 context "text()"
@@ -178,7 +179,7 @@ endsnippet
 
 
 context "math()"
-snippet CC "Z" iA
+snippet C| "Z" iA
 \mathbb{C}
 endsnippet
 
@@ -197,13 +198,13 @@ endsnippet
 
 context "math()"
 snippet !> "mapsto" iA
-\mapsto $1
+\mapsto 
 endsnippet
 
 
 context "math()"
 snippet <! "mapsfrom" iA
-\mapsfrom $1
+\mapsfrom 
 endsnippet
 
 
@@ -226,7 +227,7 @@ endsnippet
 
 
 context "math()"
-snippet ooo "\infty" iA
+snippet oo "\infty" wA
 \infty
 endsnippet
 
@@ -292,18 +293,18 @@ endsnippet
 
 context "math()"
 snippet ... "ldots" iA
-\ldots \\$1
+\ldots \\ 
 endsnippet
 
 context "text()"
 snippet ... "ldots" iA
-\ldots $1
+\ldots 
 endsnippet
 
 
 context "math()"
 snippet iin "contained in" iA
-\in $1
+\in 
 endsnippet
 
 
@@ -314,10 +315,14 @@ endsnippet
 
 
 context "math()"
-snippet set "Set Notation" iA
+snippet Set "Set Notation" iA
 \\left\\{ $1 \\right\\}
 endsnippet
 
+context "math()"
+snippet set "Set Notation" iA
+\\{ $1 \\}
+endsnippet
 
 context "math()"
 snippet sq "square" iA
@@ -339,31 +344,31 @@ endsnippet
 
 context "math()"
 snippet sb "Subscript" iA
-_{$1}$2
+_{$1}
 endsnippet
 
 
 context "math()"
 snippet sr "Superscript" iA
-^{$1} $2
+^{$1} 
 endsnippet
 
 
 context "math()"
 snippet sd "Superscript" i
-^{($1)} $2
+^{($1)} 
 endsnippet
 
 
 context "math()"
 snippet => "implies" iA
-\Rightarrow $1
+\Rightarrow 
 endsnippet
 
 
 context "math()"
 snippet =< "implied from" iA
-\Leftarrow $1
+\Leftarrow 
 endsnippet
 
 
@@ -375,20 +380,26 @@ endsnippet
 
 
 context "math()"
-snippet intl "Integrate with limits" A
-\int^{$2}_{$1} $2 \ ${3:dx} $4
+snippet \intss "Integrate with limits" A
+\int^{$2}_{$1} $0
 endsnippet
 
 
 context "math()"
-snippet text "Text"
-\text{$1} $2
+snippet text "Text" wA
+\text{ $1 } 
 endsnippet
 
 
 context "math()"
-snippet int "Integrate"
-\int $1 \ ${2:dx}
+snippet ttt "Text"
+\text{ $1 }
+endsnippet
+
+
+context "math()"
+snippet int "Integrate" wA
+\int$1 \ ${2:dx}$0
 endsnippet
 
 
@@ -400,43 +411,43 @@ endsnippet
 
 context "math()"
 snippet cintl "Integrate with limits"
-\oint^{$2}_{$1} $2 \ ${3:dz} $4
+\oint^{$2}_{$1} $2 \ ${3:dz}
 endsnippet
 
 
 context "math()"
 snippet sin "Sine" A
-\sin\left($1\right) $2
+\sin\left($1\right)
 endsnippet
 
 
 context "math()"
 snippet cos "Cosine" A
-\cos\left($1\right) $2
+\cos\left($1\right)
 endsnippet
 
 
 context "math()"
 snippet tan "Tangent" A
-\tan\left($1\right) $2
+\tan\left($1\right)
 endsnippet
 
 
 context "math()"
-snippet omega "Omega" A
+snippet omega "Omega" wA
 \omega$1
 endsnippet
 
 
 context "math()"
 snippet of "Function of..." iA
-($1)$2
+(${1:${VISUAL}})$0
 endsnippet
 
 
 context "math()"
 snippet <> "iff" A
-\iff $1
+\iff$0
 endsnippet
 
 
@@ -459,33 +470,48 @@ endsnippet
 
 
 context "math()"
-snippet .. "Dot multiply/inner product" iA
-\cdot 
-endsnippet
-
-
-context "math()"
-snippet pp "Parantheses" w
-\left($1\right)
-endsnippet
-
-
-context "math()"
-snippet pi "PI" iA
-{\pi}$1
-endsnippet
-
-
-
-snippet pi "PI" i
-\pi $1
+snippet d. "Dot multiply/inner product" iA
+\cdot$0
 endsnippet
 
 
 #context "math()"
-#snippet '((\d+)|(\d*)(\\)?([A-Za-z\)\(\}\{\-]+)((\^|_)(\{\d+\}|\d))*)/' "Fraction" wrA
-#\\frac{`!p snip.rv = match.group(1)`}{$1} $0
+#snippet pp "Parantheses" wA
+#(${1:${VISUAL}})$0
 #endsnippet
+
+context "math()"
+snippet PP "Parantheses" wA
+\left(${1:${VISUAL}}\right)$0
+endsnippet
+
+context "math()"
+snippet bb "Parantheses" wA
+[${1:${VISUAL}}]$0
+endsnippet
+
+context "math()"
+snippet BB "Parantheses" wA
+\left[${1:${VISUAL}}\right]$0
+endsnippet
+
+context "math()"
+snippet \left(\right) "Parantheses" w
+\left(
+$1
+\right)
+endsnippet
+
+context "math()"
+snippet PI "PI" iA
+\pi$0
+endsnippet
+
+
+context "math()"
+snippet '((\d+)|(\d*)(\\)?([A-Za-z\)\(\}\{\-]+)((\^|_)(\{\d+\}|\d))*)/' "Fraction" wrA
+\\frac{`!p snip.rv = match.group(1)`}{$1}$0
+endsnippet
 
 
 context "math()"
@@ -496,16 +522,13 @@ endsnippet
 
 context "math()"
 snippet bigfun "Big function" iA
-\begin{align*}
-	$1: $2 &\longrightarrow $3 \\\\
-	$4 &\longmapsto $1($4) = $0
-.\end{align*}
+$1: $2 &\longmapsto $3
 endsnippet
 
 
 context "math()"
 snippet "([a-zA-Z]*)txt" "Text in Math Mode" ri
-\text{`!p snip.rv=match.group(1)`$1}$2
+\text{ `!p snip.rv=match.group(1)` $1}
 endsnippet
 
 
@@ -587,10 +610,10 @@ snippet ref "row echelon form"
 endsnippet
 
 
-context "math()"
-snippet xx "times/multiplication" iA
- \times $1
-endsnippet
+#context "math()"
+#snippet xx "times/multiplication" iA
+# \times $1
+#endsnippet
 
 
 snippet item "itemize" w
@@ -706,9 +729,7 @@ endsnippet
 context "math()"
 snippet st "such that" wA
 
-\
-|
-\
+\ | \
 $1
 endsnippet
 
@@ -741,6 +762,15 @@ else:
 	`}
 endsnippet
 
+context "math()"
+snippet "([a-zA-Z]*)(_\w)?bar" "Bold font in mathmode" riA
+\overline{`!p 
+if match.group(2) != None:
+	snip.rv=match.group(1)+match.group(2)
+else:
+	snip.rv=match.group(1)
+	`}
+endsnippet
 
 context "math()"
 snippet "([a-zA-Z]*)(_\w)?vht" "Bold font in mathmode" riA
@@ -763,9 +793,8 @@ endsnippet
 
 context "math()"
 snippet == "equals" iA
-
-=
-$1
+\\\\
+${1:&=}$0
 endsnippet
 
 
@@ -787,10 +816,10 @@ $1
 endsnippet
 
 
-context "math()"
-snippet 2rt "square root" iA
-\sqrt{$1}
-endsnippet
+#context "math()"
+#snippet 2rt "square root" iA
+#\sqrt{$1}
+#endsnippet
 
 context "math()"
 snippet qu "quad space" wA
@@ -835,5 +864,264 @@ snippet code "Make code-like text" bA
 \end{verbatim}
 endsnippet
 
+context "math()"
+snippet par "partial" wA
+\partial
+endsnippet
+
+context "math()"
+snippet CC "subset" A
+\subset
+endsnippet
+
+context "math()"
+snippet -.- "subset" A
+\vdots
+endsnippet
 
 
+context "math()"
+snippet LL "L operator" iA
+\Lop
+endsnippet
+
+
+context "math()"
+snippet "([0-9A-Za-z])?p([A-Za-z])?p([a-z])" "Derivative" rA
+\frac{\partial`!p 
+if match.group(1) is not None: 
+	snip.rv = "^{"+match.group(1)+"}"
+if match.group(2) is not None:
+	snip.rv += " " + match.group(2)
+`}{\partial`!p 
+if match.group(1) is not None: 
+	snip.rv = "^{"+match.group(1)+"}"
+` `!p 
+snip.rv=match.group(3)`} $1 $0
+endsnippet
+
+
+context "math()"
+snippet norm "Unit normal vector" wA
+\mathbf{\hat{n}}
+endsnippet
+
+context "math()"
+snippet eval "Evaluated at" wA
+\ \bigg|_{$1} $0
+endsnippet
+
+context "math()"
+snippet "([0-9A-Za-z])?d([A-Za-z])?d([a-z])" "Derivative" rA
+\frac{d`!p 
+if match.group(1) is not None: 
+	snip.rv = "^{"+match.group(1)+"}"
+if match.group(2) is not None:
+	snip.rv += " " + match.group(2)
+`}{d`!p 
+if match.group(1) is not None: 
+	snip.rv = "^{"+match.group(1)+"}"
+` `!p 
+snip.rv=match.group(3)`} $1 $0
+endsnippet
+
+
+context "text()"
+snippet link "Insert a link" 
+\href{${1:www.link.com}}{${2:Hyperlink text}}
+endsnippet
+
+
+snippet "b(egin)?" "begin{} / end{}" br
+\begin{${1:something}}
+	${0:${VISUAL}}
+\end{$1}
+endsnippet
+
+context "text()"
+snippet problem "Problem statement" bA
+\textbf{problem}
+endsnippet
+
+context "math()"
+snippet const "constant" wA
+\text{ const }
+endsnippet
+
+context "math()"
+snippet psi "Psi" wA
+\psi$0
+endsnippet
+
+context "math()"
+snippet phi "phi" wA
+\phi$0
+endsnippet
+
+context "math()"
+snippet lbd "lambda" wA
+\lambda$0
+endsnippet
+
+
+context "math()"
+snippet gama "gamma" wA
+\gamma$0
+endsnippet
+
+context "math()"
+snippet << "Left Angle Bracket" wA
+\langle$0
+endsnippet
+
+
+context "math()"
+snippet >> "Left Angle Bracket" wA
+\rangle$0
+endsnippet
+
+context "math()"
+snippet "root" "square, cube, etc root"  rA
+\sqrt{$1}$0
+endsnippet
+
+context "math()"
+snippet XX "times" wA
+\times$0
+endsnippet
+
+context "math()"
+snippet pm "plus and minus" wA
+\pm
+endsnippet
+
+context "math()"
+snippet unit "unit vector" wA
+\mathbf{\hat{n}}
+endsnippet
+
+context "text()"
+snippet note "note" bA
+\textbf{Note:}$0
+endsnippet
+
+context "math()"
+snippet equiv "Equivalent" wA
+\equiv$0
+endsnippet
+
+context "math()"
+snippet le "less than" wA
+\le
+endsnippet
+
+
+context "math()"
+snippet lE "less than" wA
+\leq
+endsnippet
+
+context "math()"
+snippet ge "less than" wA
+\ge
+endsnippet
+
+
+context "math()"
+snippet gE "less than" wA
+\geq
+endsnippet
+
+
+context "text()"
+snippet condition "Condition" bA
+\textbf{Condition $1:}$0
+endsnippet
+
+context "text()"
+snippet property "Property" bA
+\textbf{Property $1:}$0
+endsnippet
+
+context "math()"
+snippet Norm "Norm" wA
+\| $1 \|$0
+endsnippet
+
+context "math()"
+snippet abs "Abs Value" wA
+| $1 |$0
+endsnippet
+
+
+context "math()"
+snippet then "then" wA
+\text{  then  }
+endsnippet
+
+context "math()"
+snippet  -= "Align equals" wA
+&=
+endsnippet
+
+context "text()"
+snippet question "Question" bA
+\textbf{Question:}$0
+endsnippet
+
+context "text()"
+snippet cp "clearpage" bA
+\clearpage
+endsnippet
+
+context "math()"
+snippet pl "plus" wA
++$0
+endsnippet
+
+context "math()"
+snippet l. "ldots" wA
+\ldots \\$0
+endsnippet
+
+context "math()"
+snippet v. "ldots" wA
+\vdots \\$0
+endsnippet
+
+context "math()"
+snippet ang "angle brackets" wA
+\langle $1, $2 \rangle
+endsnippet
+
+context "math()"
+snippet alpha "alpha" wA
+\alpha
+endsnippet
+
+
+context "math()"
+snippet beta "beta" wA
+\beta
+endsnippet
+
+context "math()"
+snippet ln "natural log" wA
+\ln($1)$0
+endsnippet
+
+context "text()"
+snippet nth "n-th" wA
+$n$-th$0
+endsnippet
+
+
+context "math()"
+snippet obrace "overbrace" iA
+\overbrace{$1}^{$2}$0
+endsnippet
+
+context "math()"
+snippet ubrace "underbrace" iA
+\underbrace{$1}_{$2}$0
+endsnippet

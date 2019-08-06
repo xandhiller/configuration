@@ -1,5 +1,4 @@
-"  APPEARANCE/INPUT """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"set tags=./tags,tags;
+"  APPEARANCE/INPUT """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader=";"
 colorscheme zellner
 set nocompatible
@@ -28,33 +27,45 @@ set updatecount=1
 set updatetime=100
 set colorcolumn=81
 set shada='50,<1000,s100,:0,n~/nvim/shada
+set conceallevel=2
+set concealcursor=c
+
+
+" HIGHLIGHTS/COLOUR-SCHEME
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Turn colorscheme into function so that it can be called to refresh.
 function! MyHighlights()
-    hi Visual             cterm=none ctermfg=none ctermbg=252
+    hi Visual             cterm=none ctermfg=none ctermbg=153
     hi Todo               cterm=none ctermbg=237 ctermfg=3
-    syn match   myTodo    contained   "\<\(TODO\|FIXME\|OPTIMISE\)"
-    hi def link myTodo Todo
-    hi ColorColumn          ctermbg=250
+    hi ColorColumn          ctermbg=255
     hi LineNr               ctermfg=252 
     hi Folded               ctermfg=61   ctermbg=none
-    hi VertSplit            ctermbg=246  ctermfg=246
-    hi StatusLine           ctermbg=246  ctermfg=255
+    hi VertSplit            ctermbg=253  ctermfg=253
+    hi SignColumn           ctermbg=255
+    hi StatusLine           ctermbg=242  ctermfg=255
     hi StatusLineNC         ctermbg=246  ctermfg=255
     hi vCursor              ctermbg=1
     hi CursorLine           cterm=none   ctermbg=253
-    hi CursorLineNr         cterm=bold   ctermfg=240    ctermbg=253
+    hi CursorLineNr         cterm=bold   ctermfg=240    ctermbg=254
     hi String               ctermfg=35
     hi Number               ctermfg=134
-    hi SignColumn           ctermbg=255
-    hi SignatureMarkText    ctermfg=245  ctermbg=0
-    hi Conceal              ctermfg=1    ctermbg=255
+    hi SignatureMarkText    ctermfg=244  ctermbg=254
+    hi Conceal              ctermfg=1    ctermbg=none
     hi Comment              ctermfg=246
+    hi MatchParen           cterm=bold   ctermfg=168 ctermbg=251
     hi Identifier           ctermfg=62
     hi String               ctermfg=30
     hi Statement            ctermfg=124
     hi PreProc              ctermfg=98   cterm=none
     hi Todo                 ctermfg=59   ctermbg=255
-    hi ALEErrorSign         ctermbg=255    ctermfg=red
-endfunction
+    hi ALEErrorSign         ctermbg=255  ctermfg=red
+    hi ALEWarning           ctermbg=255
+    hi Hook                 ctermbg=189
+    match Hook "<++>" 
+    syn match   myTodo      contained   "\<\(TODO\|FIXME\|OPTIMISE\)"
+    hi def link myTodo Todo
+endfunction 
+
 
 "  PLUG-INS 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -62,11 +73,25 @@ set rtp+=~/.vim/bundle/Vundle.vim/
 filetype off
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'     
+Plugin 'terryma/vim-multiple-cursors'
 Plugin 'vim-scripts/TagHighlight'
+Plugin 'KeitaNakamura/tex-conceal.vim' 
+Plugin 'reedes/vim-pencil'
+Plugin 'junegunn/goyo.vim'
+    nnoremap <C-c> :Goyo<CR>:<CR>:<Esc>
+    function! s:goyo_enter()
+        set signcolumn=no
+    endfunction
+    function! s:goyo_leave()
+        call MyHighlights()
+        set signcolumn=yes
+    endfunction
+    autocmd! User GoyoEnter nested call <SID>goyo_enter()
+    autocmd! User GoyoLeave nested call <SID>goyo_leave()
 Plugin 'w0rp/ale'
     let g:ale_sign_error = 'x'
     let g:ale_sign_warning = '-'
-Plugin 'jiangmiao/auto-pairs'
+Plugin 'godlygeek/tabular'
 Plugin 'SirVer/ultisnips'
     let g:UltiSnipsEditSplit="vertical"
     let g:UltiSnipsExpandTrigger= '<Tab>'
@@ -80,12 +105,11 @@ Plugin 'lervag/vimtex'
     let g:tex_flavor='latex'
     let g:vimtex_view_method='zathura'
     let g:vimtex_quickfix_mode=0
-    set conceallevel=1
     let g:vimtex_matchparen_enabled=0
     "let g:tex_fast = 'M'
-    let g:tex_conceal='abdmg'
+    let g:tex_conceal='abdmgs'
 Plugin 'scrooloose/nerdtree'      
-    map <C-n> :NERDTreeToggle<CR><C-w>=
+    map <M-Space> :NERDTreeToggle<CR><C-w>=
 Plugin 'xuhdev/vim-latex-live-preview'
     let g:livepreview_previewer = 'zathura'
 Plugin 'junegunn/fzf'
@@ -93,7 +117,14 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'JuliaEditorSupport/julia-vim'
     let g:latex_to_unicode_file_types = ".md" 
+Plugin 'tpope/vim-markdown'
+    let g:markdown_fenced_languages = ['c', 'cpp', 'python', 'bash=sh']
+    let g:markdown_minlines = 100
+Plugin 'vim-scripts/vim-auto-save'
 Plugin 'kshenoy/vim-signature'
+Plugin 'junegunn/fzf.vim'
+    " Search for files and open.
+    nnoremap <C-Space> :Files<CR> 
 call vundle#end()
 filetype plugin indent on
 syntax on
@@ -101,6 +132,32 @@ call MyHighlights()
 if !has('gui_running')
     set t_Co=256
 endif
+" Syntax back on, so call highlights/colorscheme
+call MyHighlights()
+
+
+" LINE AT 80 CHARS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:EIGHTY=0
+set colorcolumn=81
+function! EIGHTYon()
+    highlight ColorColumn ctermbg=255
+endfunction
+function! EIGHTYoff()
+    highlight ColorColumn ctermbg=none
+endfunction
+function! EIGHTYtoggle()
+    if !g:EIGHTY
+        let g:EIGHTY=1
+        call EIGHTYon()
+    else
+        let g:EIGHTY=0
+        call EIGHTYoff()
+    endif
+endfunction
+call EIGHTYtoggle()
+call EIGHTYtoggle()
+nnoremap <Leader>cl :call EIGHTYtoggle()<CR>
 
 
 "  SHORTCUTS/MAPPINGS/ABREVIATIONS
@@ -149,10 +206,10 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 " Resizing windows
-nnoremap <C-Left>  <C-w><
-nnoremap <C-Down>  <C-w>+
-nnoremap <C-Up>    <C-w>-
-nnoremap <C-Right> <C-w>>
+nnoremap <C-Left>  3<C-w><
+nnoremap <C-Down>  3<C-w>+
+nnoremap <C-Up>    3<C-w>-
+nnoremap <C-Right> 3<C-w>>
 " Refresh vimrc
 inoremap <F5>   <Esc>:source<Space>$MYVIMRC<CR>:echom "init.vim refreshed"<CR>i
 nnoremap <F5>   <Esc>:source<Space>$MYVIMRC<CR>:echom "init.vim refreshed"<CR>
@@ -174,32 +231,6 @@ nnoremap L $
 vnoremap L $
 nnoremap K 0i<BS><Space><Esc>h
 nnoremap v <C-v>
-let g:EIGHTY=0
-set colorcolumn=81
-function! EIGHTYon()
-    highlight ColorColumn ctermbg=254
-endfunction
-function! EIGHTYoff()
-    highlight ColorColumn ctermbg=none
-endfunction
-function! EIGHTYtoggle()
-    if !g:EIGHTY
-        let g:EIGHTY=1
-        call EIGHTYon()
-    else
-        let g:EIGHTY=0
-        call EIGHTYoff()
-    endif
-endfunction
-call EIGHTYtoggle()
-call EIGHTYtoggle()
-nnoremap <Leader>cl :call EIGHTYtoggle()<CR>
-" Commenting out paragraphs or lines
-" nnoremap <Leader>/ {j>ip0<C-v>}0kc#<Esc>
-" nnoremap <Leader>? {j<C-v>}k0x<ip
-" Run python file
-au FileType python nnoremap <Leader>r <Esc>:w<CR>:! python3 %<CR>
-au FileType python nnoremap <Leader>R <Esc>:w<CR>:! time python3 %<CR>
 " Automatically make a notes file in the same firecotry as current file and 
 "   open it in vsplit
 nnoremap <Leader>nn :vsp %:p:h/_notes.md<CR>
@@ -217,14 +248,17 @@ nnoremap <Leader>e zD
 nnoremap <Leader>E zE
 nnoremap <Leader>F zfip}j
 nnoremap <Leader>= <C-w>=
-nnoremap <Leader>co :vsp col<CR>:source ~/.colorDemo.vim<CR>
+nnoremap <Leader>co :vsp col<CR>:source ~/.scripts/colors.vim<CR>
 nnoremap QQ :q!<CR>
 nnoremap Y y$
 " Navigating marks in a sane manner
-nnoremap <Left> ['
-vnoremap <Left> ['
-nnoremap <Right> ]'
-vnoremap <Right> ]'
+nnoremap <Left> ['zz
+vnoremap <Left> ['zz
+nnoremap <Right> ]'zz
+vnoremap <Right> ]'zz
+" Quickly add marks
+nmap mm m.
+nnoremap GG GGzz
 "Replacing spaces with underlines in visual selection + the inverse
 vnoremap <Leader>_ :s/\%V /_/g<CR>
 vnoremap <Leader>- :s/\%V /-/g<CR>
@@ -247,17 +281,16 @@ inoremap <Home> <Esc>?<++><CR>
 nnoremap <End> /<++><CR>
 vnoremap <End> <Esc>/<++><CR>
 inoremap <End> <Esc>/<++><CR>
-nnoremap <C-t> <Esc>:LLPStartPreview<CR>
-inoremap <C-t> <Esc>:LLPStartPreview<CR>a
-nnoremap <Leader>F6 :vsp ~/.scripts/math.vim<CR>
-nnoremap <F6> :source ~/.scripts/math.vim<CR>
 " surround.vim is the best
 nmap s ys
 nmap ss yss
 nmap si ysi
 "Show Invisibles
 nnoremap <Leader>i :set list!<CR>
-" Hooks
+
+
+" HOOKS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "         ([)
 "     (l) (;) (') 
 "         (.)
@@ -289,20 +322,18 @@ vnoremap <C-g> g<C-g>
 " Inkscape figures:
 inoremap <C-f> <Esc>: silent exec '.!inkscape-figures create "'.getline('.').'" "'.b:vimtex.root.'/figures/"'<CR><CR>:w<CR>
 nnoremap <C-f> : silent exec '!inkscape-figures edit "'.b:vimtex.root.'/figures/" > /dev/null 2>&1 &'<CR><CR>:redraw!<CR>
-
 " Terminal stuff in nvim
 nnoremap <C-t> :split<cr><c-w><c-j>:terminal<cr>
+" Find hooks in another way
+nnoremap <M-Right> /<++><CR>
+nnoremap <M-Left> ?<++><CR>
 
 
-"inoremap <Leader>m <Esc>:! python3.7 /home/polluticorn/GitHub/grading/FOC/marker.py %<CR>
-"vnoremap <Leader>m <Esc>:! python3.7 /home/polluticorn/GitHub/grading/FOC/marker.py %<CR>
-"nnoremap <Leader>m <Esc>:! python3.7 /home/polluticorn/GitHub/grading/FOC/marker.py %<CR>
-
-
-" FILETYPE SPECIFIC SETTINGS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" FILETYPE SPECIFIC SETTINGS
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " .md
 augroup markdownSettings
+    au!
     au FileType markdown set tabstop=4 shiftwidth=4
     au FileType markdown inoremap <M-8> ⋅
     au FileType markdown inoremap <M-7> ✓
@@ -314,6 +345,7 @@ augroup markdownSettings
 augroup END
 " .c
 augroup cSettings
+    au!
     au FileType c call EIGHTYtoggle()
     au FileType c set shiftwidth=4
     au BufNewFile *.c read $HOME/Templates/code/c.c
@@ -329,6 +361,11 @@ augroup cSettings
 augroup END
 " .py
 augroup pySettings
+    au!
+    " Run python file
+    au FileType python nnoremap <Leader>r <Esc>:w<CR>:! python3.7 %<CR>
+    au FileType python nnoremap <Leader>R <Esc>:w<CR>:! time python3.7 %<CR>
+    " Commenting
     au FileType python inoremap <Leader>/ <Esc>g^i#<Space><Esc>$
     au FileType python nnoremap <Leader>/ <Esc>g^i#<Space><Esc>$
     au FileType python vnoremap <Leader>/ <Esc>g^i#<Space><Esc>$
@@ -337,18 +374,29 @@ augroup pySettings
     au FileType python vnoremap <Leader>? <Esc>g^xx
     au BufReadPost *.py call EIGHTYtoggle()
     au FileType python set tabstop=4 shiftwidth=4
+    " Template
     au BufNewFile *.py read /home/alex/Templates/code/py.py
 augroup END
+" Pencil.vim - for writing settings in vim
+augroup pencil 
+    au!
+    autocmd Filetype markdown, mkd, tex call pencil#init({'wrap': 'hard', 'textwidth': 79}) 
+    augroup END
 " .tex
 augroup texSettings
+    au!
+    au Filetype tex nnoremap <C-e> :VimtexErrors<CR>
     au FileType tex set listchars=eol:¬,tab:\▸\ ,trail:~,extends:>,precedes:<
     au FileType tex set textwidth=80
     au FileType tex set wrapmargin=0
     au FileType tex set linebreak
     au FileType tex normal zfip
+    "Enable AutoSave for continuous compilation
+"    au FileType tex let g:auto_save = 1 
 augroup END
 " .sh
 augroup shSettings
+    au!
     " Comment
     au FileType sh inoremap <Leader>/ <Esc>g^i#<Space><Esc>$
     au FileType sh nnoremap <Leader>/ <Esc>g^i#<Space><Esc>$
@@ -357,10 +405,16 @@ augroup shSettings
     au FileType sh inoremap <Leader>? <Esc>g^xx
     au FileType sh nnoremap <Leader>? <Esc>g^xx
     au FileType sh vnoremap <Leader>? <Esc>g^xx
+    " Run sh
+    au FileType sh inoremap <Leader>r <Esc>:w<CR><Esc>:! sh % <CR>
+    au FileType sh nnoremap <Leader>r <Esc>:w<CR><Esc>:! sh % <CR>
+    au FileType sh vnoremap <Leader>r <Esc>:w<CR><Esc>:! sh % <CR>
+    " Shell template
     au BufNewFile *.sh read /home/alex/Templates/code/sh.sh
 augroup END
 " cpp
 augroup cppSettings
+    au!
     au FileType cpp call EIGHTYtoggle()
     au FileType cpp set shiftwidth=4
     au BufNewFile *.cpp read /home/alex/Templates/code/cpp.cpp
@@ -388,13 +442,12 @@ augroup headers
     autocmd BufNewFile,BufRead *.hpp UltiSnipsAddFiletypes cpp
     autocmd BufNewFile,BufRead *.hpp set syntax=cpp
 augroup END
-" au BufReadPost *.sent nnoremap <Leader>r :w<Esc>:silent ! sent %<CR>
-
 " Tex scratchpad
 augroup texScratchpad
     au!
-    autocmd BufWinLeave /home/alex/.tex_workspace/scratchpad.tex ! cat % | sed -e "s/\%//g" | sed -e "/^$/d" | xclip -selection clipboard
+    autocmd BufWinLeave /home/alex/.tex_workspace/scratchpad.tex ! cat % | sed -e 's/\%//g' | sed -e "/^$/d" | xclip -selection clipboard
 augroup END
+
 
 " IGNORE FILES VIM DOESN'T USE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -406,5 +459,7 @@ set wildignore+=*.avi,*.divx,*.mp4,*.webm,*.mov,*.m2ts,*.mkv,*.vob,*.mpg,*.mpeg
 set wildignore+=*.mp3,*.oga,*.ogg,*.wav,*.flac
 set wildignore+=*.eot,*.otf,*.ttf,*.woff
 set wildignore+=*.doc,*.pdf,*.cbr,*.cbz
-set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz,*.kgb
+set wildignore+=*.zip,*.tar.gz,=*.tar.bz2,*.rar,*.tar.xz,*.kgb
 set wildignore+=*.swp,.lock,.DS_Store,._*
+
+

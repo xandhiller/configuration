@@ -19,7 +19,7 @@ exec --no-startup-id $surface_sounds
 exec --no-startup-id xrdb -merge ~/.Xdefaults
 exec --no-startup-id sh ~/.config/keyRemaps
 exec --no-startup-id ~/.scripts/mouse
-# exec --no-startup-id compton -f -i 0.8 -b
+exec --no-startup-id compton -f -i 0.8 -b
 
 bindsym $mod+$alt+Return exec --no-startup-id $term -t "f-follow-mouse" -e nvim "$HOME/.tex_workspace/scratchpad.tex"
 
@@ -32,26 +32,26 @@ focus_follows_mouse     no
 floating_modifier       $mod
 
 # Workspace Names
-set $ws1 1: 1 
-set $ws2 2: 2 
-set $ws3 3: 3 
-set $ws4 4: 4 
-set $ws5 5: 5 
-set $ws6 6: 6 
-set $ws7 7: 7 
-set $ws8 8: 8 
-set $ws9 9: 9 
-set $ws10 10: 10 
-set $ws11 11: 11 
-set $ws12 12: 12 
-set $ws13 13: 13 
-set $ws14 14: 14 
-set $ws15 15: 15 
-set $ws16 16: 16 
-set $ws17 17: 17 
-set $ws18 18: 18 
-set $ws19 19: 19 
-set $ws20 20: 20 
+set $ws1 1 
+set $ws2 2 
+set $ws3 3 
+set $ws4 4 
+set $ws5 5 
+set $ws6 6 
+set $ws7 7 
+set $ws8 8 
+set $ws9 9 
+set $ws10 10 
+set $ws11 11 
+set $ws12 12 
+set $ws13 13 
+set $ws14 14 
+set $ws15 15 
+set $ws16 16 
+set $ws17 17 
+set $ws18 18 
+set $ws19 19 
+set $ws20 20 
  
 # Set colours:
 set $darkblack	 "#000000"
@@ -92,7 +92,7 @@ bar {
 	font pango:mono 16
     status_command i3blocks
 	position top
-    strip_workspace_numbers yes
+    strip_workspace_numbers no
     colors {
         set $background     "#AAAAAA"
         set $focus          "#CCCCCC"
@@ -102,19 +102,25 @@ bar {
         focused_workspace   $focus $focus "#000000"
         inactive_workspace  $background $background "#000000"
   }  
-  tray_padding 10
+  tray_padding 2
 }
 exec --no-startup-id hsetroot -solid "#CCCCCC"
 exec --no-startup-id compton -f -i 0.75 --config ~/.config/compton.conf -b
 exec --no-startup-id flashfocus
 bindsym $mod+Delete exec --no-startup-id flash_window
 
-bindsym $mod+n exec i3-input -F 'rename workspace to "'`i3-msg -t get_workspaces | jq '.[] | select(.visible == true)' | jq .num`'%s"' -P "Pin and rename workspace > "
+# bindsym $mod+n exec i3-input -F 'rename workspace to "'`i3-msg -t get_workspaces | jq '.[] | select(.visible == true)' | jq .num`': %s"' -P "new name? "
+
 # Define, search, wikipedia and window access
-bindsym $mod+Right              exec --no-startup-id rofi -show window
+# bindsym $mod+Left               exec --no-startup-id wikipedia $(rofi -dmenu -input /dev/null -p "Wikipedia: ")
+# bindsym $mod+Right              exec --no-startup-id rofi -show window
+bindsym $mod+Left               workspace prev;
+bindsym $mod+Right              workspace next;
+
+bindsym $mod+Shift+Left         move container to workspace prev;
+bindsym $mod+Shift+Right        move container to workspace next;
 bindsym $mod+Down               exec --no-startup-id define $(rofi -dmenu -input /dev/null -p "Define: ")
 bindsym $mod+Up                 exec --no-startup-id search $(rofi -dmenu -input /dev/null -p "Search: ")
-bindsym $mod+Left               exec --no-startup-id wikipedia $(rofi -dmenu -input /dev/null -p "Wikipedia: ")
 # Keybound utilities
 bindsym $fn+space $kbLight
 bindsym $mod+Shift+d            exec --no-startup-id openDownloads
@@ -125,10 +131,10 @@ bindsym $mod+m                  exec --no-startup-id $term -e ranger
 bindsym XF86MonBrightnessDown   exec --no-startup-id $brightness down
 bindsym XF86MonBrightnessUp     exec --no-startup-id $brightness up
 # Screen adjustments
-bindsym $mod+Shift+Right        exec --no-startup-id xrandr --output HDMI-1 --rotate right
-bindsym $mod+Shift+Down         exec --no-startup-id xrandr --output HDMI-1 --rotate normal
-bindsym $mod+Shift+Up           exec --no-startup-id xrandr --output HDMI-1 --rotate inverted
-bindsym $mod+Shift+Left         exec --no-startup-id xrandr --output HDMI-1 --rotate left  
+# bindsym $mod+Shift+Right        exec --no-startup-id xrandr --output HDMI-1 --rotate right
+# bindsym $mod+Shift+Down         exec --no-startup-id xrandr --output HDMI-1 --rotate normal
+# bindsym $mod+Shift+Up           exec --no-startup-id xrandr --output HDMI-1 --rotate inverted
+# bindsym $mod+Shift+Left         exec --no-startup-id xrandr --output HDMI-1 --rotate left  
 # Use Mouse+$mod to drag floating windows to their wanted position
 bindsym $mod+Return             exec $term
 bindsym $mod+q                  kill
@@ -210,7 +216,7 @@ bindsym $mod+$alt+space         floating toggle, resize set 800 700, move positi
 # bindsym $mod+i                  exec scrot && notify-send "Screenshot taken" -t 25
 bindsym $mod+Shift+Next         move scratchpad
 bindsym $mod+Next               scratchpad show
-bindsym $mod+t                  $touchpad
+# bindsym $mod+t                  $touchpad
 # Gap tweaks
 bindsym $mod+Shift+g            gaps inner all set 0; gaps outer all set 0;
 bindsym $mod+$alt+g             gaps inner all set 4; gaps outer all set 1;
@@ -243,10 +249,12 @@ bindsym $mod+$alt+Control+j resize grow   height  2 px or 2 ppt
 bindsym $mod+$alt+Control+k resize shrink height  2 px or 2 ppt
 bindsym $mod+$alt+Control+l resize grow   width   2 px or 2 ppt
 
+bindsym $mod+t exec --no-startup-id touchpad_toggle
+
 
 for_window [ title="f-bottom-middle" ] floating enable, resize set 1200 850, move position mouse 
 for_window [ title="f-follow-mouse" ] floating enable, resize set 1200 500, move position center 
 for_window [ class="Inkscape" ] floating enable
 bindsym $mod+i resize set 2400 1500, move position center
-# for_window [ class="Inkscape" ] 
-# 
+
+for_window [ class="Yad" ] floating enable, move position center;
