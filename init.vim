@@ -1,4 +1,5 @@
-"  APPEARANCE/INPUT """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"  APPEARANCE/INPUT 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader=";"
 colorscheme zellner
 set nocompatible
@@ -25,7 +26,6 @@ set nohlsearch
 set breakindent
 set updatecount=1
 set updatetime=100
-set colorcolumn=81
 set shada='50,<1000,s100,:0,n~/nvim/shada
 set conceallevel=2
 set concealcursor=c
@@ -35,15 +35,16 @@ set concealcursor=c
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Turn colorscheme into function so that it can be called to refresh.
 function! MyHighlights()
-    hi Visual             cterm=none ctermfg=none ctermbg=153
-    hi Todo               cterm=none ctermbg=237 ctermfg=3
-    hi ColorColumn          ctermbg=255
+    hi Search               ctermfg=0 ctermbg=150 
+    hi Visual               cterm=none ctermfg=none ctermbg=153
+    hi Todo                 cterm=none ctermbg=237 ctermfg=3
     hi LineNr               ctermfg=252 
+    hi ColorColumn          ctermbg=255
     hi Folded               ctermfg=61   ctermbg=none
     hi VertSplit            ctermbg=253  ctermfg=253
     hi SignColumn           ctermbg=255
-    hi StatusLine           ctermbg=242  ctermfg=255
-    hi StatusLineNC         ctermbg=246  ctermfg=255
+    hi StatusLine           ctermbg=0  ctermfg=255
+    hi StatusLineNC         ctermbg=255  ctermfg=245
     hi vCursor              ctermbg=1
     hi CursorLine           cterm=none   ctermbg=253
     hi CursorLineNr         cterm=bold   ctermfg=240    ctermbg=254
@@ -109,7 +110,7 @@ Plugin 'lervag/vimtex'
     "let g:tex_fast = 'M'
     let g:tex_conceal='abdmgs'
 Plugin 'scrooloose/nerdtree'      
-    map <M-Space> :NERDTreeToggle<CR><C-w>=
+    map <M-Space> :NERDTreeRefreshRoot<CR>:NERDTreeToggle<CR><C-w>=
 Plugin 'xuhdev/vim-latex-live-preview'
     let g:livepreview_previewer = 'zathura'
 Plugin 'junegunn/fzf'
@@ -136,15 +137,14 @@ endif
 call MyHighlights()
 
 
-" LINE AT 80 CHARS
+" LINE AT 80 CHARS - Color for ColorColumn set in MyHighlights()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:EIGHTY=0
-set colorcolumn=81
 function! EIGHTYon()
-    highlight ColorColumn ctermbg=255
+    set colorcolumn=81
 endfunction
 function! EIGHTYoff()
-    highlight ColorColumn ctermbg=none
+    set colorcolumn=0
 endfunction
 function! EIGHTYtoggle()
     if !g:EIGHTY
@@ -155,9 +155,24 @@ function! EIGHTYtoggle()
         call EIGHTYoff()
     endif
 endfunction
-call EIGHTYtoggle()
-call EIGHTYtoggle()
 nnoremap <Leader>cl :call EIGHTYtoggle()<CR>
+
+
+" TOGGLE HIGHLIGHTS ON THE FLY -- an inidicate status to user.
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:HL=0
+function! HLtoggle()
+    if !g:HL
+        let g:HL=1
+        set hls!
+        echom "Highlights on."
+    else
+        let g:HL=0
+        set hls!
+        echom "Highlights off."
+    endif
+endfunction
+nnoremap <Leader><CR> :call HLtoggle()<CR>
 
 
 "  SHORTCUTS/MAPPINGS/ABREVIATIONS
@@ -229,15 +244,16 @@ nnoremap H 0
 vnoremap H 0
 nnoremap L $
 vnoremap L $
-nnoremap K 0i<BS><Space><Esc>h
+nnoremap K 10k
+vnoremap K 10k
+nnoremap J 10j
+vnoremap J 10j
+nnoremap Y y$
+" Visual block is better than normal visual mode.
 nnoremap v <C-v>
-" Automatically make a notes file in the same firecotry as current file and 
-"   open it in vsplit
-nnoremap <Leader>nn :vsp %:p:h/_notes.md<CR>
-" Turn off highlight search
-nnoremap <Leader><CR> :noh<CR>
 " Insert a line of space above and below the line you're on
 nnoremap <Leader>o ko<Esc>jjO<Esc>k
+" Use o and O to insert lines, not insert onto new lines
 nnoremap o o<Esc>
 nnoremap O O<Esc>
 " Change the character below the cursor to uppercase.
@@ -249,8 +265,6 @@ nnoremap <Leader>E zE
 nnoremap <Leader>F zfip}j
 nnoremap <Leader>= <C-w>=
 nnoremap <Leader>co :vsp col<CR>:source ~/.scripts/colors.vim<CR>
-nnoremap QQ :q!<CR>
-nnoremap Y y$
 " Navigating marks in a sane manner
 nnoremap <Left> ['zz
 vnoremap <Left> ['zz
@@ -275,19 +289,19 @@ nnoremap <F1> :w<CR>
 inoremap <F1> <Esc>:w<CR>a
 vnoremap <F1> <Esc>:w<CR>a
 snoremap <F1> <Esc>:w<CR>a
-nnoremap <Home> ?<++><CR>
-vnoremap <Home> <Esc>?<++><CR>
-inoremap <Home> <Esc>?<++><CR>
-nnoremap <End> /<++><CR>
-vnoremap <End> <Esc>/<++><CR>
-inoremap <End> <Esc>/<++><CR>
 " surround.vim is the best
 nmap s ys
 nmap ss yss
 nmap si ysi
 "Show Invisibles
 nnoremap <Leader>i :set list!<CR>
-
+" Toggle Relative Number
+nnoremap <silent> <leader>nb :set relativenumber!<CR>
+" Inkscape figures:
+inoremap <C-f> <Esc>: silent exec '.!inkscape-figures create "'.getline('.').'" "'.b:vimtex.root.'/figures/"'<CR><CR>:w<CR>
+nnoremap <C-f> : silent exec '!inkscape-figures edit "'.b:vimtex.root.'/figures/" > /dev/null 2>&1 &'<CR><CR>:redraw!<CR>
+" Terminal stuff in nvim
+nnoremap <C-t> :split<cr><c-w><c-j>:terminal<cr>
 
 " HOOKS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -319,11 +333,6 @@ nnoremap <F8> <Esc>:w<CR><Esc>:! ctags -R<CR><Esc>:UpdateTypesFile<CR>
 inoremap <F8> <Esc>:w<CR><Esc>:! ctags -R<CR><Esc>:UpdateTypesFile<CR>
 vnoremap <F8> <Esc>:w<CR><Esc>:! ctags -R<CR><Esc>:UpdateTypesFile<CR>
 vnoremap <C-g> g<C-g>
-" Inkscape figures:
-inoremap <C-f> <Esc>: silent exec '.!inkscape-figures create "'.getline('.').'" "'.b:vimtex.root.'/figures/"'<CR><CR>:w<CR>
-nnoremap <C-f> : silent exec '!inkscape-figures edit "'.b:vimtex.root.'/figures/" > /dev/null 2>&1 &'<CR><CR>:redraw!<CR>
-" Terminal stuff in nvim
-nnoremap <C-t> :split<cr><c-w><c-j>:terminal<cr>
 " Find hooks in another way
 nnoremap <M-Right> /<++><CR>
 nnoremap <M-Left> ?<++><CR>
@@ -331,7 +340,7 @@ nnoremap <M-Left> ?<++><CR>
 
 "" FILETYPE SPECIFIC SETTINGS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" .md
+" .md -- line wrapping handled by pencil.vim
 augroup markdownSettings
     au!
     au FileType markdown set tabstop=4 shiftwidth=4
@@ -339,9 +348,6 @@ augroup markdownSettings
     au FileType markdown inoremap <M-7> ✓
     au FileType markdown inoremap <M-=> —
     au FileType markdown set listchars=eol:¬,tab:\▸\ ,trail:~,extends:>,precedes:<
-    au FileType markdown set textwidth=80
-    au FileType markdown set wrapmargin=0
-    au FileType markdown set linebreak
 augroup END
 " .c
 augroup cSettings
@@ -380,18 +386,17 @@ augroup END
 " Pencil.vim - for writing settings in vim
 augroup pencil 
     au!
-    autocmd Filetype markdown, mkd, tex call pencil#init({'wrap': 'hard', 'textwidth': 79}) 
+    autocmd Filetype markdown PencilHard
+    autocmd Filetype mkd PencilHard
+    autocmd Filetype tex PencilHard
     augroup END
-" .tex
+" .tex -- line wrapping handled by pencil.vim
 augroup texSettings
     au!
     au Filetype tex nnoremap <C-e> :VimtexErrors<CR>
     au FileType tex set listchars=eol:¬,tab:\▸\ ,trail:~,extends:>,precedes:<
-    au FileType tex set textwidth=80
-    au FileType tex set wrapmargin=0
-    au FileType tex set linebreak
     au FileType tex normal zfip
-    "Enable AutoSave for continuous compilation
+    " Enable AutoSave for continuous compilation
 "    au FileType tex let g:auto_save = 1 
 augroup END
 " .sh
@@ -430,6 +435,9 @@ augroup cppSettings
     au FileType cpp inoremap <Leader>r <Esc>:w<CR><Esc>:! cpprun %<CR>
     au FileType cpp nnoremap <Leader>r <Esc>:w<CR><Esc>:! cpprun %<CR>
     au FileType cpp vnoremap <Leader>r <Esc>:w<CR><Esc>:! cpprun %<CR>
+    au FileType cpp inoremap <Leader>R <Esc>:w<CR><Esc>:! time cpprun %<CR>
+    au FileType cpp nnoremap <Leader>R <Esc>:w<CR><Esc>:! time cpprun %<CR>
+    au FileType cpp vnoremap <Leader>R <Esc>:w<CR><Esc>:! time cpprun %<CR>
     au FileType cpp inoremap <Leader>b <Esc>:w<CR><Esc>:! cpprun % -build<CR>
     au FileType cpp nnoremap <Leader>b <Esc>:w<CR><Esc>:! cpprun % -build<CR>
     au FileType cpp vnoremap <Leader>b <Esc>:w<CR><Esc>:! cpprun % -build<CR>
@@ -446,6 +454,18 @@ augroup END
 augroup texScratchpad
     au!
     autocmd BufWinLeave /home/alex/.tex_workspace/scratchpad.tex ! cat % | sed -e 's/\%//g' | sed -e "/^$/d" | xclip -selection clipboard
+augroup END
+" Shortcuts for .vim files
+augroup vimFiles
+    au!
+    " Comment
+    au FileType vim inoremap <Leader>/ <Esc>g^i"<Space><Esc>$
+    au FileType vim nnoremap <Leader>/ <Esc>g^i"<Space><Esc>$
+    au FileType vim vnoremap <Leader>/ <Esc>g^i"<Space><Esc>$
+    " Uncomment
+    au FileType vim inoremap <Leader>? <Esc>g^xx
+    au FileType vim nnoremap <Leader>? <Esc>g^xx
+    au FileType vim vnoremap <Leader>? <Esc>g^xx
 augroup END
 
 

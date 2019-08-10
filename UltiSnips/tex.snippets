@@ -39,11 +39,9 @@ endsnippet
 context "text()"
 snippet dm "Display Math" wA
 ${1:
-}\[%% 
-\begin{split}
+}\[\begin{split}
 	$2
-\end{split}
-\]%$3
+\end{split}\]%$3
 endsnippet
 
 
@@ -728,9 +726,7 @@ endsnippet
 
 context "math()"
 snippet st "such that" wA
-
-\ | \
-$1
+\ | \ $0
 endsnippet
 
 
@@ -1118,10 +1114,22 @@ endsnippet
 
 context "math()"
 snippet obrace "overbrace" iA
-\overbrace{$1}^{$2}$0
+\overbrace{${1:${VISUAL}}^{$2}$0
 endsnippet
 
 context "math()"
 snippet ubrace "underbrace" iA
-\underbrace{$1}_{$2}$0
+\underbrace{${1:${VISUAL}}}_{$2}$0
+endsnippet
+
+snippet adm "anki display math" b
+
+$$ %%
+	${1:${VISUAL}}
+$$ %
+endsnippet	
+
+context "math()"
+snippet Ly "Linear Differential Eq on y" wA
+y'' + p(x) y' + q(x) y = $1
 endsnippet

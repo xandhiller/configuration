@@ -22,7 +22,7 @@ alias lsa='la -a'
 # CLI Program Shortcuts
 alias yt='youtube-dl --add-metadata -ic' # Download video
 alias yta='youtube-dl --add-metadata -xic' # Download audio
-alias tr='tree'
+alias tr='tree -L 3'
 alias record='ffmpeg -f x11grab -s 2736x1824 -i :0.0 ~/Videos/`date +"%Y_%m_%d_%H_%M_%s"`.mkv'
 alias mdc='mathdoc'
 alias vlib='vim /usr/share/vim/vim74/doc/'
