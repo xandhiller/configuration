@@ -6,6 +6,7 @@ set nocompatible
 set clipboard+=unnamedplus
 set signcolumn=yes
 set noshowmatch
+set wrap
 set tabstop=4
 set mouse=a
 set shiftwidth=4
@@ -76,11 +77,14 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'     
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'vim-scripts/TagHighlight'
+Plugin 'vim-scripts/DoxygenToolkit.vim'
 Plugin 'KeitaNakamura/tex-conceal.vim' 
 Plugin 'reedes/vim-pencil'
 Plugin 'junegunn/goyo.vim'
     nnoremap <C-c> :Goyo<CR>:<CR>:<Esc>
     function! s:goyo_enter()
+        hi Hook                 ctermbg=189
+        match Hook "<++>" 
         set signcolumn=no
     endfunction
     function! s:goyo_leave()
@@ -118,9 +122,9 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'JuliaEditorSupport/julia-vim'
     let g:latex_to_unicode_file_types = ".md" 
-Plugin 'tpope/vim-markdown'
-    let g:markdown_fenced_languages = ['c', 'cpp', 'python', 'bash=sh']
-    let g:markdown_minlines = 100
+"Plugin 'tpope/vim-markdown'
+"    let g:markdown_fenced_languages = ['c', 'cpp', 'python', 'bash=sh']
+"    let g:markdown_minlines = 50
 Plugin 'vim-scripts/vim-auto-save'
 Plugin 'kshenoy/vim-signature'
 Plugin 'junegunn/fzf.vim'
@@ -244,10 +248,10 @@ nnoremap H 0
 vnoremap H 0
 nnoremap L $
 vnoremap L $
-nnoremap K 10k
-vnoremap K 10k
-nnoremap J 10j
-vnoremap J 10j
+nnoremap <M-k> 10k
+vnoremap <M-k> 10k
+nnoremap <M-j> 10j
+vnoremap <M-j> 10j
 nnoremap Y y$
 " Visual block is better than normal visual mode.
 nnoremap v <C-v>
@@ -302,6 +306,10 @@ inoremap <C-f> <Esc>: silent exec '.!inkscape-figures create "'.getline('.').'" 
 nnoremap <C-f> : silent exec '!inkscape-figures edit "'.b:vimtex.root.'/figures/" > /dev/null 2>&1 &'<CR><CR>:redraw!<CR>
 " Terminal stuff in nvim
 nnoremap <C-t> :split<cr><c-w><c-j>:terminal<cr>
+"
+nnoremap <S-CR> k
+nnoremap <S-Space> h
+
 
 " HOOKS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -355,6 +363,7 @@ augroup cSettings
     au FileType c call EIGHTYtoggle()
     au FileType c set shiftwidth=4
     au BufNewFile *.c read $HOME/Templates/code/c.c
+    au BufNewFile *.h read $HOME/Templates/code/h.h
     au FileType c inoremap <Leader>r <Esc>:w<CR><Esc>:! crun %<CR>
     au FileType c nnoremap <Leader>r <Esc>:w<CR><Esc>:! crun %<CR>
     au FileType c vnoremap <Leader>r <Esc>:w<CR><Esc>:! crun %<CR>
@@ -423,6 +432,7 @@ augroup cppSettings
     au FileType cpp call EIGHTYtoggle()
     au FileType cpp set shiftwidth=4
     au BufNewFile *.cpp read /home/alex/Templates/code/cpp.cpp
+    au BufNewFile *.hpp read /home/alex/Templates/code/hpp.hpp
     " Comment
     au FileType cpp inoremap <Leader>/ <Esc>g^i//<Space><Esc>$
     au FileType cpp nnoremap <Leader>/ <Esc>g^i//<Space><Esc>$
@@ -454,6 +464,7 @@ augroup END
 augroup texScratchpad
     au!
     autocmd BufWinLeave /home/alex/.tex_workspace/scratchpad.tex ! cat % | sed -e 's/\%//g' | sed -e "/^$/d" | xclip -selection clipboard
+    autocmd Bufread /home/alex/.tex_workspace/scratchpad.tex PencilOff
 augroup END
 " Shortcuts for .vim files
 augroup vimFiles
@@ -467,7 +478,18 @@ augroup vimFiles
     au FileType vim nnoremap <Leader>? <Esc>g^xx
     au FileType vim vnoremap <Leader>? <Esc>g^xx
 augroup END
-
+" Cmake
+augroup cmakeFiles
+    au!
+    au BufNewFile CMakeLists.txt read /home/alex/Templates/code/CMakeLists.txt
+augroup END
+" Javascript
+augroup javaScript 
+    au!
+    au FileType javascript nnoremap <leader>r <esc>:! nodejs %<CR>
+    au FileType javascript vnoremap <leader>r <esc>:! nodejs %<CR>
+    au FileType javascript inoremap <leader>r <esc>:! nodejs %<CR>
+augroup END
 
 " IGNORE FILES VIM DOESN'T USE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

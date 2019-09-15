@@ -21,7 +21,7 @@ exec --no-startup-id sh ~/.config/keyRemaps
 exec --no-startup-id ~/.scripts/mouse
 exec --no-startup-id compton -f -i 0.8 -b
 
-bindsym $mod+$alt+Return exec --no-startup-id $term -t "f-follow-mouse" -e nvim "$HOME/.tex_workspace/scratchpad.tex"
+bindsym $mod+m exec --no-startup-id $term -t "f-follow-mouse" -e nvim "$HOME/.tex_workspace/scratchpad.tex"
 
 
 # Default setup
@@ -89,7 +89,7 @@ client.background         $black
 
 # Status Bar 
 bar {
-	font pango:mono 16
+	font pango:mono 8
     status_command i3blocks
 	position top
     strip_workspace_numbers no
@@ -119,15 +119,15 @@ bindsym $mod+Right              workspace next;
 
 bindsym $mod+Shift+Left         move container to workspace prev;
 bindsym $mod+Shift+Right        move container to workspace next;
-bindsym $mod+Down               exec --no-startup-id define $(rofi -dmenu -input /dev/null -p "Define: ")
-bindsym $mod+Up                 exec --no-startup-id search $(rofi -dmenu -input /dev/null -p "Search: ")
+# bindsym $mod+Down               exec --no-startup-id define $(rofi -dmenu -input /dev/null -p "Define: ")
+# bindsym $mod+Up                 exec --no-startup-id search $(rofi -dmenu -input /dev/null -p "Search: ")
 # Keybound utilities
 bindsym $fn+space $kbLight
 bindsym $mod+Shift+d            exec --no-startup-id openDownloads
 bindsym $mod+a                  exec --no-startup-id $textbookOpener
 bindsym $mod+F12                exec --no-startup-id $lock
 bindsym $mod+s                  exec --no-startup-id $listScripts
-bindsym $mod+m                  exec --no-startup-id $term -e ranger
+bindsym $mod+$alt+Return         exec --no-startup-id $term -e ranger
 bindsym XF86MonBrightnessDown   exec --no-startup-id $brightness down
 bindsym XF86MonBrightnessUp     exec --no-startup-id $brightness up
 # Screen adjustments
@@ -214,8 +214,8 @@ bindsym $mod+Ctrl+space         floating toggle, resize set 625 400, move positi
 # nb: Mod1 = alt keys
 bindsym $mod+$alt+space         floating toggle, resize set 800 700, move position center
 # bindsym $mod+i                  exec scrot && notify-send "Screenshot taken" -t 25
-bindsym $mod+Shift+Next         move scratchpad
-bindsym $mod+Next               scratchpad show
+bindsym $mod+Shift+Down                 move scratchpad
+bindsym $mod+Down               scratchpad show
 # bindsym $mod+t                  $touchpad
 # Gap tweaks
 bindsym $mod+Shift+g            gaps inner all set 0; gaps outer all set 0;

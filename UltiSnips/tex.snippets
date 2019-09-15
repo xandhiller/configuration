@@ -46,6 +46,15 @@ endsnippet
 
 
 context "text()"
+snippet ddm "Dollar display Math" wA
+$$
+$1
+$$
+$0
+endsnippet
+
+
+context "text()"
 snippet mn "Math" wA
 $${1}$`!p
 if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
@@ -244,7 +253,7 @@ endsnippet
 
 context "math()"
 snippet EE "geq" iA
-\exists 
+\exists \\$0
 endsnippet
 
 
@@ -1122,14 +1131,25 @@ snippet ubrace "underbrace" iA
 \underbrace{${1:${VISUAL}}}_{$2}$0
 endsnippet
 
-snippet adm "anki display math" b
-
-$$ %%
+snippet adm "anki display math" bA
+\[%%
 	${1:${VISUAL}}
-$$ %
+\]%
 endsnippet	
 
 context "math()"
 snippet Ly "Linear Differential Eq on y" wA
 y'' + p(x) y' + q(x) y = $1
+endsnippet
+
+context "math()"
+snippet split "Split for aligning equations" bA
+\begin{split}
+	$0
+\end{split}
+endsnippet
+
+context "math()"
+snippet det "determinant" wA
+\text{det}\left( $1 \right)$0
 endsnippet
